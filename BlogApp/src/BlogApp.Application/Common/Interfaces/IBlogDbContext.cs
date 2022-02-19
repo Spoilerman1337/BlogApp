@@ -1,14 +1,13 @@
 ﻿using BlogApp.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogApp.Application.Common.Interfaces
-{
-    public interface IBlogDbContext
-    {
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+namespace BlogApp.Application.Common.Interfaces;
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    }
+public interface IBlogDbContext
+{
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

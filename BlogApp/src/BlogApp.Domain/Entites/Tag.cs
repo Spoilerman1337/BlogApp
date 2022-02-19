@@ -1,10 +1,9 @@
-﻿namespace BlogApp.Domain.Entites
-{
-    public class Tag
-    {
-        public Guid Id { get; set; }
-        public string TagName { get; set; }
+﻿namespace BlogApp.Domain.Entites;
 
-        public virtual ICollection<Guid> Users { get; set; }
-    }
+public class Tag
+{
+    public Guid Id { get; set; }
+    public string TagName { get; set; }
+
+    public virtual ICollection<Guid> Users { get; set; }
 }
