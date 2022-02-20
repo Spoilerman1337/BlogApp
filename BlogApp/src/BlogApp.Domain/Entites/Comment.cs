@@ -8,4 +8,5 @@ public class Comment
     public DateTime? LastEdited { get; set; }
 
     public virtual Guid UserId { get; set; }
+    public Post Post { get; set; }
 }

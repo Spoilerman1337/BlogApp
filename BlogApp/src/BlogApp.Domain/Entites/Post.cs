@@ -9,4 +9,6 @@ public class Post
     public DateTime? LastEdited { get; set; }
 
     public virtual Guid UserId { get; set; }
+    public ICollection<Comment> Comments { get; set;}
+    public ICollection<Tag> Tags { get; set; }
 }

@@ -6,4 +6,5 @@ public class Tag
     public string TagName { get; set; }
 
     public virtual ICollection<Guid> Users { get; set; }
+    public ICollection<Post> Posts { get; set; }
 }
