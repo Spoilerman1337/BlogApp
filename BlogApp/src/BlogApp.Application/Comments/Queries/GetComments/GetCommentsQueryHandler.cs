@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Comments.Queries.GetComment;
 using BlogApp.Application.Comments.Queries.GetComments.Models;
 using BlogApp.Application.Common.Interfaces;
 using MediatR;
