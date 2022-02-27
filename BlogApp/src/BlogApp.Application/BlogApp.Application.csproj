@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Posts\Queries\" />
     <Folder Include="Tag\Commands\" />
     <Folder Include="Tag\Queries\" />
   </ItemGroup>
