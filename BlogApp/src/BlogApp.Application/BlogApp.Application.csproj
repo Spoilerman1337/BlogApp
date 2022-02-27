@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tag\Commands\" />
-    <Folder Include="Tag\Queries\" />
+    <Folder Include="Tags\Queries\" />
   </ItemGroup>
 
 </Project>
