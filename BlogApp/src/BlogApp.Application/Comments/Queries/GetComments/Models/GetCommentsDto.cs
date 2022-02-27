@@ -1,6 +1,9 @@
-﻿namespace BlogApp.Application.Comments.Queries.GetComments.Models;
+﻿using BlogApp.Application.Common.Interfaces;
+using BlogApp.Domain.Entites;
 
-public class GetCommentsDto
+namespace BlogApp.Application.Comments.Queries.GetComments.Models;
+
+public class GetCommentsDto : IMapFrom<Comment>
 {
     public Guid Id { get; set; }
     public string Text { get; set; }

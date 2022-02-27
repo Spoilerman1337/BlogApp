@@ -17,8 +17,8 @@ public class GetCommentsQueryHandler : IRequestHandler<GetCommentsQuery, List<Ge
     public async Task<List<GetCommentsDto>> Handle(GetCommentsQuery request, CancellationToken cancellationToken)
     {
         return await _dbContext.Comments.Where(c => c.UserId == request.UserId)
-            .OrderBy(c => c.Id)
-            .ProjectTo<GetCommentsDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+                                        .OrderBy(c => c.Id)
+                                        .ProjectTo<GetCommentsDto>(_mapper.ConfigurationProvider)
+                                        .ToListAsync();
     }
 }
