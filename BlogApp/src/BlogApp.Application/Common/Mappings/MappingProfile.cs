@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using BlogApp.Application.Common.Interfaces;
 using System.Reflection;
 
@@ -6,10 +6,7 @@ namespace BlogApp.Application.Common.Mappings;
 
 public class MappingProfile : Profile
 {
-    public MappingProfile()
-    {
-        ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
-    }
+    public MappingProfile(Assembly assembly) => ApplyMappingsFromAssembly(assembly);
 
     private void ApplyMappingsFromAssembly(Assembly assembly)
     {
