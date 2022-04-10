@@ -6,6 +6,6 @@ public class CreateTagCommandValidator : AbstractValidator<CreateTagCommand>
 {
     public CreateTagCommandValidator()
     {
-        RuleFor(createTagCommand => createTagCommand.TagName).NotEmpty().Length(1, 20);
+        RuleFor(createTagCommand => createTagCommand.TagName).NotEmpty().Length(1, 25);
     }
 }
