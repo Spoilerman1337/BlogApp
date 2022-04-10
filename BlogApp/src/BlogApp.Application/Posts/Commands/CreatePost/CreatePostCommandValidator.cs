@@ -8,6 +8,6 @@ public class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
     {
         RuleFor(createPostCommand => createPostCommand.UserId).NotEqual(Guid.Empty);
         RuleFor(createPostCommand => createPostCommand.Header).NotEmpty().MaximumLength(50);
-        RuleFor(createPostCommand => createPostCommand.Text).MaximumLength(10000);
+        RuleFor(createPostCommand => createPostCommand.Text).NotNull().MaximumLength(10000);
     }
 }

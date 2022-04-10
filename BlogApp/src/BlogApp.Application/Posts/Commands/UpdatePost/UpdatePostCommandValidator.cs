@@ -9,6 +9,6 @@ public class UpdatePostCommandValidator : AbstractValidator<UpdatePostCommand>
         RuleFor(updatePostCommand => updatePostCommand.Id).NotEqual(Guid.Empty);
         RuleFor(updatePostCommand => updatePostCommand.UserId).NotEqual(Guid.Empty);
         RuleFor(updatePostCommand => updatePostCommand.Header).NotEmpty().MaximumLength(50);
-        RuleFor(updatePostCommand => updatePostCommand.Text).MaximumLength(10000);
+        RuleFor(updatePostCommand => updatePostCommand.Text).NotNull().MaximumLength(10000);
     }
 }
