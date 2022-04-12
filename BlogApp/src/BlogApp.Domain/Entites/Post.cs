@@ -8,7 +8,7 @@ public class Post
     public DateTime CreationTime { get; set; }
     public DateTime? LastEdited { get; set; }
 
-    public virtual Guid UserId { get; set; }
+    public Guid UserId { get; set; }
     public ICollection<Comment> Comments { get; set;}
     public ICollection<Tag> Tags { get; set; }
 }
