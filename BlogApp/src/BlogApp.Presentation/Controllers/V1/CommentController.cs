@@ -1,33 +1,33 @@
-﻿using BlogApp.Application.Posts.Commands.CreatePost;
-using BlogApp.Application.Posts.Commands.DeletePost;
-using BlogApp.Application.Posts.Commands.UpdatePost;
-using BlogApp.Application.Posts.Queries.GetPost;
-using BlogApp.Application.Posts.Queries.GetPost.Models;
-using BlogApp.Application.Posts.Queries.GetPosts;
-using BlogApp.Application.Posts.Queries.GetPosts.Models;
+﻿using BlogApp.Application.Comments.Commands.CreateComment;
+using BlogApp.Application.Comments.Commands.DeleteComment;
+using BlogApp.Application.Comments.Commands.UpdateComment;
+using BlogApp.Application.Comments.Queries.GetComment;
+using BlogApp.Application.Comments.Queries.GetComment.Models;
+using BlogApp.Application.Comments.Queries.GetComments;
+using BlogApp.Application.Comments.Queries.GetComments.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlogApp.Presentation.Controllers;
+namespace BlogApp.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class PostController : ApiControllerBase
+public class CommentController : ApiControllerBase
 {
-    /// <summary>Gets user's post by id</summary>
+    /// <summary>Gets user's comment by id</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
-    /// <param name="id">GUID ID of a post</param>
+    /// <param name="id">GUID ID of a comment</param>
     /// <returns>Returns GetCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostDto>> GetPost(Guid id)
+    public async Task<ActionResult<GetCommentDto>> GetComment(Guid id)
     {
-        var query = new GetPostQuery
+        var query = new GetCommentQuery
         {
             Id = id,
             UserId = UserId,
@@ -37,20 +37,20 @@ public class PostController : ApiControllerBase
         return Ok(vm);
     }
 
-    /// <summary>Gets all user's posts</summary>
+    /// <summary>Gets all user's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post
+    /// GET /comment
     /// </remarks>
-    /// <returns>Returns List of GetPostsDto</returns>
+    /// <returns>Returns List of GetCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostsDto>> GetAllPosts()
+    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments()
     {
-        var query = new GetPostsQuery
+        var query = new GetCommentsQuery
         {
             UserId = UserId,
         };
@@ -59,38 +59,36 @@ public class PostController : ApiControllerBase
         return Ok(vm);
     }
 
-    /// <summary>Creates user's post</summary>
+    /// <summary>Creates user's comment</summary>
     /// <remarks>
     /// Sample request:
-    /// POST /post
+    /// POST /comment
     /// {
-    ///     header: "string",
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreatePostCommand object</param>
-    /// <returns>Returns GUID of a new post</returns>
+    /// <param name="command">CreateCommentCommand object</param>
+    /// <returns>Returns GUID of a new comment</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<Guid>> CreatePost(CreatePostCommand command)
+    public async Task<ActionResult<Guid>> CreateComment(CreateCommentCommand command)
     {
         return await Sender.Send(command);
     }
 
-    /// <summary>Updates user's post</summary>
+    /// <summary>Updates user's comment</summary>
     /// <remarks>
     /// Sample request:
-    /// PUT /post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// PUT /comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// {
-    ///     header: "string",
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="id">GUID ID of a post</param>
-    /// <param name="command">UpdatePostCommand object</param>
+    /// <param name="id">GUID ID of a comment</param>
+    /// <param name="command">UpdateCommentCommand object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     /// <response code="400">If IDs don't match</response>
@@ -98,9 +96,9 @@ public class PostController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdatePost(Guid id, UpdatePostCommand command)
+    public async Task<ActionResult> UpdateComment(Guid id, UpdateCommentCommand command)
     {
-        if (id != command.Id)
+        if(id != command.Id)
         {
             return BadRequest();
         }
@@ -109,22 +107,22 @@ public class PostController : ApiControllerBase
         return NoContent();
     }
 
-    /// <summary>Deletes user's post</summary>
+    /// <summary>Deletes user's comment</summary>
     /// <remarks>
     /// Sample request:
-    /// DELETE /post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// DELETE /comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
-    /// <param name="id">GUID ID of a post</param>
+    /// <param name="id">GUID ID of a comment</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> DeletePost(Guid id)
+    public async Task<ActionResult> DeleteComment(Guid id)
     {
-        await Sender.Send(new DeletePostCommand
+        await Sender.Send(new DeleteCommentCommand
         {
-            Id = id,
+            Id = id, 
             UserId = UserId,
         });
 

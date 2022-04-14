@@ -7,7 +7,7 @@ using BlogApp.Application.Tags.Queries.GetTags;
 using BlogApp.Application.Tags.Queries.GetTags.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlogApp.Presentation.Controllers;
+namespace BlogApp.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Produces("application/json")]
