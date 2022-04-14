@@ -1,5 +1,10 @@
 using BlogApp.Application;
 using BlogApp.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,25 +26,61 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 builder.Services.AddSwaggerGen(config =>
 {
+    var provider = builder.Services.BuildServiceProvider();
+    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+
+    foreach(ApiVersionDescription description in service.ApiVersionDescriptions)
+    {
+        config.SwaggerDoc(description.GroupName,
+                          new OpenApiInfo()
+                          {
+                              Title = "BlogAppAPI",
+                              Version = description.ApiVersion.ToString(),
+                              Description = $"Blog App API version {description.ApiVersion}"
+                          });
+    }
+
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     config.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    config.ReportApiVersions = true;
+});
+
 var app = builder.Build();
 
-app.UseSwagger();
+app.UseSwagger(config =>
+{
+    config.RouteTemplate = "/swagger/{documentName}/swagger.json";
+});
 app.UseSwaggerUI(config =>
 {
+    var provider = builder.Services.BuildServiceProvider();
+    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+    foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
+    {
+        config.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+    }
     config.RoutePrefix = string.Empty;
-    config.SwaggerEndpoint("swagger/v1/swagger.json", "Blog API");
 });
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
+app.UseApiVersioning();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
