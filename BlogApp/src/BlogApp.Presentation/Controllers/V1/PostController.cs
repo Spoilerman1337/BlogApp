@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using BlogApp.Application.Posts.Commands.AttachTags;
+using BlogApp.Application.Posts.Commands.AttachTags.Models;
 using BlogApp.Application.Posts.Commands.CreatePost;
 using BlogApp.Application.Posts.Commands.CreatePost.Models;
 using BlogApp.Application.Posts.Commands.DeletePost;
+using BlogApp.Application.Posts.Commands.DetachTags;
+using BlogApp.Application.Posts.Commands.DetachTags.Models;
 using BlogApp.Application.Posts.Commands.UpdatePost;
 using BlogApp.Application.Posts.Commands.UpdatePost.Models;
 using BlogApp.Application.Posts.Queries.GetPost;
@@ -125,12 +129,38 @@ public class PostController : ApiControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdatePost([FromRoute] Guid id, [FromBody] UpdatePostDto dto)
     {
         dto.Id = id;
         var command = _mapper.Map<UpdatePostCommand>(dto);
         command.UserId = UserId;
+
+        await Sender.Send(command);
+        return NoContent();
+    }
+
+    /// <summary>Appends tags to post</summary>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /post
+    /// {
+    ///     id: "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///     tagIds: [
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383"
+    ///     ]
+    /// }
+    /// </remarks>
+    /// <param name="dto">AttachTagsDto object</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> AttachTagToPost([FromBody] AttachTagsDto dto)
+    {
+        var command = _mapper.Map<AttachTagsCommand>(dto);
 
         await Sender.Send(command);
         return NoContent();
@@ -154,6 +184,33 @@ public class PostController : ApiControllerBase
             Id = id,
         });
 
+        return NoContent();
+    }
+
+    /// <summary>Appends tags to post</summary>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /post
+    /// {
+    ///     id: "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///     tagIds: [
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///         "b5c0a7ae-762d-445d-be15-b59232b19383"
+    ///     ]
+    /// }
+    /// </remarks>
+    /// <param name="dto">DetachTagsDto object</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> DetachTagToPost([FromBody] DetachTagsDto dto)
+    {
+        var command = _mapper.Map<DetachTagsCommand>(dto);
+
+        await Sender.Send(command);
         return NoContent();
     }
 }
