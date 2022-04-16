@@ -20,4 +20,10 @@
     <ProjectReference Include="..\BlogApp.Domain\BlogApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\Queries\GetUsersComments\" />
+    <Folder Include="Posts\Queries\GetUsersPosts\" />
+    <Folder Include="Tags\Queries\GetPostsTags\" />
+  </ItemGroup>
+
 </Project>
