@@ -4,7 +4,7 @@ using BlogApp.Domain.Entites;
 
 namespace BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 
-public class GetCommentFromPostDto : IMapFrom<Comment>
+public class GetCommentsFromPostDto : IMapFrom<Comment>
 {
     public Guid Id { get; set; }
     public string Text { get; set; }
@@ -14,6 +14,6 @@ public class GetCommentFromPostDto : IMapFrom<Comment>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Comment, GetCommentFromPostDto>();
+        profile.CreateMap<Comment, GetCommentsFromPostDto>();
     }
 }
