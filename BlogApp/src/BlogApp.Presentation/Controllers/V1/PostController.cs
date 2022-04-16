@@ -8,6 +8,8 @@ using BlogApp.Application.Posts.Queries.GetPost;
 using BlogApp.Application.Posts.Queries.GetPost.Models;
 using BlogApp.Application.Posts.Queries.GetPosts;
 using BlogApp.Application.Posts.Queries.GetPosts.Models;
+using BlogApp.Application.Posts.Queries.GetUsersPosts;
+using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
@@ -20,7 +22,7 @@ public class PostController : ApiControllerBase
 
     public PostController(IMapper mapper) => _mapper = mapper;
 
-    /// <summary>Gets user's post by id</summary>
+    /// <summary>Gets post by id</summary>
     /// <remarks>
     /// Sample request:
     /// GET /post/b5c0a7ae-762d-445d-be15-b59232b19383
@@ -43,7 +45,7 @@ public class PostController : ApiControllerBase
         return Ok(vm);
     }
 
-    /// <summary>Gets all user's posts</summary>
+    /// <summary>Gets all posts</summary>
     /// <remarks>
     /// Sample request:
     /// GET /post
@@ -57,6 +59,29 @@ public class PostController : ApiControllerBase
     public async Task<ActionResult<GetPostsDto>> GetAllPosts()
     {
         var vm = await Sender.Send(new GetPostsQuery());
+        return Ok(vm);
+    }
+
+    /// <summary>Gets user's post by id</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="userId">GUID ID of a user</param>
+    /// <returns>Returns GetCommentDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("user/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetUsersPostsDto>>> GetUsersPosts([FromRoute] Guid userId)
+    {
+        var query = new GetUsersPostsQuery
+        {
+            UserId = userId,
+        };
+
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 

@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Posts\Queries\GetUsersPosts\" />
     <Folder Include="Tags\Queries\GetPostsTags\" />
   </ItemGroup>
 
