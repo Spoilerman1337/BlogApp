@@ -7,7 +7,6 @@ public class GetUsersPostsQueryValidator : AbstractValidator<GetUsersPostsQuery>
 {
     public GetUsersPostsQueryValidator()
     {
-        RuleFor(getPostQuery => getPostQuery.Id).NotEqual(Guid.Empty);
         RuleFor(getPostQuery => getPostQuery.UserId).NotEqual(Guid.Empty);
     }
 }
