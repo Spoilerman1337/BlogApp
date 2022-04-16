@@ -8,6 +8,8 @@ using BlogApp.Application.Comments.Queries.GetComment;
 using BlogApp.Application.Comments.Queries.GetComment.Models;
 using BlogApp.Application.Comments.Queries.GetComments;
 using BlogApp.Application.Comments.Queries.GetComments.Models;
+using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
+using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
@@ -20,7 +22,7 @@ public class CommentController : ApiControllerBase
 
     public CommentController(IMapper mapper) => _mapper = mapper;
 
-    /// <summary>Gets user's comment by id</summary>
+    /// <summary>Gets comment by id</summary>
     /// <remarks>
     /// Sample request:
     /// GET /comment/b5c0a7ae-762d-445d-be15-b59232b19383
@@ -32,19 +34,18 @@ public class CommentController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentDto>> GetComment(Guid id)
+    public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id)
     {
         var query = new GetCommentQuery
         {
-            Id = id,
-            UserId = UserId,
+            Id = id
         };
 
         var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
-    /// <summary>Gets all user's comments</summary>
+    /// <summary>Gets all comments</summary>
     /// <remarks>
     /// Sample request:
     /// GET /comment
@@ -57,9 +58,26 @@ public class CommentController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments()
     {
-        var query = new GetCommentsQuery
+        var vm = await Sender.Send(new GetCommentsQuery());
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all post's comments</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /comment?postId=b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <returns>Returns List of GetCommentsFromPostDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromQuery] Guid postId)
+    {
+        var query = new GetCommentsFromPostQuery
         {
-            UserId = UserId,
+            PostId = postId,
         };
 
         var vm = await Sender.Send(query);
@@ -125,7 +143,7 @@ public class CommentController : ApiControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> DeleteComment(Guid id)
+    public async Task<ActionResult> DeleteComment([FromRoute] Guid id)
     {
         await Sender.Send(new DeleteCommentCommand
         {
