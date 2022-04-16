@@ -3,7 +3,5 @@ using MediatR;
 
 namespace BlogApp.Application.Posts.Queries.GetPosts;
 
-public class GetPostsQuery : IRequest<List<GetPostsDto>>
-{
-    public Guid UserId { get; set; }
-}
+//We don't need to pass here anything, only need this class for IRequest interface
+public class GetPostsQuery : IRequest<List<GetPostsDto>> { }

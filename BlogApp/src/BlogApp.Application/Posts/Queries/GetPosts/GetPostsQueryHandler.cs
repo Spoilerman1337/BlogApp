@@ -16,8 +16,7 @@ public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<GetPosts
 
     public async Task<List<GetPostsDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Posts.Where(c => c.UserId == request.UserId)
-                                     .OrderBy(c => c.Id)
+        return await _dbContext.Posts.OrderBy(c => c.Id)
                                      .ProjectTo<GetPostsDto>(_mapper.ConfigurationProvider)
                                      .ToListAsync();
     }
