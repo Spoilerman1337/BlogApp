@@ -8,5 +8,6 @@ public class CreateCommentCommandValidator : AbstractValidator<CreateCommentComm
     {
         RuleFor(createCommentCommand => createCommentCommand.UserId).NotEqual(Guid.Empty);
         RuleFor(createCommentCommand => createCommentCommand.Text).NotEmpty().MaximumLength(500);
+        RuleFor(createCommentCommand => createCommentCommand.PostId).NotEqual(Guid.Empty);
     }
 }
