@@ -1,4 +1,4 @@
-﻿    using AutoMapper;
+﻿using AutoMapper;
 using BlogApp.Application.Common.Interfaces;
 using System.Reflection;
 
