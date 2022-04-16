@@ -4,6 +4,8 @@ using BlogApp.Application.Tags.Commands.CreateTag.Models;
 using BlogApp.Application.Tags.Commands.DeleteTag;
 using BlogApp.Application.Tags.Commands.UpdateTag;
 using BlogApp.Application.Tags.Commands.UpdateTag.Models;
+using BlogApp.Application.Tags.Queries.GetPostsTags;
+using BlogApp.Application.Tags.Queries.GetPostsTags.Models;
 using BlogApp.Application.Tags.Queries.GetTag;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
 using BlogApp.Application.Tags.Queries.GetTags;
@@ -58,6 +60,29 @@ public class TagController : ApiControllerBase
     {
         var vm = await Sender.Send(new GetTagsQuery());
 
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all posts tags</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="postId">GUID ID of a tag</param>
+    /// <returns>Returns GetTagDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("post/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId)
+    {
+        var query = new GetPostsTagsQuery
+        {
+            PostId = postId,
+        };
+
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
