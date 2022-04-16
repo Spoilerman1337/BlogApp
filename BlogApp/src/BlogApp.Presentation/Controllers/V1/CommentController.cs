@@ -10,6 +10,8 @@ using BlogApp.Application.Comments.Queries.GetComments;
 using BlogApp.Application.Comments.Queries.GetComments.Models;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
+using BlogApp.Application.Comments.Queries.GetUsersComments;
+using BlogApp.Application.Comments.Queries.GetUsersComments.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
@@ -65,19 +67,43 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all post's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment?postId=b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
+    /// <param name="postId">GUID ID of a post</param>
     /// <returns>Returns List of GetCommentsFromPostDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("{userId}")]
+    [HttpGet("post/{postId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromQuery] Guid postId)
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId)
     {
         var query = new GetCommentsFromPostQuery
         {
             PostId = postId,
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all users's comments</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="userId">GUID ID of a comment</param>
+    /// <returns>Returns List of GetUsersCommentsDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("user/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId)
+    {
+        var query = new GetUsersCommentsQuery
+        {
+            UserId = userId,
         };
 
         var vm = await Sender.Send(query);
@@ -89,6 +115,7 @@ public class CommentController : ApiControllerBase
     /// Sample request:
     /// POST /comment
     /// {
+    ///     postId: "b5c0a7ae-762d-445d-be15-b59232b19383",
     ///     text: "string",
     /// }
     /// </remarks>
