@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 
-public class GetCommentFromPostQueryHandler : IRequestHandler<GetCommentFromPostQuery, List<GetCommentFromPostDto>>
+public class GetCommentsFromPostQueryHandler : IRequestHandler<GetCommentsFromPostQuery, List<GetCommentsFromPostDto>>
 {
     private readonly IBlogDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetCommentFromPostQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+    public GetCommentsFromPostQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
 
-    public async Task<List<GetCommentFromPostDto>> Handle(GetCommentFromPostQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetCommentsFromPostDto>> Handle(GetCommentsFromPostQuery request, CancellationToken cancellationToken)
     {
         return await _dbContext.Comments.Where(c => c.Post.Id == request.PostId)
                                         .OrderBy(c => c.Id)
-                                        .ProjectTo<GetCommentFromPostDto>(_mapper.ConfigurationProvider)
+                                        .ProjectTo<GetCommentsFromPostDto>(_mapper.ConfigurationProvider)
                                         .ToListAsync();
     }
 }

@@ -2,9 +2,9 @@
 
 namespace BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 
-public class GetCommentFromPostQueryValidator : AbstractValidator<GetCommentFromPostQuery>
+public class GetCommentsFromPostQueryValidator : AbstractValidator<GetCommentsFromPostQuery>
 {
-    public GetCommentFromPostQueryValidator()
+    public GetCommentsFromPostQueryValidator()
     {
         RuleFor(getCommentFromPostQuery => getCommentFromPostQuery.PostId).NotEqual(Guid.Empty);
     }

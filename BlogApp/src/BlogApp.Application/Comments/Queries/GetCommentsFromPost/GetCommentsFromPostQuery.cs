@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 
-public class GetCommentFromPostQuery : IRequest<List<GetCommentFromPostDto>>
+public class GetCommentsFromPostQuery : IRequest<List<GetCommentsFromPostDto>>
 {
     public Guid PostId { get; set; }
 }
