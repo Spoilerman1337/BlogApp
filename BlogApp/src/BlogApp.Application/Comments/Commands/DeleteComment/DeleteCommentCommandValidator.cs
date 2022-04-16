@@ -7,6 +7,5 @@ public class DeleteCommentCommandValidator : AbstractValidator<DeleteCommentComm
     public DeleteCommentCommandValidator()
     {
         RuleFor(deleteCommentCommand => deleteCommentCommand.Id).NotEqual(Guid.Empty);
-        RuleFor(deleteCommentCommand => deleteCommentCommand.UserId).NotEqual(Guid.Empty);
     }
 }

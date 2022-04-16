@@ -16,7 +16,7 @@ public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
     {
         var entity = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
-        if (entity == null || entity.UserId != request.UserId)
+        if (entity == null)
         {
             throw new NotFoundException(nameof(Comment), request.Id);
         }
