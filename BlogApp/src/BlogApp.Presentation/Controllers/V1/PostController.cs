@@ -32,12 +32,11 @@ public class PostController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostDto>> GetPost(Guid id)
+    public async Task<ActionResult<GetPostDto>> GetPost([FromRoute] Guid id)
     {
         var query = new GetPostQuery
         {
-            Id = id,
-            UserId = UserId,
+            Id = id
         };
 
         var vm = await Sender.Send(query);
@@ -57,12 +56,7 @@ public class PostController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetPostsDto>> GetAllPosts()
     {
-        var query = new GetPostsQuery
-        {
-            UserId = UserId,
-        };
-
-        var vm = await Sender.Send(query);
+        var vm = await Sender.Send(new GetPostsQuery());
         return Ok(vm);
     }
 
@@ -128,7 +122,7 @@ public class PostController : ApiControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> DeletePost(Guid id)
+    public async Task<ActionResult> DeletePost([FromRoute] Guid id)
     {
         await Sender.Send(new DeletePostCommand
         {

@@ -32,7 +32,7 @@ public class TagController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetTagDto>> GetTag(Guid id)
+    public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id)
     {
         var query = new GetTagQuery
         {
@@ -118,7 +118,7 @@ public class TagController : ApiControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> DeleteTag(Guid id)
+    public async Task<ActionResult> DeleteTag([FromRoute] Guid id)
     {
         await Sender.Send(new DeleteTagCommand
         {
