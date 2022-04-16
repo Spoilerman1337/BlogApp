@@ -11,6 +11,7 @@ public class GetCommentDto : IMapFrom<Comment>
     public DateTime CreationTime { get; set; }
     public DateTime? LastEdited { get; set; }
     public Guid? ParentComment { get; set; }
+    public Guid PostId { get; set; }
 
     public void Mapping(Profile profile)
     {
