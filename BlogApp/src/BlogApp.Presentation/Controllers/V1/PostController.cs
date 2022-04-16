@@ -127,7 +127,6 @@ public class PostController : ApiControllerBase
         await Sender.Send(new DeletePostCommand
         {
             Id = id,
-            UserId = UserId,
         });
 
         return NoContent();

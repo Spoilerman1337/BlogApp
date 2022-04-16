@@ -175,7 +175,6 @@ public class CommentController : ApiControllerBase
         await Sender.Send(new DeleteCommentCommand
         {
             Id = id,
-            UserId = UserId,
         });
 
         return NoContent();
