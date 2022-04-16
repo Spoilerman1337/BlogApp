@@ -6,4 +6,5 @@ public class CreateCommentCommand : IRequest<Guid>
 {
     public Guid UserId { get; set; }
     public string Text { get; set; }
+    public Guid ParentComment { get; set; }
 }

@@ -18,7 +18,8 @@ public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand,
             UserId = request.UserId,
             Text = request.Text,
             CreationTime = DateTime.Now,
-            LastEdited = null
+            LastEdited = null,
+            ParentComment = request.ParentComment
         };
 
         await _dbContext.Comments.AddAsync(comment, cancellationToken);
