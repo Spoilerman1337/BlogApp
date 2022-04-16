@@ -1,6 +1,9 @@
-﻿using BlogApp.Application.Tags.Commands.CreateTag;
+﻿using AutoMapper;
+using BlogApp.Application.Tags.Commands.CreateTag;
+using BlogApp.Application.Tags.Commands.CreateTag.Models;
 using BlogApp.Application.Tags.Commands.DeleteTag;
 using BlogApp.Application.Tags.Commands.UpdateTag;
+using BlogApp.Application.Tags.Commands.UpdateTag.Models;
 using BlogApp.Application.Tags.Queries.GetTag;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
 using BlogApp.Application.Tags.Queries.GetTags;
@@ -13,6 +16,10 @@ namespace BlogApp.Presentation.Controllers.V1;
 [Produces("application/json")]
 public class TagController : ApiControllerBase
 {
+    private readonly IMapper _mapper;
+
+    public TagController(IMapper mapper) => _mapper = mapper;
+
     /// <summary>Gets tag by id</summary>
     /// <remarks>
     /// Sample request:
@@ -69,8 +76,10 @@ public class TagController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<Guid>> CreateTag(CreateTagCommand command)
+    public async Task<ActionResult<Guid>> CreateTag([FromBody] CreateTagDto dto)
     {
+        var command = _mapper.Map<CreateTagCommand>(dto);
+
         return await Sender.Send(command);
     }
 
@@ -86,17 +95,13 @@ public class TagController : ApiControllerBase
     /// <param name="command">UpdateTagCommand object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    /// <response code="400">If IDs don't match</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateTag(Guid id, UpdateTagCommand command)
+    public async Task<ActionResult> UpdateTag([FromRoute] Guid id, [FromBody] UpdateTagDto dto)
     {
-        if(id != command.Id)
-        {
-            return BadRequest();
-        }
+        dto.Id = id;
+        var command = _mapper.Map<UpdateTagCommand>(dto);
 
         await Sender.Send(command);
         return NoContent();

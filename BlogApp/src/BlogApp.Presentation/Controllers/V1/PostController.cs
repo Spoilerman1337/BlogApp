@@ -1,6 +1,9 @@
-﻿using BlogApp.Application.Posts.Commands.CreatePost;
+﻿using AutoMapper;
+using BlogApp.Application.Posts.Commands.CreatePost;
+using BlogApp.Application.Posts.Commands.CreatePost.Models;
 using BlogApp.Application.Posts.Commands.DeletePost;
 using BlogApp.Application.Posts.Commands.UpdatePost;
+using BlogApp.Application.Posts.Commands.UpdatePost.Models;
 using BlogApp.Application.Posts.Queries.GetPost;
 using BlogApp.Application.Posts.Queries.GetPost.Models;
 using BlogApp.Application.Posts.Queries.GetPosts;
@@ -13,6 +16,10 @@ namespace BlogApp.Presentation.Controllers.V1;
 [Produces("application/json")]
 public class PostController : ApiControllerBase
 {
+    private readonly IMapper _mapper;
+
+    public PostController(IMapper mapper) => _mapper = mapper;
+
     /// <summary>Gets user's post by id</summary>
     /// <remarks>
     /// Sample request:
@@ -68,15 +75,18 @@ public class PostController : ApiControllerBase
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreatePostCommand object</param>
+    /// <param name="command">CreatePostDto object</param>
     /// <returns>Returns GUID of a new post</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<Guid>> CreatePost(CreatePostCommand command)
+    public async Task<ActionResult<Guid>> CreatePost([FromBody] CreatePostDto dto)
     {
+        var command = _mapper.Map<CreatePostCommand>(dto);
+        command.UserId = UserId;
+
         return await Sender.Send(command);
     }
 
@@ -90,20 +100,18 @@ public class PostController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="id">GUID ID of a post</param>
-    /// <param name="command">UpdatePostCommand object</param>
+    /// <param name="command">UpdatePostDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    /// <response code="400">If IDs don't match</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdatePost(Guid id, UpdatePostCommand command)
+    public async Task<ActionResult> UpdatePost([FromRoute] Guid id, [FromBody] UpdatePostDto dto)
     {
-        if (id != command.Id)
-        {
-            return BadRequest();
-        }
+        dto.Id = id;
+        var command = _mapper.Map<UpdatePostCommand>(dto);
+        command.UserId = UserId;
 
         await Sender.Send(command);
         return NoContent();

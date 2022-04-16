@@ -1,6 +1,9 @@
-﻿using BlogApp.Application.Comments.Commands.CreateComment;
+﻿using AutoMapper;
+using BlogApp.Application.Comments.Commands.CreateComment;
+using BlogApp.Application.Comments.Commands.CreateComment.Models;
 using BlogApp.Application.Comments.Commands.DeleteComment;
 using BlogApp.Application.Comments.Commands.UpdateComment;
+using BlogApp.Application.Comments.Commands.UpdateComment.Models;
 using BlogApp.Application.Comments.Queries.GetComment;
 using BlogApp.Application.Comments.Queries.GetComment.Models;
 using BlogApp.Application.Comments.Queries.GetComments;
@@ -13,6 +16,10 @@ namespace BlogApp.Presentation.Controllers.V1;
 [Produces("application/json")]
 public class CommentController : ApiControllerBase
 {
+    private readonly IMapper _mapper;
+
+    public CommentController(IMapper mapper) => _mapper = mapper;
+
     /// <summary>Gets user's comment by id</summary>
     /// <remarks>
     /// Sample request:
@@ -67,15 +74,18 @@ public class CommentController : ApiControllerBase
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreateCommentCommand object</param>
+    /// <param name="command">CreateCommentDto object</param>
     /// <returns>Returns GUID of a new comment</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<Guid>> CreateComment(CreateCommentCommand command)
+    public async Task<ActionResult<Guid>> CreateComment([FromBody] CreateCommentDto dto)
     {
+        var command = _mapper.Map<CreateCommentCommand>(dto);
+        command.UserId = UserId;
+
         return await Sender.Send(command);
     }
 
@@ -88,20 +98,17 @@ public class CommentController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="id">GUID ID of a comment</param>
-    /// <param name="command">UpdateCommentCommand object</param>
+    /// <param name="command">UpdateCommentDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    /// <response code="400">If IDs don't match</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateComment(Guid id, UpdateCommentCommand command)
+    public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] UpdateCommentDto dto)
     {
-        if(id != command.Id)
-        {
-            return BadRequest();
-        }
+        dto.Id = id;
+        var command = _mapper.Map<UpdateCommentCommand>(dto);
+        command.UserId = UserId;
 
         await Sender.Send(command);
         return NoContent();
@@ -122,7 +129,7 @@ public class CommentController : ApiControllerBase
     {
         await Sender.Send(new DeleteCommentCommand
         {
-            Id = id, 
+            Id = id,
             UserId = UserId,
         });
 
