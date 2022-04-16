@@ -12,9 +12,13 @@ public class GetUsersPostsDto : IMapFrom<Post>
     public string Text { get; set; }
     public DateTime CreationTime { get; set; }
     public DateTime? LastEdited { get; set; }
+    public List<Guid> CommentIds { get; set; }
+    public List<Guid> TagIds { get; set; }
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Post, GetUsersPostsDto>();
+        profile.CreateMap<Post, GetUsersPostsDto>()
+               .ForMember(dest => dest.TagIds, opt => opt.MapFrom(src => src.Tags.Select(c => c.Id)))
+               .ForMember(dest => dest.CommentIds, opt => opt.MapFrom(src => src.Comments.Select(c => c.Id)));
     }
 }
