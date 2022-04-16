@@ -2,8 +2,6 @@ using BlogApp.Application;
 using BlogApp.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -37,7 +35,7 @@ builder.Services.AddSwaggerGen(config =>
     var provider = builder.Services.BuildServiceProvider();
     var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
 
-    foreach(ApiVersionDescription description in service.ApiVersionDescriptions)
+    foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
     {
         config.SwaggerDoc(description.GroupName,
                           new OpenApiInfo()
