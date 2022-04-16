@@ -69,7 +69,7 @@ public class TagController : ApiControllerBase
     ///     tagname: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreateTagCommand object</param>
+    /// <param name="dto">CreateTagDto object</param>
     /// <returns>Returns GUID ID of a new tag</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -92,7 +92,7 @@ public class TagController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="id">GUID ID of a tag</param>
-    /// <param name="command">UpdateTagCommand object</param>
+    /// <param name="dto">UpdateTagDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]

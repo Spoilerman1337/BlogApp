@@ -74,7 +74,7 @@ public class CommentController : ApiControllerBase
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreateCommentDto object</param>
+    /// <param name="dto">CreateCommentDto object</param>
     /// <returns>Returns GUID of a new comment</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -98,7 +98,7 @@ public class CommentController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="id">GUID ID of a comment</param>
-    /// <param name="command">UpdateCommentDto object</param>
+    /// <param name="dto">UpdateCommentDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]

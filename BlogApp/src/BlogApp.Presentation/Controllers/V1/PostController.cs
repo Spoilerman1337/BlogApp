@@ -75,7 +75,7 @@ public class PostController : ApiControllerBase
     ///     text: "string",
     /// }
     /// </remarks>
-    /// <param name="command">CreatePostDto object</param>
+    /// <param name="dto">CreatePostDto object</param>
     /// <returns>Returns GUID of a new post</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -100,7 +100,7 @@ public class PostController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="id">GUID ID of a post</param>
-    /// <param name="command">UpdatePostDto object</param>
+    /// <param name="dto">UpdatePostDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
