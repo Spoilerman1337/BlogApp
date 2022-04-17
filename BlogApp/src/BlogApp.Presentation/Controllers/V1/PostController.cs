@@ -139,7 +139,7 @@ public class PostController : ApiControllerBase
         return NoContent();
     }
 
-    /// <summary>Appends tags to post</summary>
+    /// <summary>Attaches tags to post</summary>
     /// <remarks>
     /// Sample request:
     /// PUT /post
@@ -187,7 +187,7 @@ public class PostController : ApiControllerBase
         return NoContent();
     }
 
-    /// <summary>Appends tags to post</summary>
+    /// <summary>Detaches tags from post</summary>
     /// <remarks>
     /// Sample request:
     /// DELETE /post
