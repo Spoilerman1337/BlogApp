@@ -10,6 +10,7 @@ using BlogApp.Application.Posts.Commands.UpdatePost;
 using BlogApp.Application.Posts.Commands.UpdatePost.Models;
 using BlogApp.Application.Posts.Queries.GetPost;
 using BlogApp.Application.Posts.Queries.GetPost.Models;
+using BlogApp.Application.Posts.Queries.GetPostByComment;
 using BlogApp.Application.Posts.Queries.GetPosts;
 using BlogApp.Application.Posts.Queries.GetPosts.Models;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
@@ -69,7 +70,7 @@ public class PostController : ApiControllerBase
     /// <summary>Gets user's post by id</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /post/user/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="userId">GUID ID of a user</param>
     /// <returns>Returns GetCommentDto</returns>
@@ -83,6 +84,29 @@ public class PostController : ApiControllerBase
         var query = new GetUsersPostsQuery
         {
             UserId = userId,
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets post where comment is written</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /post/comment/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="commentId">GUID ID of a user</param>
+    /// <returns>Returns GetCommentDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("comment/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetPostByCommentQuery>>> GetPostByComment([FromRoute] Guid commentId)
+    {
+        var query = new GetPostByCommentQuery
+        {
+            CommentId = commentId,
         };
 
         var vm = await Sender.Send(query);
