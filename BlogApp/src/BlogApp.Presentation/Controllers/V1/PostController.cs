@@ -11,6 +11,9 @@ using BlogApp.Application.Posts.Commands.UpdatePost.Models;
 using BlogApp.Application.Posts.Queries.GetPost;
 using BlogApp.Application.Posts.Queries.GetPost.Models;
 using BlogApp.Application.Posts.Queries.GetPostByComment;
+using BlogApp.Application.Posts.Queries.GetPostByComment.Models;
+using BlogApp.Application.Posts.Queries.GetPostByTag;
+using BlogApp.Application.Posts.Queries.GetPostByTag.Models;
 using BlogApp.Application.Posts.Queries.GetPosts;
 using BlogApp.Application.Posts.Queries.GetPosts.Models;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
@@ -55,7 +58,7 @@ public class PostController : ApiControllerBase
     /// Sample request:
     /// GET /post
     /// </remarks>
-    /// <returns>Returns List of GetPostsDto</returns>
+    /// <returns>Returns GetPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
@@ -79,7 +82,7 @@ public class PostController : ApiControllerBase
     [HttpGet("user/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersPostsDto>>> GetUsersPosts([FromRoute] Guid userId)
+    public async Task<ActionResult<GetUsersPostsDto>> GetUsersPosts([FromRoute] Guid userId)
     {
         var query = new GetUsersPostsQuery
         {
@@ -96,17 +99,40 @@ public class PostController : ApiControllerBase
     /// GET /post/comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="commentId">GUID ID of a user</param>
-    /// <returns>Returns GetCommentDto</returns>
+    /// <returns>Returns GetPostByCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("comment/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostByCommentQuery>>> GetPostByComment([FromRoute] Guid commentId)
+    public async Task<ActionResult<GetPostByCommentDto>> GetPostByComment([FromRoute] Guid commentId)
     {
         var query = new GetPostByCommentQuery
         {
             CommentId = commentId,
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets posts where tag is used</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /post/tag/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="tagId">GUID ID of a user</param>
+    /// <returns>Returns GetPostsByTagDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("tag/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetPostsByTagDto>> GetPostsByTag([FromRoute] Guid tagId)
+    {
+        var query = new GetPostsByTagQuery
+        {
+            TagId = tagId,
         };
 
         var vm = await Sender.Send(query);

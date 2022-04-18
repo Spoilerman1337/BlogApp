@@ -50,7 +50,7 @@ public class TagController : ApiControllerBase
     /// Sample request:
     /// GET /tag
     /// </remarks>
-    /// <returns>Returns List of GetTagsDto</returns>
+    /// <returns>Returns GetTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
@@ -75,7 +75,7 @@ public class TagController : ApiControllerBase
     [HttpGet("post/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId)
+    public async Task<ActionResult<GetPostsTagsDto>> GetPostsTags([FromRoute] Guid postId)
     {
         var query = new GetPostsTagsQuery
         {
