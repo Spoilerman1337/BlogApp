@@ -1,7 +1,15 @@
+using Duende.IdentityServer.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddIdentityServer()
+                .AddInMemoryApiResources(new List<ApiResource>())
+                .AddInMemoryIdentityResources(new List<IdentityResource>())
+                .AddInMemoryApiScopes(new List<ApiScope>())
+                .AddInMemoryClients(new List<Client>())
+                .AddDeveloperSigningCredential();
 
 var app = builder.Build();
 
@@ -17,7 +25,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapRazorPages();
