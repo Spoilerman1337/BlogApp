@@ -1,5 +1,7 @@
 using BlogApp.Authorization.Application.Common.Identity;
+using BlogApp.Authorization.Domain.Entities;
 using BlogApp.Authorization.Infrastructure.Persistance;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,13 +12,29 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<BlogAuthDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
+{
+    config.Password.RequiredLength = 6;
+    config.Password.RequireDigit = true;
+    config.Password.RequireLowercase = true;
+    config.Password.RequireUppercase = true;
+    config.Password.RequireNonAlphanumeric = false;
+})
+    .AddEntityFrameworkStores<BlogAuthDbContext>()
+    .AddDefaultTokenProviders();
 builder.Services.AddIdentityServer()
+                .AddAspNetIdentity<AppUser>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
                 .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
                 .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
                 .AddInMemoryClients(IdentityConfiguration.Clients)
                 .AddDeveloperSigningCredential();
-
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.Cookie.Name = "BlogApp.Identity.Cookie";
+    config.LoginPath = "/Auth/Login";
+    config.LogoutPath = "/Auth/Logout";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
