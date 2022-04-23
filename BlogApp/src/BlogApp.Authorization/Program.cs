@@ -1,14 +1,14 @@
-using Duende.IdentityServer.Models;
+using BlogApp.Authorization.Application.Common.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddIdentityServer()
-                .AddInMemoryApiResources(new List<ApiResource>())
-                .AddInMemoryIdentityResources(new List<IdentityResource>())
-                .AddInMemoryApiScopes(new List<ApiScope>())
-                .AddInMemoryClients(new List<Client>())
+                .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
+                .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
+                .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
+                .AddInMemoryClients(IdentityConfiguration.Clients)
                 .AddDeveloperSigningCredential();
 
 var app = builder.Build();
