@@ -1,9 +1,15 @@
 using BlogApp.Authorization.Application.Common.Identity;
+using BlogApp.Authorization.Infrastructure.Persistance;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<BlogAuthDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddIdentityServer()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
                 .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
