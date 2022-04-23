@@ -12,6 +12,20 @@ services:
       - "8080:80"
     depends_on:
       - db
+      - auth
+    restart: on-failure
+
+  auth:
+    image: ${DOCKER_REGISTRY-}blogappauthorization
+    build:
+      context: .
+      dockerfile: src/BlogApp.Authorization/Dockerfile
+    environment:
+      - "ConnectionStrings__DefaultConnection=Server=db;Database=BlogAppAuthDb;User=sa;Password=Sasasa12;MultipleActiveResultSets=true"
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
     restart: on-failure
 
   db:
