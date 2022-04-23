@@ -9,5 +9,5 @@ Project is divided into several layers:
 - Presentation - Controllers and API settings, API Swagger UI
 
 Also contains:
-- Authorization - Authorization server designed the same way as main app
+- Auth - Authorization server designed the same way as main app
 - Frontend - JS framework client app
