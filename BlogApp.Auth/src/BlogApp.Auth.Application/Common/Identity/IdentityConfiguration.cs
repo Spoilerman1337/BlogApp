@@ -2,7 +2,7 @@
 using Duende.IdentityServer.Models;
 using IdentityModel;
 
-namespace BlogApp.Authorization.Application.Common.Identity;
+namespace BlogApp.Auth.Application.Common.Identity;
 
 public class IdentityConfiguration
 {

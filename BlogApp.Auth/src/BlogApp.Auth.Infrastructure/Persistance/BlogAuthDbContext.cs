@@ -1,12 +1,13 @@
-﻿using BlogApp.Authorization.Domain.Entities;
-using BlogApp.Authorization.Infrastructure.Persistance.Configuration;
+﻿using BlogApp.Auth.Application.Common.Interfaces;
+using BlogApp.Auth.Domain.Entities;
+using BlogApp.Auth.Infrastructure.Persistance.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogApp.Authorization.Infrastructure.Persistance;
+namespace BlogApp.Auth.Infrastructure.Persistance;
 
-public class BlogAuthDbContext : IdentityDbContext<AppUser>
+public class BlogAuthDbContext : IdentityDbContext<AppUser>, IBlogAuthDbContext
 {
     public BlogAuthDbContext(DbContextOptions<BlogAuthDbContext> options) : base(options) { }
 

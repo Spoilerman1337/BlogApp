@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BlogApp.Authorization.Domain.Entities;
+namespace BlogApp.Auth.Domain.Entities;
 
 public class AppUser : IdentityUser
 {
