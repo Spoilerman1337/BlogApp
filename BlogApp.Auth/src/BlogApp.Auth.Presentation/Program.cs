@@ -3,6 +3,7 @@ using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.LogoutPath = "/Auth/Logout";
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
+builder.Services.AddIdentity<AppUser, AppRole>(config =>
 {
     config.Password.RequiredLength = 6;
     config.Password.RequireDigit = true;
@@ -25,10 +26,14 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
     config.Password.RequireNonAlphanumeric = false;
 })
                 .AddEntityFrameworkStores<BlogAuthDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddUserStore<UserStore<AppUser, AppRole, BlogAuthDbContext, Guid>>()
+                .AddRoleStore<RoleStore<AppRole, BlogAuthDbContext, Guid>>();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -46,6 +51,9 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseIdentityServer();
 
-app.MapGet("/", () => "Hello World!");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
