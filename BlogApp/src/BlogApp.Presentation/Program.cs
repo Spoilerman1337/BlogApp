@@ -45,10 +45,6 @@ builder.Services.AddSwaggerGen(config =>
                               Description = $"Blog App API version {description.ApiVersion}"
                           });
     }
-
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    config.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddApiVersioning(config =>
