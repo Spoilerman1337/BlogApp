@@ -55,9 +55,9 @@ builder.Services.AddSwaggerGen(config =>
         config.SwaggerDoc(description.GroupName,
                           new OpenApiInfo()
                           {
-                              Title = "BlogAppAPI",
+                              Title = "BlogAppAuthAPI",
                               Version = description.ApiVersion.ToString(),
-                              Description = $"Blog App API version {description.ApiVersion}"
+                              Description = $"Blog App Auth API version {description.ApiVersion}"
                           });
     }
 });
