@@ -4,6 +4,10 @@ using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +39,52 @@ builder.Services.AddInfrastructure(configuration);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+builder.Services.AddSwaggerGen(config =>
+{
+    var provider = builder.Services.BuildServiceProvider();
+    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+
+    foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
+    {
+        config.SwaggerDoc(description.GroupName,
+                          new OpenApiInfo()
+                          {
+                              Title = "BlogAppAPI",
+                              Version = description.ApiVersion.ToString(),
+                              Description = $"Blog App API version {description.ApiVersion}"
+                          });
+    }
+});
+
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    config.ReportApiVersions = true;
+});
+
 var app = builder.Build();
+
+app.UseSwagger(config =>
+{
+    config.RouteTemplate = "/swagger/{documentName}/swagger.json";
+});
+app.UseSwaggerUI(config =>
+{
+    var provider = builder.Services.BuildServiceProvider();
+    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+    foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
+    {
+        config.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+    }
+    config.RoutePrefix = string.Empty;
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
