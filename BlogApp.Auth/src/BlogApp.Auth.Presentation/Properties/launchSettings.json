@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "BlogApp.Auth.Presentation": {
+    "BlogApp.Auth": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
