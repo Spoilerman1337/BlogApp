@@ -1,22 +1,26 @@
 ﻿using AutoMapper;
 using BlogApp.Auth.Application.Users.Commands.LoginUser;
 using BlogApp.Auth.Application.Users.Commands.LoginUser.Models;
+using BlogApp.Auth.Application.Users.Commands.LogoutUser;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
+using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Auth.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
+[Route("[controller]/[action]")]
 public class AuthController : ApiControllerBase
 {
     private readonly IMapper _mapper;
+    private readonly IIdentityServerInteractionService _interactionService;
 
     public AuthController(IMapper mapper) => _mapper = mapper;
 
     /// <summary>Login user</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /auth
+    /// GET /auth/login
     /// {
     ///     returnUrl: "string",
     ///     userId: "b5c0a7ae-762d-445d-be15-b59232b19383",
@@ -41,7 +45,7 @@ public class AuthController : ApiControllerBase
     /// <summary>User login redirect</summary>
     /// <remarks>
     /// Sample request:
-    /// POST /auth
+    /// POST /auth/login
     /// {
     ///     userName: "string",
     ///     password: "string",
@@ -80,5 +84,23 @@ public class AuthController : ApiControllerBase
         ModelState.AddModelError(string.Empty, "Login error");
 
         return View(vm);
+    }
+
+    /// <summary>User logout</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /auth/logout
+    /// </remarks>
+    /// <param name="dto">LoginUserDto object</param>
+    /// <param name="userId">GUID user ID</param>
+    /// <returns>Returns View</returns>
+    /// <response code="200">If valid</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Logout([FromQuery] string logoutId)
+    {
+        await Sender.Send(new LogoutUserCommand());
+        var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
+        return Redirect(logoutRequest.PostLogoutRedirectUri);
     }
 }
