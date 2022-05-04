@@ -10,12 +10,12 @@ namespace BlogApp.Auth.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route("[controller]/[action]")]
-public class AuthController : ApiControllerBase
+public class AuthenticationController : ApiControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IIdentityServerInteractionService _interactionService;
 
-    public AuthController(IMapper mapper) => _mapper = mapper;
+    public AuthenticationController(IMapper mapper) => _mapper = mapper;
 
     /// <summary>Login user</summary>
     /// <remarks>
@@ -103,4 +103,5 @@ public class AuthController : ApiControllerBase
         var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
         return Redirect(logoutRequest.PostLogoutRedirectUri);
     }
+
 }

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace BlogApp.Auth.Application.Users.Commands.LoginUser;
+namespace BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, SignInResult>
 {

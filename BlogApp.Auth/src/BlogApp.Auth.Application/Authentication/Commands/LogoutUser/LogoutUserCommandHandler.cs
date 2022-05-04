@@ -1,9 +1,9 @@
-﻿using BlogApp.Auth.Application.Users.Commands.LogoutUser;
+﻿using BlogApp.Auth.Application.Authentication.Commands.LogoutUser;
 using BlogApp.Auth.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace BlogApp.Auth.Application.Users.Commands.LoginUser;
+namespace BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 
 public class LogoutUserCommandHandler : IRequestHandler<LogoutUserCommand>
 {

@@ -2,7 +2,7 @@
 using BlogApp.Auth.Application.Common.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogApp.Auth.Application.Users.Commands.LoginUser.Models;
+namespace BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
 
 public class LoginUserDto : IMapFrom<LoginUserCommand>
 {
