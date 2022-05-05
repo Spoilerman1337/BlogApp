@@ -21,4 +21,10 @@
     <ProjectReference Include="..\BlogApp.Auth.Domain\BlogApp.Auth.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authentication\Commands\RegisterUser\Models\" />
+    <Folder Include="Roles\Commands\" />
+    <Folder Include="Roles\Queries\" />
+  </ItemGroup>
+
 </Project>

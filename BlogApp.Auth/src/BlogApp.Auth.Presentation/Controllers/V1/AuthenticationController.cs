@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BlogApp.Auth.Application.Users.Commands.LoginUser;
-using BlogApp.Auth.Application.Users.Commands.LoginUser.Models;
-using BlogApp.Auth.Application.Users.Commands.LogoutUser;
+using BlogApp.Auth.Application.Authentication.Commands.LoginUser;
+using BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
+using BlogApp.Auth.Application.Authentication.Commands.LogoutUser;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
 using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -103,5 +103,4 @@ public class AuthenticationController : ApiControllerBase
         var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
         return Redirect(logoutRequest.PostLogoutRedirectUri);
     }
-
 }
