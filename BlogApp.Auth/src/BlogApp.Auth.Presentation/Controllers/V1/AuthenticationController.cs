@@ -2,6 +2,8 @@
 using BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 using BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
 using BlogApp.Auth.Application.Authentication.Commands.LogoutUser;
+using BlogApp.Auth.Application.Authentication.Commands.RegisterUser;
+using BlogApp.Auth.Application.Authentication.Commands.RegisterUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
 using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +55,6 @@ public class AuthenticationController : ApiControllerBase
     /// }
     /// </remarks>
     /// <param name="dto">LoginUserDto object</param>
-    /// <param name="userId">GUID user ID</param>
     /// <returns>Returns View</returns>
     /// <response code="200">If valid</response>
     [HttpPost]
@@ -102,5 +103,63 @@ public class AuthenticationController : ApiControllerBase
         await Sender.Send(new LogoutUserCommand());
         var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
         return Redirect(logoutRequest.PostLogoutRedirectUri);
+    }
+
+    /// <summary>Register user</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /auth/register
+    /// {
+    ///     returnUrl: "string",
+    ///     userId: "b5c0a7ae-762d-445d-be15-b59232b19383",
+    /// }
+    /// </remarks>
+    /// <param name="returnUrl">Return URL string</param>
+    /// <returns>Returns View</returns>
+    /// <response code="200">If valid</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult Register([FromQuery] string returnUrl)
+    {
+        var viewModel = new RegisterUserDto
+        {
+            ReturnUrl = returnUrl
+        };
+        return View(viewModel);
+    }
+
+    /// <summary>User register redirect</summary>
+    /// <remarks>
+    /// Sample request:
+    /// POST /auth/register
+    /// {
+    ///     userName: "string",
+    ///     password: "string",
+    ///     returnUrl: "string",
+    /// }
+    /// </remarks>
+    /// <param name="dto">RegisterUserDto object</param>
+    /// <returns>Returns View</returns>
+    /// <response code="200">If valid</response>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
+    {
+        var vm = _mapper.Map<RegisterUserCommand>(dto);
+
+        if (!ModelState.IsValid)
+        {
+            return View(vm);
+        }
+
+        var result = await Sender.Send(vm);
+
+        if (result.Succeeded)
+        {
+            return Redirect(dto.ReturnUrl);
+        }
+        ModelState.AddModelError(string.Empty, "Login error");
+
+        return View(vm);
     }
 }
