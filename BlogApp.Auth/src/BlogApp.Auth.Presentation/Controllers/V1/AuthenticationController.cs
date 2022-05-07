@@ -36,12 +36,12 @@ public class AuthenticationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult Login([FromQuery] string returnUrl, [FromQuery] Guid userId)
     {
-        var viewModel = new LoginUserDto
+        var vm = new LoginUserDto
         {
             ReturnUrl = returnUrl,
             Id = userId
         };
-        return View(viewModel);
+        return View(vm);
     }
 
     /// <summary>User login redirect</summary>
