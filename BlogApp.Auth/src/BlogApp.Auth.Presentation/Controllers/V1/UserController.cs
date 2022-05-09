@@ -20,7 +20,18 @@ public class UserController : ApiControllerBase
 
     public UserController(IMapper mapper) => _mapper = mapper;
 
+    /// <summary>Gets user by id</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="id">GUID ID of a user</param>
+    /// <returns>Returns GetUserDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
     [HttpGet("id")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUserDto>> GetUser([FromRoute] Guid id)
     {
         var query = new GetUserQuery
@@ -32,14 +43,43 @@ public class UserController : ApiControllerBase
         return Ok(vm);
     }
 
+    /// <summary>Gets all users</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /user
+    /// </remarks>
+    /// <returns>Returns GetUsersDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUsersDto>> GetAllUsers()
     {
         var vm = await Sender.Send(new GetUsersQuery());
         return Ok(vm);
     }
 
+    /// <summary>Creates user</summary>
+    /// <remarks>
+    /// Sample request:
+    /// POST /user
+    /// {
+    ///     userName: "string",
+    ///     password: "string",
+    ///     email: "string",
+    ///     firstName: "string",
+    ///     lastName: "string",
+    ///     patronymic: "string",
+    /// }
+    /// </remarks>
+    /// <param name="dto">CreateUserDto object</param>
+    /// <returns>Returns IdentityResult object</returns>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IdentityResult>> CreateUser([FromBody] CreateUserDto dto)
     {
         var command = _mapper.Map<CreateUserCommand>(dto);
@@ -47,7 +87,27 @@ public class UserController : ApiControllerBase
         return await Sender.Send(command);
     }
 
+    /// <summary>Updates user</summary>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// {
+    ///     userName: "string",
+    ///     password: "string",
+    ///     email: "string",
+    ///     firstName: "string",
+    ///     lastName: "string",
+    ///     patronymic: "string",
+    /// }
+    /// </remarks>
+    /// <param name="id">GUID ID of a user</param>
+    /// <param name="dto">UpdateUserDto object</param>
+    /// <returns>Returns IdentityResult object</returns>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IdentityResult>> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
     {
         dto.Id = id;
@@ -57,7 +117,17 @@ public class UserController : ApiControllerBase
         return NoContent();
     }
 
+    /// <summary>Deletes user</summary>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="id">GUID ID of a user</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> DeleteUser([FromRoute] Guid id)
     {
         await Sender.Send(new DeleteUserCommand
