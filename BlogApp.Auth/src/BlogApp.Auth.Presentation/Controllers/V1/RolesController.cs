@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole.Models;
+using BlogApp.Auth.Application.Roles.Commands.UpdateRole.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,5 +34,30 @@ public class RolesController : ApiControllerBase
         var command = _mapper.Map<CreateRoleCommand>(dto);
 
         return await Sender.Send(command);
+    }
+
+    /// <summary>Updates role</summary>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /role
+    /// {
+    ///     name: "string"
+    /// }
+    /// </remarks>
+    /// <param name="id">GUID ID of a user</param>
+    /// <param name="dto">UpdateRoleDto object</param>
+    /// <returns>Returns IdentityResult object</returns>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<IdentityResult>> CreateUser([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
+    {
+        dto.Id = id;
+        var command = _mapper.Map<CreateRoleCommand>(dto);
+
+        await Sender.Send(command);
+        return NoContent();
     }
 }
