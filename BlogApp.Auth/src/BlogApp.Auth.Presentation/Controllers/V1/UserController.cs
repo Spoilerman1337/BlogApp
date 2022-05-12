@@ -29,7 +29,7 @@ public class UserController : ApiControllerBase
     /// <returns>Returns GetUserDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUserDto>> GetUser([FromRoute] Guid id)
