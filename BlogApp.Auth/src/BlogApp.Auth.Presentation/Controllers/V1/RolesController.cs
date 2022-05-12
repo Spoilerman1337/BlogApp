@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole.Models;
+using BlogApp.Auth.Application.Roles.Commands.DeleteRole;
 using BlogApp.Auth.Application.Roles.Commands.UpdateRole.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -60,4 +61,24 @@ public class RolesController : ApiControllerBase
         return NoContent();
     }
 
+    /// <summary>Deletes role</summary>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /role/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="id">GUID ID of a role</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> DeleteRole([FromRoute] Guid id)
+    {
+        await Sender.Send(new DeleteRoleCommand
+        {
+            Id = id,
+        });
+
+        return NoContent();
+    }
 }
