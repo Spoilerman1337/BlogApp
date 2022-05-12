@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogApp.Auth.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
+[Produces("application/json")]
 public class UserController : ApiControllerBase
 {
     private readonly IMapper _mapper;
