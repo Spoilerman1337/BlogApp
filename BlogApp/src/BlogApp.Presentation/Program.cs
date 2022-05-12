@@ -1,9 +1,9 @@
 using BlogApp.Application;
 using BlogApp.Infrastructure;
+using BlogApp.Presentation.Middleware;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +70,7 @@ app.UseSwaggerUI(config =>
     }
     config.RoutePrefix = string.Empty;
 });
+app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

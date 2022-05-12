@@ -2,6 +2,7 @@ using BlogApp.Auth.Application;
 using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
+using BlogApp.Auth.Presentation.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseIdentityServer();
 
