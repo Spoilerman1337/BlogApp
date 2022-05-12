@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 
 namespace BlogApp.Auth.Application.Users.Commands.UpdateUser;
 
-public class UpdateUserCommand : IRequest<IdentityResult>
+public class UpdateUserCommand : IRequest
 {
     public Guid Id { get; set; }
     public string UserName { get; set; }

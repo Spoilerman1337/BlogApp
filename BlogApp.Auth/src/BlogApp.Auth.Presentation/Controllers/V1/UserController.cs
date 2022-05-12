@@ -102,13 +102,12 @@ public class UserController : ApiControllerBase
     /// </remarks>
     /// <param name="id">GUID ID of a user</param>
     /// <param name="dto">UpdateUserDto object</param>
-    /// <returns>Returns IdentityResult object</returns>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<IdentityResult>> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
+    public async Task<ActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
     {
         dto.Id = id;
         var command = _mapper.Map<UpdateUserCommand>(dto);

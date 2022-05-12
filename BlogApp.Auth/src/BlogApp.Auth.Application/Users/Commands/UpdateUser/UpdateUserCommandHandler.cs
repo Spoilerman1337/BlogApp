@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Auth.Application.Users.Commands.UpdateUser;
 
-public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, IdentityResult>
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 {
     private readonly UserManager<AppUser> _userManager;
 
     public UpdateUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
 
-    public async Task<IdentityResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var entity = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -27,6 +27,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Ident
         entity.LastName = request.LastName;
         entity.Patronymic = request.Patronymic;
 
-        return await _userManager.UpdateAsync(entity);
+        await _userManager.UpdateAsync(entity);
+
+        return Unit.Value;
     }
 }
