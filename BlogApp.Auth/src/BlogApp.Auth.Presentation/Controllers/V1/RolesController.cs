@@ -39,7 +39,7 @@ public class RolesController : ApiControllerBase
     /// <summary>Updates role</summary>
     /// <remarks>
     /// Sample request:
-    /// PUT /role
+    /// PUT /role/b5c0a7ae-762d-445d-be15-b59232b19383
     /// {
     ///     name: "string"
     /// }
@@ -48,7 +48,7 @@ public class RolesController : ApiControllerBase
     /// <param name="dto">UpdateRoleDto object</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpPut]
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
