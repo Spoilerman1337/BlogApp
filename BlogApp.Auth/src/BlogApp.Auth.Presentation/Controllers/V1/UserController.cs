@@ -8,6 +8,7 @@ using BlogApp.Auth.Application.Users.Queries.GetUser;
 using BlogApp.Auth.Application.Users.Queries.GetUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsers;
 using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ public class UserController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUserDto>> GetUser([FromRoute] Guid id)
@@ -53,6 +55,7 @@ public class UserController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUsersDto>> GetAllUsers()
@@ -79,6 +82,7 @@ public class UserController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IdentityResult>> CreateUser([FromBody] CreateUserDto dto)
@@ -106,6 +110,7 @@ public class UserController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
@@ -126,6 +131,7 @@ public class UserController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> DeleteUser([FromRoute] Guid id)

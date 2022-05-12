@@ -12,6 +12,7 @@ using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using BlogApp.Application.Comments.Queries.GetUsersComments;
 using BlogApp.Application.Comments.Queries.GetUsersComments.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
@@ -34,6 +35,7 @@ public class CommentController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id)
@@ -56,6 +58,7 @@ public class CommentController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetCommentsDto>> GetAllComments()
@@ -74,6 +77,7 @@ public class CommentController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetCommentsFromPostDto>> GetAllCommentsFromPost([FromRoute] Guid postId)
@@ -97,6 +101,7 @@ public class CommentController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUsersCommentsDto>> GetAllCommentsFromUser([FromRoute] Guid userId)
@@ -124,6 +129,7 @@ public class CommentController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<Guid>> CreateComment([FromBody] CreateCommentDto dto)
@@ -147,6 +153,7 @@ public class CommentController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] UpdateCommentDto dto)
@@ -168,6 +175,7 @@ public class CommentController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> DeleteComment([FromRoute] Guid id)

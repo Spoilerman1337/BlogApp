@@ -10,6 +10,7 @@ using BlogApp.Application.Tags.Queries.GetTag;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
 using BlogApp.Application.Tags.Queries.GetTags;
 using BlogApp.Application.Tags.Queries.GetTags.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
@@ -32,6 +33,7 @@ public class TagController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id)
@@ -54,6 +56,7 @@ public class TagController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetTagsDto>> GetAllTags()
@@ -73,6 +76,7 @@ public class TagController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetPostsTagsDto>> GetPostsTags([FromRoute] Guid postId)
@@ -99,6 +103,7 @@ public class TagController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<Guid>> CreateTag([FromBody] CreateTagDto dto)
@@ -121,6 +126,7 @@ public class TagController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateTag([FromRoute] Guid id, [FromBody] UpdateTagDto dto)
@@ -141,6 +147,7 @@ public class TagController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> DeleteTag([FromRoute] Guid id)
