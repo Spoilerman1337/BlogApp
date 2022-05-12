@@ -1,6 +1,7 @@
 using BlogApp.Application;
 using BlogApp.Infrastructure;
 using BlogApp.Presentation.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
@@ -54,6 +55,19 @@ builder.Services.AddApiVersioning(config =>
     config.ReportApiVersions = true;
 });
 
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+               .AddJwtBearer("Bearer", options =>
+               {
+                   options.Authority = "https://localhost:44386/";
+                   options.Audience = "NotesWebAPI";
+                   options.RequireHttpsMetadata = false;
+               });
+
 var app = builder.Build();
 
 app.UseSwagger(config =>
@@ -74,6 +88,9 @@ app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseApiVersioning();
 app.UseEndpoints(endpoints =>
