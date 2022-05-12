@@ -1,4 +1,5 @@
-﻿using BlogApp.Application.Common.Interfaces;
+﻿using BlogApp.Application.Common.Behaviors;
+using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.Common.Mappings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ public static class DependencyInjection
             config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
             config.AddProfile(new MappingProfile(typeof(IBlogDbContext).Assembly));
         });
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
     }
