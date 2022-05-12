@@ -1,6 +1,8 @@
 using BlogApp.Application;
+using BlogApp.Application.Common.Interfaces;
 using BlogApp.Infrastructure;
 using BlogApp.Presentation.Middleware;
+using BlogApp.Presentation.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -54,6 +56,9 @@ builder.Services.AddApiVersioning(config =>
     config.AssumeDefaultVersionWhenUnspecified = true;
     config.ReportApiVersions = true;
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddAuthentication(config =>
 {
