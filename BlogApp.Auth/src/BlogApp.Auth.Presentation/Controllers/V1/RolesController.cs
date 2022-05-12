@@ -2,6 +2,7 @@
 using BlogApp.Auth.Application.Roles.Commands.CreateRole;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole.Models;
 using BlogApp.Auth.Application.Roles.Commands.DeleteRole;
+using BlogApp.Auth.Application.Roles.Commands.UpdateRole;
 using BlogApp.Auth.Application.Roles.Commands.UpdateRole.Models;
 using BlogApp.Auth.Application.Roles.Queries.GetRole;
 using BlogApp.Auth.Application.Roles.Queries.GetRole.Models;
@@ -100,7 +101,7 @@ public class RolesController : ApiControllerBase
     public async Task<ActionResult> UpdateRole([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
     {
         dto.Id = id;
-        var command = _mapper.Map<CreateRoleCommand>(dto);
+        var command = _mapper.Map<UpdateRoleCommand>(dto);
 
         await Sender.Send(command);
         return NoContent();
