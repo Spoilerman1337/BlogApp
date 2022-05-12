@@ -29,7 +29,7 @@ public class RolesController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<IdentityResult>> CreateUser([FromBody] CreateRoleDto dto)
+    public async Task<ActionResult<IdentityResult>> CreateRole([FromBody] CreateRoleDto dto)
     {
         var command = _mapper.Map<CreateRoleCommand>(dto);
 
@@ -51,7 +51,7 @@ public class RolesController : ApiControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
+    public async Task<ActionResult> UpdateRole([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
     {
         dto.Id = id;
         var command = _mapper.Map<CreateRoleCommand>(dto);
@@ -59,4 +59,5 @@ public class RolesController : ApiControllerBase
         await Sender.Send(command);
         return NoContent();
     }
+
 }
