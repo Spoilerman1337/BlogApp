@@ -3,6 +3,10 @@ using BlogApp.Auth.Application.Roles.Commands.CreateRole;
 using BlogApp.Auth.Application.Roles.Commands.CreateRole.Models;
 using BlogApp.Auth.Application.Roles.Commands.DeleteRole;
 using BlogApp.Auth.Application.Roles.Commands.UpdateRole.Models;
+using BlogApp.Auth.Application.Roles.Queries.GetRole;
+using BlogApp.Auth.Application.Roles.Queries.GetRole.Models;
+using BlogApp.Auth.Application.Roles.Queries.GetRoles;
+using BlogApp.Auth.Application.Roles.Queries.GetRoles.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +18,46 @@ public class RolesController : ApiControllerBase
     private readonly IMapper _mapper;
 
     public RolesController(IMapper mapper) => _mapper = mapper;
+
+    /// <summary>Gets role by id</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /role/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="id">GUID ID of a role</param>
+    /// <returns>Returns GetRoleDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetRoleDto>> GetRole([FromRoute] Guid id)
+    {
+        var query = new GetRoleQuery
+        {
+            Id = id
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all roles</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /role
+    /// </remarks>
+    /// <returns>Returns GetRolesDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetRolesDto>> GetAllRoles()
+    {
+        var vm = await Sender.Send(new GetRolesQuery());
+        return Ok(vm);
+    }
 
     /// <summary>Creates role</summary>
     /// <remarks>
