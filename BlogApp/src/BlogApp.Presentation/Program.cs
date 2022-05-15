@@ -68,8 +68,8 @@ builder.Services.AddAuthentication(config =>
 })
                .AddJwtBearer("Bearer", options =>
                {
-                   options.Authority = "https://localhost:44386/";
-                   options.Audience = "NotesWebAPI";
+                   options.Authority = "https://localhost:7090/";
+                   options.Audience = "BlogAppWebAPI";
                    options.RequireHttpsMetadata = false;
                });
 
