@@ -9,7 +9,8 @@ public class IdentityConfiguration
     public static IEnumerable<ApiScope> ApiScopes =>
         new List<ApiScope>
         {
-            new ApiScope("BlogAppWebAPI", "Blog API")
+            new ApiScope("BlogAppWebAPI", "Blog API"),
+            new ApiScope("BlogAppAuthWebAPI", "Blog Auth API")
         };
 
     public static IEnumerable<IdentityResource> IdentityResources =>
@@ -26,7 +27,11 @@ public class IdentityConfiguration
             new ApiResource("BlogAppWebAPI", "Blog API", new[] { JwtClaimTypes.Name })
             {
                 Scopes = { "BlogAppWebAPI" }
-            }
+            },
+            new ApiResource("BlogAppAuthWebAPI", "Blog API", new[] { JwtClaimTypes.Name })
+            {
+                Scopes = { "BlogAppAuthWebAPI" }
+            },
         };
 
     public static IEnumerable<Client> Clients =>
@@ -56,7 +61,8 @@ public class IdentityConfiguration
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
                     IdentityServerConstants.StandardScopes.Email,
-                    "BlogAppWebAPI"
+                    "BlogAppWebAPI",
+                    "BlogAppAuthWebAPI"
                 },
                 AllowAccessTokensViaBrowser = true
             }
