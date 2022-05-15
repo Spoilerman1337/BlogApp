@@ -101,8 +101,6 @@ builder.Services.AddApiVersioning(config =>
     config.ReportApiVersions = true;
 });
 
-var app = builder.Build();
-
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme =
@@ -115,6 +113,8 @@ builder.Services.AddAuthentication(config =>
                    options.Audience = "BlogAppAuthAPI";
                    options.RequireHttpsMetadata = false;
                });
+
+var app = builder.Build();
 
 app.UseSwagger(config =>
 {
