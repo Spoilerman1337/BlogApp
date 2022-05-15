@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +49,35 @@ builder.Services.AddSwaggerGen(config =>
                               Version = description.ApiVersion.ToString(),
                               Description = $"Blog App API version {description.ApiVersion}"
                           });
+
+        config.AddSecurityDefinition($"AuthToken {description.ApiVersion}",
+                                     new OpenApiSecurityScheme
+                                     {
+                                         In = ParameterLocation.Header,
+                                         Type = SecuritySchemeType.Http,
+                                         BearerFormat = "JWT",
+                                         Scheme = "bearer",
+                                         Name = "Authorization",
+                                         Description = "Authorization token"
+                                     });
+
+        config.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = $"AuthToken {description.ApiVersion}"
+                    }
+                },
+                new string[] {}
+            }
+        });
+
+        config.CustomOperationIds(description =>
+            description.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null);
     }
 });
 

@@ -3,11 +3,14 @@ using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
 using BlogApp.Auth.Presentation.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +62,35 @@ builder.Services.AddSwaggerGen(config =>
                               Version = description.ApiVersion.ToString(),
                               Description = $"Blog App Auth API version {description.ApiVersion}"
                           });
+
+        config.AddSecurityDefinition($"AuthToken {description.ApiVersion}",
+                                     new OpenApiSecurityScheme
+                                     {
+                                         In = ParameterLocation.Header,
+                                         Type = SecuritySchemeType.Http,
+                                         BearerFormat = "JWT",
+                                         Scheme = "bearer",
+                                         Name = "Authorization",
+                                         Description = "Authorization token"
+                                     });
+
+        config.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = $"AuthToken {description.ApiVersion}"
+                    }
+                },
+                new string[] {}
+            }
+        });
+
+        config.CustomOperationIds(description =>
+            description.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null);
     }
 });
 
@@ -70,6 +102,19 @@ builder.Services.AddApiVersioning(config =>
 });
 
 var app = builder.Build();
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+               .AddJwtBearer("Bearer", options =>
+               {
+                   options.Authority = "https://localhost:7090";
+                   options.Audience = "BlogAppAuthAPI";
+                   options.RequireHttpsMetadata = false;
+               });
 
 app.UseSwagger(config =>
 {
