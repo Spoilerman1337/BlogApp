@@ -1,4 +1,5 @@
-﻿using BlogApp.Auth.Application.Common.Identity;
+﻿using BlogApp.Auth.Application.Common.Behaviors;
+using BlogApp.Auth.Application.Common.Identity;
 using BlogApp.Auth.Application.Common.Interfaces;
 using BlogApp.Auth.Application.Common.Mappings;
 using BlogApp.Auth.Domain.Entities;
@@ -20,6 +21,7 @@ public static class DependencyInjection
             config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
             config.AddProfile(new MappingProfile(typeof(IBlogAuthDbContext).Assembly));
         });
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddIdentityServer()
                 .AddAspNetIdentity<AppUser>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
