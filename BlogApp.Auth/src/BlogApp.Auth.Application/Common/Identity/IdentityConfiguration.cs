@@ -28,7 +28,7 @@ public class IdentityConfiguration
             {
                 Scopes = { "BlogAppWebAPI" }
             },
-            new ApiResource("BlogAppAuthWebAPI", "Blog API", new[] { JwtClaimTypes.Name })
+            new ApiResource("BlogAppAuthWebAPI", "Blog Auth API", new[] { JwtClaimTypes.Name })
             {
                 Scopes = { "BlogAppAuthWebAPI" }
             },
