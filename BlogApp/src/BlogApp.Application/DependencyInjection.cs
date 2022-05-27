@@ -20,6 +20,7 @@ public static class DependencyInjection
             config.AddProfile(new MappingProfile(typeof(IBlogDbContext).Assembly));
         });
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
         return services;
     }
