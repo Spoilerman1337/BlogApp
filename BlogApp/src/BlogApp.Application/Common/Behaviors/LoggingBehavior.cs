@@ -16,28 +16,11 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         var requestName = request.GetType().Name;
         var userId = _currentUserService.UserId;
-        TResponse response;
+        
         _logger.LogInformation("Handling {requestName} from userId {userId}", requestName, userId);
 
-        //try
-        //{
-            response = await next();
-        //}
-        //catch (Exception ex)
-        //{
-        //    _logger.LogError("Exception {ex} occured during request handling", ex.Message);
+        var response = await next();
 
-        //    foreach (DictionaryEntry dataUnit in ex.Data)
-        //    {
-        //        _logger.LogDebug("Exception debug info (Data): {key} - {value}", dataUnit.Key, dataUnit.Value);
-        //    }
-
-        //    _logger.LogDebug("Exception debug info (Stack trace): {stacktrace}", ex.StackTrace);
-        //    _logger.LogDebug("Exception debug info (Source): {source}", ex.Source);
-        //}
-        //finally
-        //{
-            return response;
-        //}
+        return response;
     }
 }
