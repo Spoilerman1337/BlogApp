@@ -1,0 +1,6 @@
+﻿namespace BlogApp.Auth.Application.Common.Interfaces;
+
+public interface ICurrentUserService
+{
+    Guid UserId { get; }
+}
