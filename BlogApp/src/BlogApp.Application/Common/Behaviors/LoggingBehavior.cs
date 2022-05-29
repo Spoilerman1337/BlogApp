@@ -1,7 +1,6 @@
 ﻿using BlogApp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System.Collections;
 
 namespace BlogApp.Application.Common.Behaviors;
 
@@ -16,7 +15,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         var requestName = request.GetType().Name;
         var userId = _currentUserService.UserId;
-        
+
         _logger.LogInformation("Handling {requestName} from userId {userId}", requestName, userId);
 
         var response = await next();
