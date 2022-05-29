@@ -1,14 +1,17 @@
 using BlogApp.Auth.Application;
+using BlogApp.Auth.Application.Common.Interfaces;
 using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
 using BlogApp.Auth.Presentation.Middleware;
+using BlogApp.Auth.Presentation.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
@@ -41,6 +44,9 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
 
 builder.Services.AddControllersWithViews();
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console());
 
 builder.Services.AddVersionedApiExplorer(options =>
 {
@@ -100,6 +106,9 @@ builder.Services.AddApiVersioning(config =>
     config.AssumeDefaultVersionWhenUnspecified = true;
     config.ReportApiVersions = true;
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddAuthentication(config =>
 {
