@@ -59,7 +59,7 @@ public class AuthenticationController : ApiControllerBase
     /// <response code="200">If valid</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
+    public async Task<IActionResult> Login([FromForm] LoginUserDto dto)
     {
         var vm = _mapper.Map<LoginUserCommand>(dto);
 
@@ -143,7 +143,7 @@ public class AuthenticationController : ApiControllerBase
     /// <response code="200">If valid</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
+    public async Task<IActionResult> Register([FromForm] RegisterUserDto dto)
     {
         var vm = _mapper.Map<RegisterUserCommand>(dto);
 
