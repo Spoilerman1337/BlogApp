@@ -122,6 +122,7 @@ builder.Services.AddAuthentication(config =>
                    options.Audience = "BlogAppAuthAPI";
                    options.RequireHttpsMetadata = false;
                });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -154,6 +155,9 @@ app.UseStaticFiles();
 app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseIdentityServer();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
