@@ -22,6 +22,7 @@ public static class DependencyInjection
             config.AddProfile(new MappingProfile(typeof(IBlogAuthDbContext).Assembly));
         });
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddIdentityServer()
                 .AddAspNetIdentity<AppUser>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
@@ -29,8 +30,6 @@ public static class DependencyInjection
                 .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
                 .AddInMemoryClients(IdentityConfiguration.Clients)
                 .AddDeveloperSigningCredential();
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         return services;
     }
 }
