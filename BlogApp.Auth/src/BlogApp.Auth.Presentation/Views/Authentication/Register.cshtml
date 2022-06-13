@@ -1,5 +1,5 @@
 ﻿@model RegisterUserDto
-<form asp-controller="Auth" asp-action="Register" method="post">
+<form asp-controller="Authentication" asp-action="Register" method="post">
     <input type="hidden" asp-for="ReturnUrl" />
     <div class="header">Sign Up</div>
     <div class="block">
@@ -20,6 +20,6 @@
     <div class="block">
         <button type="submit" class="button">Sign up</button>
     </div>
-    <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl"
+    <a asp-controller="Authentication" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl"
        class="switch-button">Login</a>
 </form>
