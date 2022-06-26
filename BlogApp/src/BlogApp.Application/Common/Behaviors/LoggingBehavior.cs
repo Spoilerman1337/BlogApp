@@ -16,7 +16,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         var requestName = request.GetType().Name;
         var userId = _currentUserService.UserId;
 
-        _logger.LogInformation("Handling {requestName} from userId {userId}", requestName, userId);
+        _logger.LogInformation("Handling request {requestName} from userId {userId}", requestName, userId);
 
         var response = await next();
 
