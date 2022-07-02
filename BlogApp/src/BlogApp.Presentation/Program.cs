@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using Serilog;
+using BlogApp.Domain.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +108,9 @@ builder.Services.AddAuthentication(config =>
                    options.Audience = "BlogAppWebAPI";
                    options.RequireHttpsMetadata = false;
                });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 
 var app = builder.Build();
 
