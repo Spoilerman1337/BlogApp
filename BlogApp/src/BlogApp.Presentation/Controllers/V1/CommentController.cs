@@ -42,7 +42,8 @@ public class CommentController : ApiControllerBase
     {
         var query = new GetCommentQuery
         {
-            Id = id
+            Id = id,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -63,7 +64,11 @@ public class CommentController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetCommentsDto>> GetAllComments()
     {
-        var vm = await Sender.Send(new GetCommentsQuery());
+        var query = new GetCommentsQuery()
+        {
+            BypassCache = false
+        };
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
@@ -85,6 +90,7 @@ public class CommentController : ApiControllerBase
         var query = new GetCommentsFromPostQuery
         {
             PostId = postId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -109,6 +115,7 @@ public class CommentController : ApiControllerBase
         var query = new GetUsersCommentsQuery
         {
             UserId = userId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);

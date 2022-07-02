@@ -41,6 +41,7 @@ public class TagController : ApiControllerBase
         var query = new GetTagQuery
         {
             Id = id,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -61,7 +62,11 @@ public class TagController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetTagsDto>> GetAllTags()
     {
-        var vm = await Sender.Send(new GetTagsQuery());
+        var query = new GetTagsQuery()
+        {
+            BypassCache = false
+        };
+        var vm = await Sender.Send(query);
 
         return Ok(vm);
     }
@@ -84,6 +89,7 @@ public class TagController : ApiControllerBase
         var query = new GetPostsTagsQuery
         {
             PostId = postId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);

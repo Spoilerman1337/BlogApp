@@ -48,7 +48,8 @@ public class PostController : ApiControllerBase
     {
         var query = new GetPostQuery
         {
-            Id = id
+            Id = id,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -69,7 +70,11 @@ public class PostController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetPostsDto>> GetAllPosts()
     {
-        var vm = await Sender.Send(new GetPostsQuery());
+        var query = new GetPostsQuery()
+        {
+            BypassCache = false
+        };
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
@@ -91,6 +96,7 @@ public class PostController : ApiControllerBase
         var query = new GetUsersPostsQuery
         {
             UserId = userId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -115,6 +121,7 @@ public class PostController : ApiControllerBase
         var query = new GetPostByCommentQuery
         {
             CommentId = commentId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
@@ -139,6 +146,7 @@ public class PostController : ApiControllerBase
         var query = new GetPostsByTagQuery
         {
             TagId = tagId,
+            BypassCache = false
         };
 
         var vm = await Sender.Send(query);
