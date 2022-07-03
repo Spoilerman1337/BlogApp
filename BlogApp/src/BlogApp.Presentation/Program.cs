@@ -130,6 +130,7 @@ app.UseSwaggerUI(config =>
         config.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
     }
     config.RoutePrefix = string.Empty;
+    config.DisplayRequestDuration();
 });
 app.UseCustomExceptionHandler();
 app.UseRouting();
