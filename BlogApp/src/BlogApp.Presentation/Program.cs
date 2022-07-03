@@ -109,7 +109,10 @@ builder.Services.AddAuthentication(config =>
                    options.RequireHttpsMetadata = false;
                });
 
-builder.Services.AddDistributedMemoryCache();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});
 builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 
 var app = builder.Build();
