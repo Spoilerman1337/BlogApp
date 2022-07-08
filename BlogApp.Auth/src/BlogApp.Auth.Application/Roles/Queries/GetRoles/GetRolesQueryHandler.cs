@@ -17,6 +17,6 @@ public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, List<GetRoles
 
     public async Task<List<GetRolesDto>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
     {
-        return await _roleManager.Roles.ProjectTo<GetRolesDto>(_mapper.ConfigurationProvider).ToListAsync();
+        return await _roleManager.Roles.ProjectTo<GetRolesDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
     }
 }
