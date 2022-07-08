@@ -19,6 +19,6 @@ public class GetUsersCommentsQueryHandler : IRequestHandler<GetUsersCommentsQuer
         return await _dbContext.Comments.Where(c => c.UserId == request.UserId)
                                         .OrderBy(c => c.Id)
                                         .ProjectTo<GetUsersCommentsDto>(_mapper.ConfigurationProvider)
-                                        .ToListAsync();
+                                        .ToListAsync(cancellationToken);
     }
 }

@@ -18,6 +18,6 @@ public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<GetPosts
     {
         return await _dbContext.Posts.OrderBy(c => c.Id)
                                      .ProjectTo<GetPostsDto>(_mapper.ConfigurationProvider)
-                                     .ToListAsync();
+                                     .ToListAsync(cancellationToken);
     }
 }

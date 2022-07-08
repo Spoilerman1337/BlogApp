@@ -19,6 +19,6 @@ public class GetPostsByTagQueryHandler : IRequestHandler<GetPostsByTagQuery, Lis
         return await _dbContext.Posts.Where(c => c.Tags.Select(c => c.Id).Contains(request.TagId))
                                      .OrderBy(c => c.Id)
                                      .ProjectTo<GetPostsByTagDto>(_mapper.ConfigurationProvider)
-                                     .ToListAsync();
+                                     .ToListAsync(cancellationToken);
     }
 }

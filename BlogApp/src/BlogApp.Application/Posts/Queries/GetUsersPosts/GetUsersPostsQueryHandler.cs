@@ -18,6 +18,6 @@ public class GetUsersPostsQueryHandler : IRequestHandler<GetUsersPostsQuery, Lis
     {
         return await _dbContext.Posts.Where(p => p.UserId == request.UserId)
                                      .ProjectTo<GetUsersPostsDto>(_mapper.ConfigurationProvider)
-                                     .ToListAsync();
+                                     .ToListAsync(cancellationToken);
     }
 }

@@ -14,7 +14,7 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
 
     public async Task<Unit> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Posts.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var entity = await _dbContext.Posts.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
         if (entity == null || entity.UserId != request.UserId)
         {

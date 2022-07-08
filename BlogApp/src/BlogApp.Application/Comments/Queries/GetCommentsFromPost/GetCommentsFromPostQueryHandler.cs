@@ -19,6 +19,6 @@ public class GetCommentsFromPostQueryHandler : IRequestHandler<GetCommentsFromPo
         return await _dbContext.Comments.Where(c => c.Post.Id == request.PostId)
                                         .OrderBy(c => c.Id)
                                         .ProjectTo<GetCommentsFromPostDto>(_mapper.ConfigurationProvider)
-                                        .ToListAsync();
+                                        .ToListAsync(cancellationToken);
     }
 }

@@ -14,8 +14,8 @@ public class AttachTagsCommandHandler : IRequestHandler<AttachTagsCommand>
 
     public async Task<Unit> Handle(AttachTagsCommand request, CancellationToken cancellationToken)
     {
-        var postEntity = _dbContext.Posts.Include(t => t.Tags).ThenInclude(p => p.Posts).Where(p => p.Id == request.Id).FirstOrDefault();
-        var tagEntity = _dbContext.Tags.Include(p => p.Posts).ThenInclude(t => t.Tags).Where(p => request.TagId.Contains(p.Id)).ToList();
+        var postEntity = await _dbContext.Posts.Include(t => t.Tags).ThenInclude(p => p.Posts).SingleOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+        var tagEntity = await _dbContext.Tags.Include(p => p.Posts).ThenInclude(t => t.Tags).Where(p => request.TagId.Contains(p.Id)).ToListAsync(cancellationToken);
 
         if (postEntity == null)
         {

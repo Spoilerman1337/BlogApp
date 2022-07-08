@@ -18,6 +18,6 @@ public class GetCommentsQueryHandler : IRequestHandler<GetCommentsQuery, List<Ge
     {
         return await _dbContext.Comments.OrderBy(c => c.Id)
                                         .ProjectTo<GetCommentsDto>(_mapper.ConfigurationProvider)
-                                        .ToListAsync();
+                                        .ToListAsync(cancellationToken);
     }
 }

@@ -18,6 +18,6 @@ public class GetTagsQueryHandler : IRequestHandler<GetTagsQuery, List<GetTagsDto
     {
         return await _dbContext.Tags.OrderBy(c => c.Id)
                                     .ProjectTo<GetTagsDto>(_mapper.ConfigurationProvider)
-                                    .ToListAsync();
+                                    .ToListAsync(cancellationToken);
     }
 }
