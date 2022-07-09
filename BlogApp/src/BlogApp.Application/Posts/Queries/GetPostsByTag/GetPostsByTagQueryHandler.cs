@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BlogApp.Application.Common.Interfaces;
-using BlogApp.Application.Posts.Queries.GetPostByTag.Models;
+using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogApp.Application.Posts.Queries.GetPostByTag;
+namespace BlogApp.Application.Posts.Queries.GetPostsByTag;
 
 public class GetPostsByTagQueryHandler : IRequestHandler<GetPostsByTagQuery, List<GetPostsByTagDto>>
 {

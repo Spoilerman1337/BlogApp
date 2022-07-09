@@ -2,7 +2,7 @@
 using BlogApp.Application.Common.Interfaces;
 using BlogApp.Domain.Entites;
 
-namespace BlogApp.Application.Posts.Queries.GetPostByTag.Models;
+namespace BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
 
 public class GetPostsByTagDto : IMapFrom<Post>
 {

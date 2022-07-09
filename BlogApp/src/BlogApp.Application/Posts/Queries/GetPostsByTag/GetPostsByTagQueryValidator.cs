@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BlogApp.Application.Posts.Queries.GetPostByTag;
+namespace BlogApp.Application.Posts.Queries.GetPostsByTag;
 
 public class GetPostsByTagQueryValidator : AbstractValidator<GetPostsByTagQuery>
 {

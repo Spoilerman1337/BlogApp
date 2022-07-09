@@ -1,8 +1,8 @@
 ﻿using BlogApp.Application.Common.Interfaces;
-using BlogApp.Application.Posts.Queries.GetPostByTag.Models;
+using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
 using MediatR;
 
-namespace BlogApp.Application.Posts.Queries.GetPostByTag;
+namespace BlogApp.Application.Posts.Queries.GetPostsByTag;
 
 public class GetPostsByTagQuery : IRequest<List<GetPostsByTagDto>>, ICacheableQuery
 {
