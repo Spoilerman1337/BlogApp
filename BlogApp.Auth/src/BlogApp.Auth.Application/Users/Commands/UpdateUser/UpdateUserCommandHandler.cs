@@ -14,7 +14,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 
     public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var entity = await _userManager.Users.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {

@@ -17,6 +17,7 @@ public class GetPostByCommentQueryHandler : IRequestHandler<GetPostByCommentQuer
     public async Task<GetPostByCommentDto> Handle(GetPostByCommentQuery request, CancellationToken cancellationToken)
     {
         return await _dbContext.Posts.ProjectTo<GetPostByCommentDto>(_mapper.ConfigurationProvider)
-                                     .SingleOrDefaultAsync(c => c.CommentIds.Contains(request.CommentId), cancellationToken);
+                                     .Where(c => c.CommentIds.Contains(request.CommentId))
+                                     .SingleOrDefaultAsync(cancellationToken);
     }
 }

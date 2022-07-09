@@ -14,7 +14,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
 
     public async Task<Unit> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var entity = await _roleManager.Roles.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {

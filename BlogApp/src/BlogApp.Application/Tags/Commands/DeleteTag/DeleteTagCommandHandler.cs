@@ -14,7 +14,7 @@ public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommand>
 
     public async Task<Unit> Handle(DeleteTagCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Tags.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var entity = await _dbContext.Tags.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {

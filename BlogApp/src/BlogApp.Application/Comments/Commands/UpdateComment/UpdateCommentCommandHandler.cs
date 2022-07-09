@@ -14,7 +14,7 @@ public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand>
 
     public async Task<Unit> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Comments.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var entity = await _dbContext.Comments.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null || entity.UserId != request.UserId)
         {

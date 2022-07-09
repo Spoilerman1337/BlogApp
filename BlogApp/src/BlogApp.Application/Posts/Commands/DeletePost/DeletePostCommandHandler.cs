@@ -14,7 +14,7 @@ public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
 
     public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Posts.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var entity = await _dbContext.Posts.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {

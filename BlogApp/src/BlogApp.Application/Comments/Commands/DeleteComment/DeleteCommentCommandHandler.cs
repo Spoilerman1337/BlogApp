@@ -14,7 +14,7 @@ public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
 
     public async Task<Unit> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Comments.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var entity = await _dbContext.Comments.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {
