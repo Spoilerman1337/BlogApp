@@ -80,7 +80,7 @@ public class TagController : ApiControllerBase
     /// <returns>Returns GetTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("post/{id}")]
+    [HttpGet("post/{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

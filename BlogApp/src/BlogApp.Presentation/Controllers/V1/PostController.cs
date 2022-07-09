@@ -87,7 +87,7 @@ public class PostController : ApiControllerBase
     /// <returns>Returns GetCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("user/{id}")]
+    [HttpGet("user/{userId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -112,7 +112,7 @@ public class PostController : ApiControllerBase
     /// <returns>Returns GetPostByCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("comment/{id}")]
+    [HttpGet("comment/{commentId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -137,7 +137,7 @@ public class PostController : ApiControllerBase
     /// <returns>Returns GetPostsByTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpGet("tag/{id}")]
+    [HttpGet("tag/{tagId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
