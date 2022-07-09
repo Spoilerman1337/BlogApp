@@ -16,8 +16,8 @@ public class GetPostQueryHandler : IRequestHandler<GetPostQuery, GetPostDto>
 
     public async Task<GetPostDto> Handle(GetPostQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Posts.ProjectTo<GetPostDto>(_mapper.ConfigurationProvider)
-                                     .Where(c => c.Id == request.Id)
+        return await _dbContext.Posts.Where(c => c.Id == request.Id)
+                                     .ProjectTo<GetPostDto>(_mapper.ConfigurationProvider)
                                      .SingleOrDefaultAsync(cancellationToken);
     }
 }
