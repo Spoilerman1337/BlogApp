@@ -20,7 +20,6 @@ public class CreateCommentCommandHandlerTests : TestCommandBase
             new CreateCommentCommand
             {
                 Text = text,
-                ParentComment = null,
                 PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
                 UserId = BlogAppContextFactory.UserAId
             },
@@ -44,7 +43,6 @@ public class CreateCommentCommandHandlerTests : TestCommandBase
             new CreateCommentCommand
             {
                 Text = null,
-                ParentComment = null,
                 PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
                 UserId = BlogAppContextFactory.UserAId
             },

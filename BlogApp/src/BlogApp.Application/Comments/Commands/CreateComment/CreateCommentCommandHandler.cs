@@ -19,7 +19,7 @@ public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand,
             Text = request.Text,
             CreationTime = DateTime.Now,
             LastEdited = null,
-            ParentComment = request.ParentComment,
+            ParentComment = _dbContext.Comments.Where(c => c.Id == request.ParentCommentId).FirstOrDefault(),
             Post = _dbContext.Posts.Where(p => p.Id == request.PostId).First(),
         };
 

@@ -91,7 +91,6 @@ public class BlogAppContextFactory
                 Id = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
                 UserId = UserAId,
                 CreationTime = DateTime.Now,
-                ParentComment = null,
                 Text = "Lorem ipsum dolor sit amet",
             },
             new Comment
@@ -99,7 +98,6 @@ public class BlogAppContextFactory
                 Id = Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"),
                 UserId = UserBId,
                 CreationTime = DateTime.Now,
-                ParentComment = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
                 Text = "Pellentesque consectetur libero in diam convallis, ut blandit est placerat. Donec fringilla turpis.",
             },
             new Comment
@@ -107,7 +105,6 @@ public class BlogAppContextFactory
                 Id = ToBeUpdatedCommentId,
                 UserId = UserBId,
                 CreationTime = DateTime.Now,
-                ParentComment = null,
                 Text = "Suspendisse bibendum dolor sapien.",
             },
             new Comment
@@ -115,7 +112,6 @@ public class BlogAppContextFactory
                 Id = ToBeDeletedCommentId,
                 UserId = UserBId,
                 CreationTime = DateTime.Now,
-                ParentComment = null,
                 Text = "Proin nec erat.",
             }
         };
@@ -170,6 +166,9 @@ public class BlogAppContextFactory
 
         comments.Where(t => t.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
+
+        comments.Where(t => t.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
+            .First().ParentComment = comments.Where(p => p.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6")).First();
 
         comments.Where(t => t.Id == ToBeUpdatedCommentId)
             .First().Post = posts.Where(p => p.Id == Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9")).First();
