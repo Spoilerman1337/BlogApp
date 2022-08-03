@@ -29,24 +29,4 @@ public class CreateCommentCommandHandlerTests : TestCommandBase
         //Assert
         (await Context.Comments.SingleOrDefaultAsync(c => c.Id == commentId && c.Text == text)).Should().NotBeNull();
     }
-
-    [Fact]
-    public async Task CreateCommentCommandHandler_NullTextShouldFail()
-    {
-        //Arrange
-        var handler = new CreateCommentCommandHandler(Context);
-
-        //Act
-
-        //Assert
-        await Assert.ThrowsAsync<DbUpdateException>(async () => await handler.Handle(
-            new CreateCommentCommand
-            {
-                Text = null,
-                PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
-                UserId = BlogAppContextFactory.UserAId
-            },
-            CancellationToken.None
-        ));
-    }
 }
