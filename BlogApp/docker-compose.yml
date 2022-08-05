@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   main:
-    image: ${DOCKER_REGISTRY-}blogapppresentation
+    image: ${DOCKER_REGISTRY-}blogappmain
     build:
       context: .
-      dockerfile: src/BlogApp.Presentation/Dockerfile
+      dockerfile: Dockerfile_main
     environment:
       - "ConnectionStrings__DefaultConnection=Server=db;Database=BlogAppDb;User=sa;Password=Sasasa12;MultipleActiveResultSets=true"
     ports:
@@ -17,10 +17,10 @@ services:
     restart: on-failure
 
   auth:
-    image: ${DOCKER_REGISTRY-}blogappauthorization
+    image: ${DOCKER_REGISTRY-}blogappauth
     build:
       context: .
-      dockerfile: src/BlogApp.Authorization/Dockerfile
+      dockerfile: Dockerfile_auth
     environment:
       - "ConnectionStrings__DefaultConnection=Server=db;Database=BlogAppAuthDb;User=sa;Password=Sasasa12;MultipleActiveResultSets=true"
     ports:
