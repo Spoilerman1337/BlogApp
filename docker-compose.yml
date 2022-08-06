@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}blogapppresentation
     build:
       context: .
-      dockerfile: src/BlogApp.Presentation/Dockerfile
+      dockerfile: BlogApp/Dockerfile
     environment:
       - "ConnectionStrings__DefaultConnection=Server=db;Database=BlogAppDb;User=sa;Password=Sasasa12;MultipleActiveResultSets=true"
     ports:
@@ -13,14 +13,13 @@ services:
     depends_on:
       - db
       - auth
-      - cache
     restart: on-failure
 
   auth:
     image: ${DOCKER_REGISTRY-}blogappauthorization
     build:
       context: .
-      dockerfile: src/BlogApp.Authorization/Dockerfile
+      dockerfile: BlogApp.Auth/Dockerfile
     environment:
       - "ConnectionStrings__DefaultConnection=Server=db;Database=BlogAppAuthDb;User=sa;Password=Sasasa12;MultipleActiveResultSets=true"
     ports:
@@ -36,9 +35,3 @@ services:
     environment:
       - "SA_PASSWORD=Sasasa12"
       - "ACCEPT_EULA=Y"
-
-  cache:
-    image: redis:6.2
-    ports:
-      - '6379:6379'
-    command: redis-server --save 60 1
