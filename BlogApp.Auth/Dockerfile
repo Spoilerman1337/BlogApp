@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["src/BlogApp.Auth.Presentation/BlogApp.Auth.Presentation.csproj", "src/BlogApp.Auth.Presentation/"]
 COPY ["src/BlogApp.Auth.Infrastructure/BlogApp.Auth.Infrastructure.csproj", "src/BlogApp.Auth.Infrastructure/"]
 COPY ["src/BlogApp.Auth.Application/BlogApp.Auth.Application.csproj", "src/BlogApp.Auth.Application/"]
-COPY ["src/BlogApp.Auth.Domain/BlogApp.Domain.Auth.csproj", "src/BlogApp.Auth.Domain/"]
+COPY ["src/BlogApp.Auth.Domain/BlogApp.Auth.Domain.csproj", "src/BlogApp.Auth.Domain/"]
 RUN dotnet restore "src/BlogApp.Auth.Presentation/BlogApp.Auth.Presentation.csproj"
 COPY . .
 WORKDIR "/src/src/BlogApp.Auth.Presentation"
