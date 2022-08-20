@@ -171,7 +171,7 @@ public class BlogAppContextFactory
             .First().ParentComment = comments.Where(p => p.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6")).First();
 
         comments.Where(t => t.Id == ToBeUpdatedCommentId)
-            .First().Post = posts.Where(p => p.Id == Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9")).First();
+            .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
 
         comments.Where(t => t.Id == ToBeDeletedCommentId)
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
