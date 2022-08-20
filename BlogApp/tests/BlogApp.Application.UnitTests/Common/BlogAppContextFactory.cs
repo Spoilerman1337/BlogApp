@@ -6,15 +6,15 @@ namespace BlogApp.Application.UnitTests.Common;
 
 public class BlogAppContextFactory
 {
-    public static Guid UserAId = Guid.NewGuid();
-    public static Guid UserBId = Guid.NewGuid();
+    internal static Guid UserAId = Guid.NewGuid();
+    internal static Guid UserBId = Guid.NewGuid();
 
-    public static Guid ToBeUpdatedCommentId = Guid.NewGuid();
-    public static Guid ToBeDeletedCommentId = Guid.NewGuid();
-    public static Guid ToBeUpdatedPostId = Guid.NewGuid();
-    public static Guid ToBeDeletedPostId = Guid.NewGuid();
-    public static Guid ToBeUpdatedTagId = Guid.NewGuid();
-    public static Guid ToBeDeletedTagId = Guid.NewGuid();
+    internal static Guid ToBeUpdatedCommentId = Guid.NewGuid();
+    internal static Guid ToBeDeletedCommentId = Guid.NewGuid();
+    internal static Guid ToBeUpdatedPostId = Guid.NewGuid();
+    internal static Guid ToBeDeletedPostId = Guid.NewGuid();
+    internal static Guid ToBeUpdatedTagId = Guid.NewGuid();
+    internal static Guid ToBeDeletedTagId = Guid.NewGuid();
     
     public static BlogDbContext Create()
     {

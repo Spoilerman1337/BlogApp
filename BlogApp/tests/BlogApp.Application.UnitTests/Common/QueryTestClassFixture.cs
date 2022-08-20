@@ -9,8 +9,8 @@ namespace BlogApp.Application.UnitTests.Common;
 
 public class QueryTestClassFixture : IDisposable
 {
-    public readonly BlogDbContext _context;
-    public readonly IMapper _mapper;
+    internal readonly BlogDbContext _context;
+    internal readonly IMapper _mapper;
 
     public QueryTestClassFixture()
     {
