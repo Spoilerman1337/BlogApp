@@ -8,6 +8,7 @@ public class BlogAppContextFactory
 {
     protected internal static Guid UserAId = Guid.NewGuid();
     protected internal static Guid UserBId = Guid.NewGuid();
+    protected internal static Guid NoPostUser = Guid.NewGuid();
 
     protected internal static Guid ToBeUpdatedCommentId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedCommentId = Guid.NewGuid();
