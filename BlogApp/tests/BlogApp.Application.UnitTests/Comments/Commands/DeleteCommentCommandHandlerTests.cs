@@ -3,11 +3,6 @@ using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.UnitTests.Common;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.Comments.Commands;
@@ -24,13 +19,13 @@ public class DeleteCommentCommandHandlerTests : TestCommandBase
         await handler.Handle(
             new DeleteCommentCommand
             {
-                Id = BlogAppContextFactory.ToBeUpdatedCommentId
+                Id = BlogAppContextFactory.ToBeDeletedCommentId
             },
             CancellationToken.None
         );
 
         //Assert
-        (await Context.Comments.SingleOrDefaultAsync(c => c.Id == BlogAppContextFactory.ToBeUpdatedCommentId)).Should().BeNull();
+        (await Context.Comments.SingleOrDefaultAsync(c => c.Id == BlogAppContextFactory.ToBeDeletedCommentId)).Should().BeNull();
     }
 
     [Fact]
