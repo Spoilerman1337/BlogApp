@@ -22,6 +22,7 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
         }
 
         entity.Text = request.Text;
+        entity.Header = request.Header;
         entity.LastEdited = DateTime.UtcNow;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
