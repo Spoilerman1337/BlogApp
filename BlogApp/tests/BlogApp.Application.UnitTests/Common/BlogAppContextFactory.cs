@@ -38,6 +38,18 @@ public class BlogAppContextFactory
                 Id = Guid.Parse("79121046-24BD-4518-813F-79878A48AC73"),
                 TagName = "Mauris",
                 Posts = new List<Post>()
+            },
+            new Tag
+            {
+                Id = ToBeUpdatedTagId,
+                TagName = "Aliquam",
+                Posts = new List<Post>()
+            },
+            new Tag
+            {
+                Id = ToBeDeletedTagId,
+                TagName = "Nam",
+                Posts = new List<Post>()
             }
         };
 
