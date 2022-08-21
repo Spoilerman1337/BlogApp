@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\src\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Posts\Queries\" />
+  </ItemGroup>
+
 </Project>
