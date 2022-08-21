@@ -21,7 +21,7 @@ public class AttachTagsCommandHandler : IRequestHandler<AttachTagsCommand>
         {
             throw new NotFoundException(nameof(Post), request.Id);
         }
-        if (tagEntities == null)
+        if (tagEntities.Count == 0)
         {
             throw new NotFoundException(nameof(Tag), request.TagId);
         }
