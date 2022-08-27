@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
+using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
@@ -68,17 +69,15 @@ public class GetCommentsFromPostQueryHandlerTests
         var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
 
         //Act
-        var result = await handler.Handle(
+
+        //Assert
+        await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(
             new GetCommentsFromPostQuery
             {
                 PostId = Guid.NewGuid(),
                 BypassCache = true
             },
             CancellationToken.None
-        );
-
-        //Assert
-        result.Should().BeEmpty();
-        result.Should().BeOfType<List<GetCommentsFromPostDto>>();
+        ));
     }
 }

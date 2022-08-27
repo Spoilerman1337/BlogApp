@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
+using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,9 @@ public class GetCommentsFromPostQueryHandler : IRequestHandler<GetCommentsFromPo
 
     public async Task<List<GetCommentsFromPostDto>> Handle(GetCommentsFromPostQuery request, CancellationToken cancellationToken)
     {
+        if (!_dbContext.Posts.Select(c => c.Id).Contains(request.PostId))
+            throw new NotFoundException(nameof(GetCommentsFromPostQueryHandler), request.PostId);
+
         return await _dbContext.Comments.Where(c => c.Post.Id == request.PostId)
                                         .OrderBy(c => c.Id)
                                         .ProjectTo<GetCommentsFromPostDto>(_mapper.ConfigurationProvider)
