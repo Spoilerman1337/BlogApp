@@ -30,7 +30,8 @@ public class GetUsersCommentsQueryHandlerTests
         var result = await handler.Handle(
             new GetUsersCommentsQuery
             {
-                UserId = BlogAppContextFactory.UserAId
+                UserId = BlogAppContextFactory.UserAId,
+                BypassCache = true
             },
             CancellationToken.None
         );

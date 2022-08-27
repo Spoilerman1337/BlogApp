@@ -29,7 +29,8 @@ public class GetCommentsFromPostQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentsFromPostQuery
             {
-                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")
+                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"),
+                BypassCache = true
             },
             CancellationToken.None
         );

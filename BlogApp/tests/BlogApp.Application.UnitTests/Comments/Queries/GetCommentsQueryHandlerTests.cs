@@ -29,7 +29,10 @@ public class GetCommentsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetCommentsQuery(),
+            new GetCommentsQuery
+            {
+                BypassCache = true
+            },
             CancellationToken.None
         );
 
