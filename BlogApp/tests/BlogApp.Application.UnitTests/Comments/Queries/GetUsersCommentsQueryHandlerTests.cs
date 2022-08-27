@@ -51,7 +51,8 @@ public class GetUsersCommentsQueryHandlerTests
         var result = await handler.Handle(
             new GetUsersCommentsQuery
             {
-                UserId = BlogAppContextFactory.NoPostUser
+                UserId = BlogAppContextFactory.NoPostUser,
+                BypassCache = true
             },
             CancellationToken.None
         );
@@ -72,6 +73,7 @@ public class GetUsersCommentsQueryHandlerTests
             new GetUsersCommentsQuery
             {
                 UserId = Guid.NewGuid(),
+                BypassCache = true
             },
             CancellationToken.None
         );

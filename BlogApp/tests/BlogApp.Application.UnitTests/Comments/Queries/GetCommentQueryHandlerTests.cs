@@ -51,7 +51,8 @@ public class GetCommentQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentQuery
             {
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                BypassCache = true
             },
             CancellationToken.None
         );
