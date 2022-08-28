@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.Posts.Queries.GetPostByComment.Models;
+using BlogApp.Domain.Entites;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,13 @@ public class GetPostByCommentQueryHandler : IRequestHandler<GetPostByCommentQuer
 
     public async Task<GetPostByCommentDto> Handle(GetPostByCommentQuery request, CancellationToken cancellationToken)
     {
+        if (!_dbContext.Comments.Select(c => c.Id).Contains(request.CommentId))
+            throw new NotFoundException(nameof(Comment), request.CommentId);
+
         var post = await _dbContext.Posts.Include(p => p.Comments)
                                      .Where(c => c.Comments.Select(c => c.Id).Contains(request.CommentId))
                                      .ProjectTo<GetPostByCommentDto>(_mapper.ConfigurationProvider)
                                      .SingleOrDefaultAsync(cancellationToken);
-        if (post == null)
-            throw new NotFoundException(nameof(post), request.CommentId);
         return post;
     }
 }
