@@ -16,7 +16,7 @@ public class GetPostsTagsQueryHandler : IRequestHandler<GetPostsTagsQuery, List<
 
     public async Task<List<GetPostsTagsDto>> Handle(GetPostsTagsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Tags.SelectMany(t => t.Posts.Where(p => p.Id == request.PostId))
+        return await _dbContext.Tags.Where(t => t.Posts.Where(p => p.Id == request.PostId).Any())
                                     .OrderBy(c => c.Id)
                                     .ProjectTo<GetPostsTagsDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync(cancellationToken);
