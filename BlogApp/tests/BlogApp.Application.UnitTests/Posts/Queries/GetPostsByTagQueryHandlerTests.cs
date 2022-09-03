@@ -31,8 +31,7 @@ public class GetPostsByTagQueryHandlerTests
         var result = await handler.Handle(
             new GetPostsByTagQuery
             {
-                TagId = Guid.Parse("79121046-24BD-4518-813F-79878A48AC73"),
-                BypassCache = true
+                TagId = Guid.Parse("79121046-24BD-4518-813F-79878A48AC73")
             },
             CancellationToken.None
         );
@@ -52,8 +51,7 @@ public class GetPostsByTagQueryHandlerTests
         var result = await handler.Handle(
             new GetPostsByTagQuery
             {
-                TagId = BlogAppContextFactory.ToBeUpdatedTagId,
-                BypassCache = true
+                TagId = BlogAppContextFactory.ToBeUpdatedTagId
             },
             CancellationToken.None);
 
@@ -74,8 +72,7 @@ public class GetPostsByTagQueryHandlerTests
         await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(
             new GetPostsByTagQuery
             {
-                TagId = Guid.NewGuid(),
-                BypassCache = true
+                TagId = Guid.NewGuid()
             },
             CancellationToken.None
         ));

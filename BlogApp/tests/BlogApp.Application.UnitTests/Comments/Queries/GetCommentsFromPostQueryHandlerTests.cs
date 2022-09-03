@@ -30,8 +30,7 @@ public class GetCommentsFromPostQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentsFromPostQuery
             {
-                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"),
-                BypassCache = true
+                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")
             },
             CancellationToken.None
         );
@@ -51,8 +50,7 @@ public class GetCommentsFromPostQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentsFromPostQuery
             {
-                PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
-                BypassCache = true
+                PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9")
             },
             CancellationToken.None
         );
@@ -74,8 +72,7 @@ public class GetCommentsFromPostQueryHandlerTests
         await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(
             new GetCommentsFromPostQuery
             {
-                PostId = Guid.NewGuid(),
-                BypassCache = true
+                PostId = Guid.NewGuid()
             },
             CancellationToken.None
         ));

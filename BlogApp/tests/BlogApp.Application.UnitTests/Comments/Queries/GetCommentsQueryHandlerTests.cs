@@ -29,10 +29,7 @@ public class GetCommentsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetCommentsQuery
-            {
-                BypassCache = true
-            },
+            new GetCommentsQuery(),
             CancellationToken.None
         );
 
@@ -52,10 +49,7 @@ public class GetCommentsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetCommentsQuery
-            {
-                BypassCache = true
-            },
+            new GetCommentsQuery(),
             CancellationToken.None
         );
 

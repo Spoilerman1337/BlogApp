@@ -30,8 +30,7 @@ public class GetTagQueryHandlerTests
         var result = await handler.Handle(
             new GetTagQuery
             {
-                Id = Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"),
-                BypassCache = true
+                Id = Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF")
             },
             CancellationToken.None
         );
@@ -51,8 +50,7 @@ public class GetTagQueryHandlerTests
         var result = await handler.Handle(
             new GetTagQuery
             {
-                Id = Guid.NewGuid(),
-                BypassCache = true
+                Id = Guid.NewGuid()
             },
             CancellationToken.None
         );

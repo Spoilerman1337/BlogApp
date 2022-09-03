@@ -30,8 +30,7 @@ public class GetCommentQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentQuery
             {
-                Id = Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"),
-                BypassCache = true
+                Id = Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155")
             },
             CancellationToken.None
         );
@@ -51,8 +50,7 @@ public class GetCommentQueryHandlerTests
         var result = await handler.Handle(
             new GetCommentQuery
             {
-                Id = Guid.NewGuid(),
-                BypassCache = true
+                Id = Guid.NewGuid()
             },
             CancellationToken.None
         );

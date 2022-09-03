@@ -31,8 +31,7 @@ public class GetPostByCommentHandlerTests
         var result = await handler.Handle(
             new GetPostByCommentQuery
             {
-                CommentId = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
-                BypassCache = true
+                CommentId = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6")
             },
             CancellationToken.None
         );
@@ -54,8 +53,7 @@ public class GetPostByCommentHandlerTests
         await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(
             new GetPostByCommentQuery
             {
-                CommentId = Guid.NewGuid(),
-                BypassCache = true
+                CommentId = Guid.NewGuid()
             },
             CancellationToken.None
         ));

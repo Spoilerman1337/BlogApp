@@ -29,10 +29,7 @@ public class GetTagsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetTagsQuery
-            {
-                BypassCache = true
-            },
+            new GetTagsQuery(),
             CancellationToken.None
         );
 
@@ -52,10 +49,7 @@ public class GetTagsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetTagsQuery
-            {
-                BypassCache = true
-            },
+            new GetTagsQuery(),
             CancellationToken.None
         );
 

@@ -29,10 +29,7 @@ public class GetPostsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetPostsQuery
-            {
-                BypassCache = true
-            },
+            new GetPostsQuery(),
             CancellationToken.None
         );
 
@@ -52,10 +49,7 @@ public class GetPostsQueryHandlerTests
 
         //Act
         var result = await handler.Handle(
-            new GetPostsQuery
-            {
-                BypassCache = true
-            },
+            new GetPostsQuery(),
             CancellationToken.None
         );
 

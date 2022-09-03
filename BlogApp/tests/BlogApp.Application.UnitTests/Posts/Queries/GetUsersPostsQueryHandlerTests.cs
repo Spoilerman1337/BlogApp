@@ -31,8 +31,7 @@ public class GetUsersPostsQueryHandlerTests
         var result = await handler.Handle(
             new GetUsersPostsQuery
             {
-                UserId = BlogAppContextFactory.UserAId,
-                BypassCache = true
+                UserId = BlogAppContextFactory.UserAId
             },
             CancellationToken.None
         );
@@ -52,8 +51,7 @@ public class GetUsersPostsQueryHandlerTests
         var result = await handler.Handle(
             new GetUsersPostsQuery
             {
-                UserId = BlogAppContextFactory.NoPostUser,
-                BypassCache = true
+                UserId = BlogAppContextFactory.NoPostUser
             },
             CancellationToken.None);
 
