@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.Application", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.Infrastructure", "src\BlogApp.Auth.Infrastructure\BlogApp.Auth.Infrastructure.csproj", "{591A831A-BBB1-4640-992A-17F63BC8D2A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3EEC4A2A-D5AA-4F8A-ABAD-8CE0D5D99EA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.Application.UnitTests", "tests\BlogApp.Auth.Application.UnitTests\BlogApp.Auth.Application.UnitTests.csproj", "{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{591A831A-BBB1-4640-992A-17F63BC8D2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{591A831A-BBB1-4640-992A-17F63BC8D2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{591A831A-BBB1-4640-992A-17F63BC8D2A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{780C2632-6CCF-44E1-A94B-7C2F3A6E1358} = {623938AA-8B2F-4BB9-991A-3D303104C74C}
 		{B32F0648-D764-4410-94B4-0A5B6BBC1653} = {623938AA-8B2F-4BB9-991A-3D303104C74C}
 		{591A831A-BBB1-4640-992A-17F63BC8D2A9} = {623938AA-8B2F-4BB9-991A-3D303104C74C}
+		{BF8C2B42-1BEA-4F76-88B0-3177A00B131F} = {3EEC4A2A-D5AA-4F8A-ABAD-8CE0D5D99EA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E735040-4EA5-4775-8F6D-A81ED8589EC0}
