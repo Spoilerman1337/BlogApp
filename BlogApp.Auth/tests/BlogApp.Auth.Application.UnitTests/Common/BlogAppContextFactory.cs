@@ -13,7 +13,7 @@ public class BlogAppContextFactory
     protected internal static Guid ToBeUpdatedUserId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedUserId = Guid.NewGuid();
     protected internal static Guid ToBeUpdatedRoleId = Guid.NewGuid();
-    protected internal static Guid TobeDeletedRoleId = Guid.NewGuid();
+    protected internal static Guid ToBeDeletedRoleId = Guid.NewGuid();
 
     public static BlogAuthDbContext Create()
     {
@@ -58,7 +58,7 @@ public class BlogAppContextFactory
             },
             new AppRole
             {
-                Id = TobeDeletedRoleId,
+                Id = ToBeDeletedRoleId,
                 Name = "In",
                 NormalizedName = "IN"
             }
@@ -79,7 +79,7 @@ public class BlogAppContextFactory
             new IdentityUserRole<Guid>
             {
                 UserId = ToBeDeletedUserId,
-                RoleId = TobeDeletedRoleId
+                RoleId = ToBeDeletedRoleId
             },
         };
 
