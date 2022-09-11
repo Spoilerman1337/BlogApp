@@ -4,6 +4,7 @@ using BlogApp.Auth.Application.Common.Mappings;
 using BlogApp.Auth.Infrastructure.Persistance;
 using System;
 using System.Reflection;
+using Xunit;
 
 namespace BlogApp.Auth.Application.UnitTests.Common;
 

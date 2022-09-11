@@ -21,7 +21,7 @@ public class TestCommandBase : IDisposable
 
     public void Dispose()
     {
-        BlogAppContextFactory.Destroy(UserManager);
+        BlogAppContextFactory.Destroy(Context);
     }
 
 }
