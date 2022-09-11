@@ -11,4 +11,5 @@ public class RegisterUserCommand : IRequest<IdentityResult>
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Patronymic { get; set; }
+    public Guid RoleId { get; set; }
 }

@@ -108,11 +108,7 @@ public class AuthenticationController : ApiControllerBase
     /// <summary>Register user</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /auth/register
-    /// {
-    ///     returnUrl: "string",
-    ///     userId: "b5c0a7ae-762d-445d-be15-b59232b19383",
-    /// }
+    /// GET /auth/register?returnUrl=b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="returnUrl">Return URL string</param>
     /// <returns>Returns View</returns>
@@ -136,6 +132,7 @@ public class AuthenticationController : ApiControllerBase
     ///     userName: "string",
     ///     password: "string",
     ///     returnUrl: "string",
+    ///     roleId: "b5c0a7ae-762d-445d-be15-b59232b19383"
     /// }
     /// </remarks>
     /// <param name="dto">RegisterUserDto object</param>

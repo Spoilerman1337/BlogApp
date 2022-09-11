@@ -16,6 +16,7 @@ public class RegisterUserDto : IMapFrom<RegisterUserCommand>
     [Compare("Password")]
     public string ConfirmPassword { get; set; }
     public string ReturnUrl { get; set; }
+    public Guid RoleId { get; set; }
 
     public void Mapping(Profile profile)
     {

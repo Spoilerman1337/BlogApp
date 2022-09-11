@@ -7,8 +7,9 @@ namespace BlogApp.Auth.Application.Authentication.Commands.RegisterUser;
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, IdentityResult>
 {
     private readonly UserManager<AppUser> _userManager;
+    private readonly RoleManager<AppRole> _roleManager;
 
-    public RegisterUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
+    public RegisterUserCommandHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) => (_userManager, _roleManager) = (userManager, roleManager);
 
     public async Task<IdentityResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
@@ -22,7 +23,10 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, I
             Patronymic = request.Patronymic
         };
 
+        var roleName = (await _roleManager.FindByIdAsync(request.RoleId.ToString())).Name;
         var result = await _userManager.CreateAsync(user, request.Password);
+
+        await _userManager.AddToRoleAsync(user, roleName);
 
         return result;
     }
