@@ -92,9 +92,8 @@ public class BlogAppContextFactory
         return context;
     }
 
-    public static void Destroy(UserManager<AppUser> userManager)
+    public static void Destroy(BlogAuthDbContext context)
     {
-        userManager.Dispose();
-        //roleManager.Dispose();
+        context.Dispose();
     }
 }
