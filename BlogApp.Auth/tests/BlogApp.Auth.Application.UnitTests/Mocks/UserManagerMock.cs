@@ -16,7 +16,7 @@ public static class UserManagerMock
         userManager.Object.PasswordValidators.Add(new PasswordValidator<TUser>());
 
         userManager.Setup(x => x.Users).Returns(userList);
-        userManager.Setup(x => x.DeleteAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success).Callback<TUser>((x) => context.SaveChanges());
+        userManager.Setup(x => x.DeleteAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success).Callback<TUser>((x) => userList.Remove(x).Context.SaveChanges());
         userManager.Setup(x => x.CreateAsync(It.IsAny<TUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<TUser, string>((x, y) => userList.Add(x).Context.SaveChanges());
         userManager.Setup(x => x.UpdateAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success).Callback<TUser>((x) => context.SaveChanges());
 

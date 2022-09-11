@@ -14,7 +14,7 @@ public class RoleManagerMock
 
         roleManager.Object.RoleValidators.Add(new RoleValidator<TRole>());
 
-        roleManager.Setup(x => x.DeleteAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => context.SaveChanges()); ;
+        roleManager.Setup(x => x.DeleteAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => rolesList.Remove(x).Context.SaveChanges()); ;
         roleManager.Setup(x => x.CreateAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => rolesList.Add(x).Context.SaveChanges());
         roleManager.Setup(x => x.UpdateAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => context.SaveChanges()); ;
 
