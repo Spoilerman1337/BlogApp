@@ -15,8 +15,8 @@ public class TestCommandBase : IDisposable
     public TestCommandBase()
     {
         Context = BlogAppContextFactory.Create();
-        UserManager = UserManagerMock.Create(Context, Context.Users).Object;
-        RoleManager = RoleManagerMock.Create(Context, Context.Roles).Object;
+        UserManager = UserManagerMock.Create(Context).Object;
+        RoleManager = RoleManagerMock.Create(Context).Object;
     }
 
     public void Dispose()

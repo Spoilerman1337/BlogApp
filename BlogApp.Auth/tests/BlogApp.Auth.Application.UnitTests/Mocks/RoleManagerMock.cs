@@ -1,22 +1,22 @@
-﻿using BlogApp.Auth.Infrastructure.Persistance;
+﻿using BlogApp.Auth.Domain.Entities;
+using BlogApp.Auth.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace BlogApp.Auth.Application.UnitTests.Mocks;
 
 public class RoleManagerMock
 {
-    public static Mock<RoleManager<TRole>> Create<TRole>(BlogAuthDbContext context, DbSet<TRole> rolesList) where TRole : class
+    public static Mock<RoleManager<AppRole>> Create(BlogAuthDbContext context)
     {
-        var roleStore = new Mock<IRoleStore<TRole>>().Object;
-        var roleManager = new Mock<RoleManager<TRole>>(roleStore, null, null, null, null);
+        var roleStore = new Mock<IRoleStore<AppRole>>().Object;
+        var roleManager = new Mock<RoleManager<AppRole>>(roleStore, null, null, null, null);
 
-        roleManager.Object.RoleValidators.Add(new RoleValidator<TRole>());
+        roleManager.Object.RoleValidators.Add(new RoleValidator<AppRole>());
 
-        roleManager.Setup(x => x.DeleteAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => rolesList.Remove(x).Context.SaveChanges()); ;
-        roleManager.Setup(x => x.CreateAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => rolesList.Add(x).Context.SaveChanges());
-        roleManager.Setup(x => x.UpdateAsync(It.IsAny<TRole>())).ReturnsAsync(IdentityResult.Success).Callback<TRole>((x) => context.SaveChanges()); ;
+        roleManager.Setup(x => x.DeleteAsync(It.IsAny<AppRole>())).ReturnsAsync(IdentityResult.Success).Callback<AppRole>((x) => context.Roles.Remove(x).Context.SaveChanges()); ;
+        roleManager.Setup(x => x.CreateAsync(It.IsAny<AppRole>())).ReturnsAsync(IdentityResult.Success).Callback<AppRole>((x) => context.Roles.Add(x).Context.SaveChanges());
+        roleManager.Setup(x => x.UpdateAsync(It.IsAny<AppRole>())).ReturnsAsync(IdentityResult.Success).Callback<AppRole>((x) => context.SaveChanges()); ;
 
         return roleManager;
     }
