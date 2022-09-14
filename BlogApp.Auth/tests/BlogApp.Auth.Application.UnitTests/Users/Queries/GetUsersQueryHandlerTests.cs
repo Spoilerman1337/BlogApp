@@ -63,7 +63,6 @@ public class GetUsersQueryHandlerTests
         );
 
         //Assert
-        result.Should().NotBeNull();
         result.Should().BeEmpty();
         result.Should().BeOfType<List<GetUsersDto>>();
     }

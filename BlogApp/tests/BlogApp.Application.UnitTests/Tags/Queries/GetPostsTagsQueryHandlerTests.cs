@@ -75,7 +75,7 @@ public class GetPostsTagsQueryHandlerTests
         );
 
         //Assert
-        result.Should().NotBeNull();
+        result.Should().BeEmpty();
         result.Should().BeOfType<List<GetPostsTagsDto>>();
     }
 }

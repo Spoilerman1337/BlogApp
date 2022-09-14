@@ -56,7 +56,7 @@ public class GetPostsByTagQueryHandlerTests
             CancellationToken.None);
 
         //Assert
-        result.Should().NotBeNull();
+        result.Should().BeEmpty();
         result.Should().BeOfType<List<GetPostsByTagDto>>();
     }
 

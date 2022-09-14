@@ -54,7 +54,7 @@ public class GetTagsQueryHandlerTests
         );
 
         //Assert
-        result.Should().NotBeNull();
+        result.Should().BeEmpty();
         result.Should().BeOfType<List<GetTagsDto>>();
     }
 }
