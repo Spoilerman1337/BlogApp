@@ -1,5 +1,6 @@
 using BlogApp.Application;
 using BlogApp.Application.Common.Interfaces;
+using BlogApp.Domain.Settings;
 using BlogApp.Infrastructure;
 using BlogApp.Presentation.Middleware;
 using BlogApp.Presentation.Services;
@@ -7,10 +8,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
-using Serilog;
-using BlogApp.Domain.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
 using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
 using BlogApp.Application.UnitTests.Common;

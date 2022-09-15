@@ -1,5 +1,4 @@
-﻿using BlogApp.Application.Posts.Queries.GetUsersPosts;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BlogApp.Application.Posts.Queries.GetUsersPosts;
 
