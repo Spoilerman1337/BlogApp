@@ -51,6 +51,12 @@ public class BlogAppContextFactory
         {
             new AppRole
             {
+                Id = Guid.Parse("5C29FCAB-1AAD-4EDD-8D75-3770D98D651D"),
+                Name = "Aliquet",
+                NormalizedName = "ALIQUET"
+            },
+            new AppRole
+            {
                 Id = ToBeUpdatedRoleId,
                 Name = "Donec",
                 NormalizedName = "DONEC"
