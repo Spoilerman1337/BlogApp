@@ -2,6 +2,8 @@
 using BlogApp.Auth.Application.Users.Commands.CreateUser;
 using BlogApp.Auth.Application.Users.Commands.CreateUser.Models;
 using BlogApp.Auth.Application.Users.Commands.DeleteUser;
+using BlogApp.Auth.Application.Users.Commands.SetUserRole;
+using BlogApp.Auth.Application.Users.Commands.SetUserRole.Models;
 using BlogApp.Auth.Application.Users.Commands.UpdateUser;
 using BlogApp.Auth.Application.Users.Commands.UpdateUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
@@ -139,6 +141,33 @@ public class UserController : ApiControllerBase
         await Sender.Send(new DeleteUserCommand
         {
             Id = id,
+        });
+
+        return NoContent();
+    }
+
+    /// <summary>Changes user's role</summary>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /user
+    /// {
+    ///     userId: "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///     roleId: "b5c0a7ae-762d-445d-be15-b59232b19383"
+    /// }
+    /// </remarks>
+    /// <param name="dto">SetUserRoleDto object</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> SetUserRole([FromBody] SetUserRoleDto dto)
+    {
+        await Sender.Send(new SetUserRoleCommand
+        {
+            RoleId = dto.RoleId,
+            UserId = dto.UserId
         });
 
         return NoContent();
