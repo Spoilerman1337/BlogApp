@@ -42,6 +42,8 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 builder.Services.AddSwaggerGen(config =>
 {
+    config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+
     var provider = builder.Services.BuildServiceProvider();
     var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
 
