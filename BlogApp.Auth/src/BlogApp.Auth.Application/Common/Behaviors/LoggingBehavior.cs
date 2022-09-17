@@ -1,4 +1,5 @@
-﻿using BlogApp.Auth.Application.Common.Interfaces;
+﻿using AutoMapper.Internal;
+using BlogApp.Auth.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +20,17 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         _logger.LogInformation("Handling {requestName} from userId {userId}", requestName, userId);
 
         var response = await next();
+
+        if (response.GetType().IsListType())
+        {
+            var responseType = response.GetType().GetGenericArguments().First().Name;
+            _logger.LogInformation("Returned List of {responseType} by request of user {userId}", responseType, userId);
+        }
+        else
+        {
+            var responseType = response.GetType().Name;
+            _logger.LogInformation("Returned {responseType} by request of user {userId}", responseType, userId);
+        }
 
         return response;
     }
