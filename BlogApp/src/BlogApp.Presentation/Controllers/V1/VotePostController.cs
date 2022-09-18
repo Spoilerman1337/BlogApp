@@ -101,7 +101,7 @@ public class VotePostController : ApiControllerBase
     /// <param name="postId">GUID ID of a post</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpDelete]
+    [HttpDelete("{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -124,7 +124,7 @@ public class VotePostController : ApiControllerBase
     /// <param name="postId">GUID ID of a post</param>
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
-    [HttpPut]
+    [HttpPut("{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
