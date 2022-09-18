@@ -22,7 +22,6 @@ public class GetPostsVotesQueryHandler : IRequestHandler<GetPostsVotesQuery, Lis
             throw new NotFoundException(nameof(Post), request.PostId);
 
         return await _dbContext.VotePosts.Where(c => c.PostId == request.PostId)
-                                     .OrderBy(c => c.PostId)
                                      .ProjectTo<GetPostsVotesDto>(_mapper.ConfigurationProvider)
                                      .ToListAsync(cancellationToken);
     }
