@@ -164,7 +164,7 @@ public class PostController : ApiControllerBase
     /// </remarks>
     /// <param name="dto">CreatePostDto object</param>
     /// <returns>Returns GUID of a new post</returns>
-    /// <response code="204">Success</response>
+    /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
     [Authorize]
