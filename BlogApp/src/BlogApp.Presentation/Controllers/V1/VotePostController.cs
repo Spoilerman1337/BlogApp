@@ -53,7 +53,7 @@ public class VotePostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<bool>> UnvotePost([FromRoute] Guid postId)
+    public async Task<ActionResult> UnvotePost([FromRoute] Guid postId)
     {
         await Sender.Send(new UnvotePostCommand
         {
@@ -76,7 +76,7 @@ public class VotePostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<bool>> ChangeVotePost([FromRoute] Guid postId)
+    public async Task<ActionResult> ChangeVotePost([FromRoute] Guid postId)
     {
         await Sender.Send(new ChangeVotePostCommand
         {
