@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.VotePosts.Commands.UpvotePost.Models;
 
-public class UpvotePostDto : IMapFrom<UpvotePostCommand>
+public class UpvotePostDto : IMapFrom<UpvotePostDto>
 {
     [Required]
     public Guid PostId { get; set; }
