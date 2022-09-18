@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlogApp.Application.VotePosts.Commands.ChangeVotePost;
 using BlogApp.Application.VotePosts.Commands.UnvotePost;
 using BlogApp.Application.VotePosts.Commands.UpvotePost;
 using BlogApp.Application.VotePosts.Commands.UpvotePost.Models;
@@ -55,6 +56,29 @@ public class VotePostController : ApiControllerBase
     public async Task<ActionResult<bool>> UnvotePost([FromRoute] Guid postId)
     {
         await Sender.Send(new UnvotePostCommand
+        {
+            PostId = postId,
+            UserId = UserId
+        });
+
+        return NoContent();
+    }
+
+    /// <summary>Changes user's vote on post on opposite</summary>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /votePost/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="postId">GUID ID of a post</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<bool>> ChangeVotePost([FromRoute] Guid postId)
+    {
+        await Sender.Send(new ChangeVotePostCommand
         {
             PostId = postId,
             UserId = UserId
