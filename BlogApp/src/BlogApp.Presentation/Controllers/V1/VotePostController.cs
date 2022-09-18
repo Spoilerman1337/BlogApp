@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlogApp.Application.VotePosts.Commands.UnvotePost;
 using BlogApp.Application.VotePosts.Commands.UpvotePost;
 using BlogApp.Application.VotePosts.Commands.UpvotePost.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -37,5 +38,28 @@ public class VotePostController : ApiControllerBase
         command.UserId = UserId;
 
         return await Sender.Send(command);
+    }
+
+    /// <summary>Removes user's vote on post</summary>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /votePost/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="postId">GUID ID of a post</param>
+    /// <response code="204">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpDelete]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<bool>> UnvotePost([FromRoute] Guid postId)
+    {
+        await Sender.Send(new UnvotePostCommand
+        {
+            PostId = postId,
+            UserId = UserId
+        });
+
+        return NoContent();
     }
 }
