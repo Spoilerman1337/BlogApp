@@ -17,7 +17,7 @@ public class VotePostController : ApiControllerBase
     /// <summary>Creates user's vote on post</summary>
     /// <remarks>
     /// Sample request:
-    /// POST /post
+    /// POST /votePost
     /// {
     ///     postId: "b5c0a7ae-762d-445d-be15-b59232b19383",
     ///     isUpvoted: true,
