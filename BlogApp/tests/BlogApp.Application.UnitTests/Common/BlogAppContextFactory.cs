@@ -16,7 +16,7 @@ public class BlogAppContextFactory
     protected internal static Guid ToBeDeletedPostId = Guid.NewGuid();
     protected internal static Guid ToBeUpdatedTagId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedTagId = Guid.NewGuid();
-    
+
     public static BlogDbContext Create()
     {
         var options = new DbContextOptionsBuilder<BlogDbContext>()
@@ -129,6 +129,34 @@ public class BlogAppContextFactory
             }
         };
 
+        var votePosts = new List<VotePost>
+        {
+            new VotePost
+            {
+                PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
+                UserId = UserBId,
+                IsUpvoted = true
+            },
+            new VotePost
+            {
+                PostId = Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"),
+                UserId = NoPostUser,
+                IsUpvoted = true
+            },
+            new VotePost
+            {
+                PostId = ToBeUpdatedPostId,
+                UserId = NoPostUser,
+                IsUpvoted = false
+            },
+            new VotePost
+            {
+                PostId = ToBeUpdatedPostId,
+                UserId = UserBId,
+                IsUpvoted = false
+            }
+        };
+
         tags.Where(t => t.Id == Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"))
             .First().Posts
             .ToList()
@@ -174,25 +202,32 @@ public class BlogAppContextFactory
                 .Where(c => c.Id == Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF") || 
                             c.Id == Guid.Parse("79121046-24BD-4518-813F-79878A48AC73")));
 
-        comments.Where(t => t.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"))
+        comments.Where(c => c.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"))
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
 
-        comments.Where(t => t.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
+        comments.Where(c => c.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
 
-        comments.Where(t => t.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
+        comments.Where(c => c.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"))
             .First().ParentComment = comments.Where(p => p.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6")).First();
 
-        comments.Where(t => t.Id == ToBeUpdatedCommentId)
+        comments.Where(c => c.Id == ToBeUpdatedCommentId)
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
 
-        comments.Where(t => t.Id == ToBeDeletedCommentId)
+        comments.Where(c => c.Id == ToBeDeletedCommentId)
             .First().Post = posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA")).First();
+
+        votePosts.Where(vp => vp.PostId == Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9"))
+            .First().Post = posts.Where(p => p.Id == Guid.Parse("2A9C5C84-032D-49D6-B43B-D4028679B8D9")).First();
+
+        votePosts.Where(vp => vp.PostId == ToBeUpdatedPostId)
+            .First().Post = posts.Where(p => p.Id == ToBeUpdatedPostId).First();
 
         context.Database.EnsureCreated();
         context.Tags.AddRange(tags);
         context.Posts.AddRange(posts);
         context.Comments.AddRange(comments);
+        context.VotePosts.AddRange(votePosts);
         context.SaveChanges();
         return context;
     }
