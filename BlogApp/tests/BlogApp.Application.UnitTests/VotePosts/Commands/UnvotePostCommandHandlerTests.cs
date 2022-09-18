@@ -18,7 +18,7 @@ public class UnvotePostCommandHandlerTests : TestCommandBase
         var userId = BlogAppContextFactory.NoPostUser;
 
         //Act
-        var votePostStatus = await handler.Handle(
+        await handler.Handle(
             new UnvotePostCommand
             {
                 PostId = postId,
