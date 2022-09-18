@@ -12,12 +12,14 @@ public class BlogDbContext : DbContext, IBlogDbContext
     public DbSet<Post> Posts { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<VotePost> VotePosts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new PostConfiguration());
         builder.ApplyConfiguration(new CommentConfiguration());
         builder.ApplyConfiguration(new TagConfiguration());
+        builder.ApplyConfiguration(new VotePostConfiguration());
 
         base.OnModelCreating(builder);
     }

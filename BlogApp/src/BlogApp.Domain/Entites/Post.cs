@@ -11,4 +11,5 @@ public class Post
     public Guid UserId { get; set; }
     public ICollection<Comment> Comments { get; set; }
     public ICollection<Tag> Tags { get; set; }
+    public ICollection<VotePost> Votes { get; set; }
 }
