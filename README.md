@@ -10,4 +10,4 @@ Project is divided into several layers:
 
 Also contains:
 - Auth - Authorization server designed the same way as main app
-- Frontend - JS framework client app
+- Frontend - React client app
