@@ -12,8 +12,10 @@ public class BlogAppContextFactory
 
     protected internal static Guid ToBeUpdatedCommentId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedCommentId = Guid.NewGuid();
+
     protected internal static Guid ToBeUpdatedPostId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedPostId = Guid.NewGuid();
+
     protected internal static Guid ToBeUpdatedTagId = Guid.NewGuid();
     protected internal static Guid ToBeDeletedTagId = Guid.NewGuid();
 
@@ -157,6 +159,34 @@ public class BlogAppContextFactory
             }
         };
 
+        var voteComments = new List<VoteComment>
+        {
+            new VoteComment
+            {
+                CommentId = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
+                UserId = UserBId,
+                IsUpvoted = true
+            },
+            new VoteComment
+            {
+                CommentId = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
+                UserId = NoPostUser,
+                IsUpvoted = true
+            },
+            new VoteComment
+            {
+                CommentId = ToBeUpdatedCommentId,
+                UserId = NoPostUser,
+                IsUpvoted = false
+            },
+            new VoteComment
+            {
+                CommentId = ToBeUpdatedCommentId,
+                UserId = UserBId,
+                IsUpvoted = false
+            }
+        };
+
         tags.Where(t => t.Id == Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"))
             .First().Posts
             .ToList()
@@ -223,11 +253,18 @@ public class BlogAppContextFactory
         votePosts.Where(vp => vp.PostId == ToBeUpdatedPostId)
             .First().Post = posts.Where(p => p.Id == ToBeUpdatedPostId).First();
 
+        voteComments.Where(vc => vc.CommentId == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"))
+            .First().Comment = comments.Where(p => p.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6")).First();
+
+        voteComments.Where(vc => vc.CommentId == ToBeUpdatedCommentId)
+            .First().Comment = comments.Where(c => c.Id == ToBeUpdatedCommentId).First();
+
         context.Database.EnsureCreated();
         context.Tags.AddRange(tags);
         context.Posts.AddRange(posts);
         context.Comments.AddRange(comments);
         context.VotePosts.AddRange(votePosts);
+        context.VoteComments.AddRange(voteComments);
         context.SaveChanges();
         return context;
     }
