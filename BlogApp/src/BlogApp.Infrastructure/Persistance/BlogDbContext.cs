@@ -20,6 +20,7 @@ public class BlogDbContext : DbContext, IBlogDbContext
         builder.ApplyConfiguration(new CommentConfiguration());
         builder.ApplyConfiguration(new TagConfiguration());
         builder.ApplyConfiguration(new VotePostConfiguration());
+        builder.ApplyConfiguration(new VoteCommentConfiguration());
 
         base.OnModelCreating(builder);
     }
