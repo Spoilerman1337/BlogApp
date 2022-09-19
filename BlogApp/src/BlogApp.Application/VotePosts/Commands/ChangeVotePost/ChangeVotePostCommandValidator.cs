@@ -1,9 +1,8 @@
-﻿using BlogApp.Application.VotePosts.Commands.UnvotePost;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BlogApp.Application.VotePosts.Commands.ChangeVotePost;
 
-public class ChangeVotePostCommandValidator : AbstractValidator<UnvotePostCommand>
+public class ChangeVotePostCommandValidator : AbstractValidator<ChangeVotePostCommand>
 {
     public ChangeVotePostCommandValidator()
     {
