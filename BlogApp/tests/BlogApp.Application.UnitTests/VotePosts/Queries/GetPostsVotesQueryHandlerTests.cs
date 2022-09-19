@@ -5,7 +5,6 @@ using BlogApp.Application.VotePosts.Queries.GetPostsVotes;
 using BlogApp.Application.VotePosts.Queries.GetPostsVotes.Models;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.VotePosts.Queries;
