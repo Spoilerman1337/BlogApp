@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
 using BlogApp.Application.VoteComments.Commands.UnvoteComment;
+using BlogApp.Application.VoteComments.Commands.UpvoteComment;
+using BlogApp.Application.VoteComments.Commands.UpvoteComment.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,31 @@ public class VoteCommentController : ApiControllerBase
     private readonly IMapper _mapper;
 
     public VoteCommentController(IMapper mapper) => _mapper = mapper;
+
+    /// <summary>Creates user's vote on comment</summary>
+    /// <remarks>
+    /// Sample request:
+    /// POST /voteComment
+    /// {
+    ///     commentId: "b5c0a7ae-762d-445d-be15-b59232b19383",
+    ///     isUpvoted: true,
+    /// }
+    /// </remarks>
+    /// <param name="dto">UpvoteCommentDto object</param>
+    /// <returns>Returns status of a new vote</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpPost]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<bool>> UpvoteComment([FromBody] UpvoteCommentDto dto)
+    {
+        var command = _mapper.Map<UpvoteCommentCommand>(dto);
+        command.UserId = UserId;
+
+        return await Sender.Send(command);
+    }
 
     /// <summary>Removes user's vote on comment</summary>
     /// <remarks>
