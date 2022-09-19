@@ -1,7 +1,6 @@
 ﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
-using BlogApp.Application.VotePosts.Commands.ChangeVotePost;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
