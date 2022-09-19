@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
+using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes.Models;
+using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes;
+using BlogApp.Application.VoteComments.Queries.GetUsersCommentVotes.Models;
 
 namespace BlogApp.Presentation.Controllers.V1;
 
@@ -38,6 +41,30 @@ public class VoteCommentController : ApiControllerBase
         var query = new GetCommentsVotesQuery
         {
             CommentId = commentId
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all user's comment votes</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /voteComment/user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="userId">GUID ID of a user</param>
+    /// <returns>Returns GetUsersCommentVotesDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("user/{userId}")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetUsersCommentVotesDto>> GetUsersPostVotes([FromRoute] Guid userId)
+    {
+        var query = new GetUsersPostVotesQuery
+        {
+            UserId = userId
         };
 
         var vm = await Sender.Send(query);
