@@ -3,8 +3,12 @@ using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
 using BlogApp.Application.VoteComments.Commands.UnvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment.Models;
+using BlogApp.Application.VotePosts.Queries.GetPostsVotes.Models;
+using BlogApp.Application.VotePosts.Queries.GetPostsVotes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
+using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
 
 namespace BlogApp.Presentation.Controllers.V1;
 
@@ -15,6 +19,30 @@ public class VoteCommentController : ApiControllerBase
     private readonly IMapper _mapper;
 
     public VoteCommentController(IMapper mapper) => _mapper = mapper;
+
+    /// <summary>Gets all comment's votes</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /voteComment/comment/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <param name="commentId">GUID ID of a comment</param>
+    /// <returns>Returns GetCommentsVotesDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("comment/{commentId}")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetCommentsVotesDto>> GetCommentsVotes([FromRoute] Guid commentId)
+    {
+        var query = new GetCommentsVotesQuery
+        {
+            CommentId = commentId
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
 
     /// <summary>Creates user's vote on comment</summary>
     /// <remarks>
