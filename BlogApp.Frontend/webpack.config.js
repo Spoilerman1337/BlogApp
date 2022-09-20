@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: prod ? 'production' : 'development',
-    entry: './src/index.tsx',
+    entry: ['@babel/polyfill', './src/index.tsx'],
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -54,7 +54,7 @@ module.exports = {
             }
           ]
     },
-    plugin: [
+    plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
