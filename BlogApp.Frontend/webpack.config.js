@@ -16,8 +16,8 @@ module.exports = {
     module: {
         rules: [
             {
-              test: /\.m?js$/,
-              exclude: /(node_modules|bower_components)/,
+              test: /\.js$/,
+              exclude: /node_modules/,
               use: {
                 loader: 'babel-loader',
                 options: {
@@ -39,7 +39,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.s[ac]ss$/.,
+                test: /\.s[ac]ss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
