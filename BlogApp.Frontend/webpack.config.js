@@ -4,6 +4,7 @@ const prod = process.env.NODE_ENV === 'production';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: prod ? 'production' : 'development',
@@ -23,6 +24,19 @@ module.exports = {
                   presets: ['@babel/preset-env']
                 }
               }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: !prod,
+                            reloadAll: true
+                        }
+                    },
+                    'css-loader'
+                ],
             }
           ]
     },
@@ -30,6 +44,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin()
     ]
 }
