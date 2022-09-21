@@ -10,6 +10,8 @@ using BlogApp.Auth.Application.Users.Queries.GetUser;
 using BlogApp.Auth.Application.Users.Queries.GetUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsers;
 using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
+using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
+using BlogApp.Auth.Application.Users.Queries.GetUsersByRole.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +55,7 @@ public class UserController : ApiControllerBase
     /// Sample request:
     /// GET /user
     /// </remarks>
-    /// <returns>Returns GetUsersDto</returns>
+    /// <returns>Returns List of GetUsersDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
@@ -63,6 +65,29 @@ public class UserController : ApiControllerBase
     public async Task<ActionResult<GetUsersDto>> GetAllUsers()
     {
         var vm = await Sender.Send(new GetUsersQuery());
+        return Ok(vm);
+    }
+
+    /// <summary>Gets all users in role</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /user/role/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <returns>Returns List of GetUsersByRoleDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("role/{roleId}")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<GetUsersByRoleDto>>> GetAllUsersFromRole([FromRoute] Guid roleId)
+    {
+        var query = new GetUsersByRoleQuery
+        {
+            RoleId = roleId
+        };
+
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
