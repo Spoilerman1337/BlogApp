@@ -152,6 +152,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMetricsAllEndpoints();
 app.UseStaticFiles();
 
 app.UseCustomExceptionHandler();
