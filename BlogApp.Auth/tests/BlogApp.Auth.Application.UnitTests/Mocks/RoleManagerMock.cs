@@ -3,6 +3,7 @@ using BlogApp.Auth.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using System;
+using System.Linq;
 
 namespace BlogApp.Auth.Application.UnitTests.Mocks;
 
@@ -18,6 +19,8 @@ public class RoleManagerMock
         roleManager.Setup(x => x.Roles).Returns(context.Roles);
         roleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
             .ReturnsAsync((string roleId) => context.Roles.Find(Guid.Parse(roleId)));
+        roleManager.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+            .ReturnsAsync((string roleName) => context.Roles.Where(c => c.Name == roleName).First());
         roleManager.Setup(x => x.DeleteAsync(It.IsAny<AppRole>()))
             .ReturnsAsync(IdentityResult.Success)
             .Callback<AppRole>((x) => context.Roles.Remove(x).Context.SaveChanges()); ;
