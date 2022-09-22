@@ -70,7 +70,6 @@ public class MetricsBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         {
             try
             {
-                throw new Exception();
                 return await next();
             }
             catch (Exception ex)
