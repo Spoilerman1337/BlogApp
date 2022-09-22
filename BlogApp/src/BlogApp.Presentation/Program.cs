@@ -138,6 +138,7 @@ app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+app.UseMetricsAllEndpoints();
 
 app.UseAuthentication();
 app.UseAuthorization();
