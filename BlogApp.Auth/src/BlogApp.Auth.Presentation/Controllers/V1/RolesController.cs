@@ -8,6 +8,8 @@ using BlogApp.Auth.Application.Roles.Queries.GetRole;
 using BlogApp.Auth.Application.Roles.Queries.GetRole.Models;
 using BlogApp.Auth.Application.Roles.Queries.GetRoles;
 using BlogApp.Auth.Application.Roles.Queries.GetRoles.Models;
+using BlogApp.Auth.Application.Roles.Queries.GetUsersRole;
+using BlogApp.Auth.Application.Roles.Queries.GetUsersRole.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +63,29 @@ public class RolesController : ApiControllerBase
     public async Task<ActionResult<GetRolesDto>> GetAllRoles()
     {
         var vm = await Sender.Send(new GetRolesQuery());
+        return Ok(vm);
+    }
+
+    /// <summary>Gets users role</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /role/user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// </remarks>
+    /// <returns>Returns GetUsersRoleDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("user/{userId}")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetUsersRoleDto>> GetUsersRole(Guid userId)
+    {
+        var query = new GetUsersRoleQuery
+        {
+            UserId = userId
+        };
+
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
