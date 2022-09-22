@@ -29,14 +29,14 @@ public class VoteCommentController : ApiControllerBase
     /// GET /voteComment/comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="commentId">GUID ID of a comment</param>
-    /// <returns>Returns GetCommentsVotesDto</returns>
+    /// <returns>Returns List of GetCommentsVotesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("comment/{commentId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentsVotesDto>> GetCommentsVotes([FromRoute] Guid commentId)
+    public async Task<ActionResult<List<GetCommentsVotesDto>>> GetCommentsVotes([FromRoute] Guid commentId)
     {
         var query = new GetCommentsVotesQuery
         {
@@ -53,14 +53,14 @@ public class VoteCommentController : ApiControllerBase
     /// GET /voteComment/user/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="userId">GUID ID of a user</param>
-    /// <returns>Returns GetUsersCommentVotesDto</returns>
+    /// <returns>Returns List of GetUsersCommentVotesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetUsersCommentVotesDto>> GetUsersPostVotes([FromRoute] Guid userId)
+    public async Task<ActionResult<List<GetUsersCommentVotesDto>>> GetUsersPostVotes([FromRoute] Guid userId)
     {
         var query = new GetUsersPostVotesQuery
         {

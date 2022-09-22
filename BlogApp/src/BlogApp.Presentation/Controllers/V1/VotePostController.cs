@@ -26,14 +26,14 @@ public class VotePostController : ApiControllerBase
     /// GET /votePost/post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="postId">GUID ID of a post</param>
-    /// <returns>Returns GetPostsVotesDto</returns>
+    /// <returns>Returns List of GetPostsVotesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostsVotesDto>> GetPostsVotes([FromRoute] Guid postId)
+    public async Task<ActionResult<List<GetPostsVotesDto>>> GetPostsVotes([FromRoute] Guid postId)
     {
         var query = new GetPostsVotesQuery
         {
@@ -50,14 +50,14 @@ public class VotePostController : ApiControllerBase
     /// GET /votePost/user/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="userId">GUID ID of a user</param>
-    /// <returns>Returns GetUsersPostVotesDto</returns>
+    /// <returns>Returns List of GetUsersPostVotesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetUsersPostVotesDto>> GetUsersPostVotes([FromRoute] Guid userId)
+    public async Task<ActionResult<List<GetUsersPostVotesDto>>> GetUsersPostVotes([FromRoute] Guid userId)
     {
         var query = new GetUsersPostVotesQuery
         {

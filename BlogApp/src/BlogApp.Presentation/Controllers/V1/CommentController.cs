@@ -55,14 +55,14 @@ public class CommentController : ApiControllerBase
     /// Sample request:
     /// GET /comment
     /// </remarks>
-    /// <returns>Returns GetCommentsDto</returns>
+    /// <returns>Returns List of GetCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentsDto>> GetAllComments()
+    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments()
     {
         var query = new GetCommentsQuery()
         {
@@ -78,14 +78,14 @@ public class CommentController : ApiControllerBase
     /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="postId">GUID ID of a post</param>
-    /// <returns>Returns GetCommentsFromPostDto</returns>
+    /// <returns>Returns List of GetCommentsFromPostDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentsFromPostDto>> GetAllCommentsFromPost([FromRoute] Guid postId)
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId)
     {
         var query = new GetCommentsFromPostQuery
         {
@@ -103,14 +103,14 @@ public class CommentController : ApiControllerBase
     /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="userId">GUID ID of a comment</param>
-    /// <returns>Returns GetUsersCommentsDto</returns>
+    /// <returns>Returns List of GetUsersCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetUsersCommentsDto>> GetAllCommentsFromUser([FromRoute] Guid userId)
+    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId)
     {
         var query = new GetUsersCommentsQuery
         {

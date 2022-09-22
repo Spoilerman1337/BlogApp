@@ -53,14 +53,14 @@ public class TagController : ApiControllerBase
     /// Sample request:
     /// GET /tag
     /// </remarks>
-    /// <returns>Returns GetTagsDto</returns>
+    /// <returns>Returns List of GetTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetTagsDto>> GetAllTags()
+    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags()
     {
         var query = new GetTagsQuery()
         {
@@ -77,14 +77,14 @@ public class TagController : ApiControllerBase
     /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="postId">GUID ID of a tag</param>
-    /// <returns>Returns GetTagDto</returns>
+    /// <returns>Returns List of GetPostsTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostsTagsDto>> GetPostsTags([FromRoute] Guid postId)
+    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId)
     {
         var query = new GetPostsTagsQuery
         {

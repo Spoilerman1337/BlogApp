@@ -53,14 +53,14 @@ public class RolesController : ApiControllerBase
     /// Sample request:
     /// GET /role
     /// </remarks>
-    /// <returns>Returns GetRolesDto</returns>
+    /// <returns>Returns List of GetRolesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetRolesDto>> GetAllRoles()
+    public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles()
     {
         var vm = await Sender.Send(new GetRolesQuery());
         return Ok(vm);

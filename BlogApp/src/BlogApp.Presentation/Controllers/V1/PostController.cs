@@ -61,14 +61,14 @@ public class PostController : ApiControllerBase
     /// Sample request:
     /// GET /post
     /// </remarks>
-    /// <returns>Returns GetPostsDto</returns>
+    /// <returns>Returns List of GetPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostsDto>> GetAllPosts()
+    public async Task<ActionResult<List<GetPostsDto>>> GetAllPosts()
     {
         var query = new GetPostsQuery()
         {
@@ -84,14 +84,14 @@ public class PostController : ApiControllerBase
     /// GET /post/user/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="userId">GUID ID of a user</param>
-    /// <returns>Returns GetCommentDto</returns>
+    /// <returns>Returns List of GetUsersPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetUsersPostsDto>> GetUsersPosts([FromRoute] Guid userId)
+    public async Task<ActionResult<List<GetUsersPostsDto>>> GetUsersPosts([FromRoute] Guid userId)
     {
         var query = new GetUsersPostsQuery
         {
@@ -134,14 +134,14 @@ public class PostController : ApiControllerBase
     /// GET /post/tag/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="tagId">GUID ID of a user</param>
-    /// <returns>Returns GetPostsByTagDto</returns>
+    /// <returns>Returns List of GetPostsByTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("tag/{tagId}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostsByTagDto>> GetPostsByTag([FromRoute] Guid tagId)
+    public async Task<ActionResult<List<GetPostsByTagDto>>> GetPostsByTag([FromRoute] Guid tagId)
     {
         var query = new GetPostsByTagQuery
         {

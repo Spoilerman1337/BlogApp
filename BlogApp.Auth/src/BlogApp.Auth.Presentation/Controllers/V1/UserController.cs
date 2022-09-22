@@ -62,7 +62,7 @@ public class UserController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetUsersDto>> GetAllUsers()
+    public async Task<ActionResult<List<GetUsersDto>>> GetAllUsers()
     {
         var vm = await Sender.Send(new GetUsersQuery());
         return Ok(vm);
