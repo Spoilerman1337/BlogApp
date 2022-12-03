@@ -17,7 +17,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
     public CachingBehavior(IDistributedCache cache, ILogger<TResponse> logger, IOptions<CacheSettings> settings) => (_cache, _logger, _settings) = (cache, logger, settings.Value);
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         TResponse response;
 
@@ -33,13 +33,13 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         }
         else
         {
-            response = await GetResponseAndAddToCache(request, next, cancellationToken);
+            response = await GetResponseAndAddToCache(request, cancellationToken, next);
             _logger.LogInformation("Added to Cache -> '{key}'.", request.CacheKey);
         }
         return response;
     }
 
-    private async Task<TResponse> GetResponseAndAddToCache(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    private async Task<TResponse> GetResponseAndAddToCache(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
     {
         TResponse response = await next();
 
