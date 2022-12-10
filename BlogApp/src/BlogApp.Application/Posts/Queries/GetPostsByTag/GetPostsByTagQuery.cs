@@ -9,6 +9,6 @@ public class GetPostsByTagQuery : IRequest<List<GetPostsByTagDto>>, ICacheableQu
     public Guid TagId { get; set; }
 
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllPostsByTag-{TagId}";
+    public string CacheKey => $"GetPostsByTag-{TagId}";
     public TimeSpan? SlidingExpiration { get; set; }
 }

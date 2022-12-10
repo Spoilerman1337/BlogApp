@@ -9,6 +9,6 @@ public class GetUsersCommentsQuery : IRequest<List<GetUsersCommentsDto>>, ICache
     public Guid UserId { get; set; }
 
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllCommentFromUser-{UserId}";
+    public string CacheKey => $"GetCommentFromUser-{UserId}";
     public TimeSpan? SlidingExpiration { get; set; }
 }

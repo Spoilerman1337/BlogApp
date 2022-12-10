@@ -7,6 +7,6 @@ namespace BlogApp.Application.Posts.Queries.GetPosts;
 public class GetPostsQuery : IRequest<List<GetPostsDto>>, ICacheableQuery
 {
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllPosts";
+    public string CacheKey => $"GetPosts";
     public TimeSpan? SlidingExpiration { get; set; }
 }

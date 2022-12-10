@@ -9,6 +9,6 @@ public class GetCommentsFromPostQuery : IRequest<List<GetCommentsFromPostDto>>, 
     public Guid PostId { get; set; }
 
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllCommentsFromPost-{PostId}";
+    public string CacheKey => $"GetCommentsFromPost-{PostId}";
     public TimeSpan? SlidingExpiration { get; set; }
 }

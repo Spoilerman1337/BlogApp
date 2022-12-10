@@ -7,6 +7,6 @@ namespace BlogApp.Application.Comments.Queries.GetComments;
 public class GetCommentsQuery : IRequest<List<GetCommentsDto>>, ICacheableQuery
 {
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllComments";
+    public string CacheKey => $"GetComments";
     public TimeSpan? SlidingExpiration { get; set; }
 }

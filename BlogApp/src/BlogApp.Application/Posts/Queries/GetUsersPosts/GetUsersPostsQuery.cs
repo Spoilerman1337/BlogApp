@@ -9,6 +9,6 @@ public class GetUsersPostsQuery : IRequest<List<GetUsersPostsDto>>, ICacheableQu
     public Guid UserId { get; set; }
 
     public bool BypassCache { get; set; }
-    public string CacheKey => $"GetAllPostsFromUser-{UserId}";
+    public string CacheKey => $"GetPostsFromUser-{UserId}";
     public TimeSpan? SlidingExpiration { get; set; }
 }
