@@ -55,6 +55,10 @@ public class CommentController : ApiControllerBase
     /// Sample request:
     /// GET /comment
     /// </remarks>
+    /// <param name="from">Lower date filter limit</param>
+    /// <param name="to">Top date filter limit</param>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -62,11 +66,15 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments()
+    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
     {
         var query = new GetCommentsQuery()
         {
-            BypassCache = false
+            BypassCache = false,
+            From = from,
+            To = to,
+            Page = page,
+            PageAmount = pageAmount
         };
         var vm = await Sender.Send(query);
         return Ok(vm);
