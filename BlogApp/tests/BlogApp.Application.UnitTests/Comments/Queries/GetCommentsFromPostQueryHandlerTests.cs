@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using BlogApp.Application.Comments.Queries.GetComments.Models;
-using BlogApp.Application.Comments.Queries.GetComments;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using BlogApp.Application.Common.Exceptions;
