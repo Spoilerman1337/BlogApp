@@ -21,7 +21,11 @@ public class GetCommentsFromPostQueryHandler : IRequestHandler<GetCommentsFromPo
         if (!_dbContext.Posts.Select(c => c.Id).Contains(request.PostId))
             throw new NotFoundException(nameof(Post), request.PostId);
 
-        return await _dbContext.Comments.Where(c => c.Post.Id == request.PostId)
+        return await _dbContext.Comments.Where(c => c.Post.Id == request.PostId && 
+                                                    (!request.From.HasValue || c.CreationTime >= request.From) && 
+                                                    (!request.To.HasValue || c.CreationTime <= request.To))
+                                        .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                        .Take(request.PageAmount ?? int.MaxValue)
                                         .OrderBy(c => c.Id)
                                         .ProjectTo<GetCommentsFromPostDto>(_mapper.ConfigurationProvider)
                                         .ToListAsync(cancellationToken);

@@ -93,12 +93,16 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId)
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
     {
         var query = new GetCommentsFromPostQuery
         {
             PostId = postId,
-            BypassCache = false
+            BypassCache = false,
+            From = from,
+            To = to,
+            Page = page,
+            PageAmount = pageAmount
         };
 
         var vm = await Sender.Send(query);
