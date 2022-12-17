@@ -16,7 +16,11 @@ public class GetUsersCommentsQueryHandler : IRequestHandler<GetUsersCommentsQuer
 
     public async Task<List<GetUsersCommentsDto>> Handle(GetUsersCommentsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Comments.Where(c => c.UserId == request.UserId)
+        return await _dbContext.Comments.Where(c => c.UserId == request.UserId &&
+                                                    (!request.From.HasValue || c.CreationTime >= request.From) &&
+                                                    (!request.To.HasValue || c.CreationTime <= request.To))
+                                        .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                        .Take(request.PageAmount ?? int.MaxValue)
                                         .OrderBy(c => c.Id)
                                         .ProjectTo<GetUsersCommentsDto>(_mapper.ConfigurationProvider)
                                         .ToListAsync(cancellationToken);

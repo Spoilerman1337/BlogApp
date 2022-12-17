@@ -4,11 +4,15 @@ using MediatR;
 
 namespace BlogApp.Application.Comments.Queries.GetUsersComments;
 
-public class GetUsersCommentsQuery : IRequest<List<GetUsersCommentsDto>>, ICacheableQuery
+public class GetUsersCommentsQuery : IRequest<List<GetUsersCommentsDto>>, ICacheableQuery, ISortableQuery
 {
     public Guid UserId { get; set; }
 
     public bool BypassCache { get; set; }
     public string CacheKey => $"GetCommentFromUser-{UserId}";
     public TimeSpan? SlidingExpiration { get; set; }
+    public DateTime? From { get; set; }
+    public DateTime? To { get; set; }
+    public int? PageAmount { get; set; }
+    public int? Page { get; set; }
 }
