@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BlogApp.Application.Comments.Queries.GetComments.Models;
+using BlogApp.Application.Comments.Queries.GetComments;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using BlogApp.Application.Common.Exceptions;
@@ -38,6 +40,75 @@ public class GetCommentsFromPostQueryHandlerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<List<GetCommentsFromPostDto>>();
+    }
+
+    [Fact]
+    public async Task GetCommentsFromPostQueryHandlerDateFilter_SuccessNotFound()
+    {
+        //Arrange
+        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetCommentsFromPostQuery
+            {
+                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"),
+                From = DateTime.Parse("2008-11-01T19:35:00.0000000Z"),
+                To = DateTime.Parse("2009-11-01T19:35:00.0000000Z")
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetCommentsFromPostDto>>();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetCommentsFromPostQueryHandlerDateFilter_SuccessFound()
+    {
+        //Arrange
+        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetCommentsFromPostQuery
+            {
+                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"),
+                From = DateTime.Today.AddYears(-1),
+                To = DateTime.Today.AddYears(1)
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetCommentsFromPostDto>>();
+        result.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetCommentsFromPostQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetCommentsFromPostQuery
+            {
+                PostId = Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"),
+                Page = 1,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetCommentsFromPostDto>>();
+        result.Should().HaveCount(2);
     }
 
     [Fact]
