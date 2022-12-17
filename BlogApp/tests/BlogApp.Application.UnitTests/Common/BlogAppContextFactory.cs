@@ -63,7 +63,7 @@ public class BlogAppContextFactory
                 UserId = UserAId,
                 Header = "Nulla a nisi.",
                 Text = "Ut dui dui, malesuada at placerat ut, cursus vel enim. Lorem ipsum dolor.",
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now.AddYears(-2),
                 Comments = new List<Comment>(),
                 Tags = new List<Tag>()
             },
@@ -73,7 +73,7 @@ public class BlogAppContextFactory
                 UserId = UserBId,
                 Header = "Ut in sapien.",
                 Text = "Nunc quis nulla condimentum massa pharetra condimentum. Fusce vestibulum mi eros, ut euismod.",
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now.AddDays(1),
                 Comments = new List<Comment>(),
                 Tags = new List<Tag>()
             },
@@ -83,7 +83,7 @@ public class BlogAppContextFactory
                 UserId = UserAId,
                 Header = "Vivamus lobortis augue.",
                 Text = "Vestibulum ut efficitur nibh. Cras massa odio, sodales at ullamcorper sit amet, sagittis.",
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now.AddMonths(-1),
                 Comments = new List<Comment>(),
                 Tags = new List<Tag>()
             },
@@ -105,14 +105,14 @@ public class BlogAppContextFactory
             {
                 Id = Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"),
                 UserId = UserAId,
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now.AddDays(-1),
                 Text = "Lorem ipsum dolor sit amet",
             },
             new Comment
             {
                 Id = Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155"),
                 UserId = UserBId,
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now.AddYears(1),
                 Text = "Pellentesque consectetur libero in diam convallis, ut blandit est placerat. Donec fringilla turpis.",
             },
             new Comment
