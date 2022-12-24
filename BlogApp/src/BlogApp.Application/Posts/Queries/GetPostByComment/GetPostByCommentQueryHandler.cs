@@ -22,7 +22,7 @@ public class GetPostByCommentQueryHandler : IRequestHandler<GetPostByCommentQuer
             throw new NotFoundException(nameof(Comment), request.CommentId);
 
         var post = await _dbContext.Posts.Include(p => p.Comments)
-                                     .Where(c => c.Comments.Select(c => c.Id).Contains(request.CommentId))
+                                     .Where(p => p.Comments.Select(p => p.Id).Contains(request.CommentId))
                                      .ProjectTo<GetPostByCommentDto>(_mapper.ConfigurationProvider)
                                      .SingleOrDefaultAsync(cancellationToken);
         return post;
