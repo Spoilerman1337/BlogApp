@@ -16,7 +16,11 @@ public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<GetPosts
 
     public async Task<List<GetPostsDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Posts.OrderBy(c => c.Id)
+        return await _dbContext.Posts.Where(p => (!request.From.HasValue || p.CreationTime >= request.From) &&
+                                                 (!request.To.HasValue || p.CreationTime <= request.To))
+                                     .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                     .Take(request.PageAmount ?? int.MaxValue)
+                                     .OrderBy(c => c.Id)
                                      .ProjectTo<GetPostsDto>(_mapper.ConfigurationProvider)
                                      .ToListAsync(cancellationToken);
     }

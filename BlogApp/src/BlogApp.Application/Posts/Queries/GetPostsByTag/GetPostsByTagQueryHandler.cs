@@ -21,7 +21,11 @@ public class GetPostsByTagQueryHandler : IRequestHandler<GetPostsByTagQuery, Lis
         if (!_dbContext.Tags.Select(c => c.Id).Contains(request.TagId))
             throw new NotFoundException(nameof(Tag), request.TagId);
 
-        return await _dbContext.Posts.Where(c => c.Tags.Select(c => c.Id).Contains(request.TagId))
+        return await _dbContext.Posts.Where(p => p.Tags.Select(c => p.Id).Contains(request.TagId) &&
+                                                 (!request.From.HasValue || p.CreationTime >= request.From) &&
+                                                 (!request.To.HasValue || p.CreationTime <= request.To))
+                                     .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                     .Take(request.PageAmount ?? int.MaxValue)
                                      .OrderBy(c => c.Id)
                                      .ProjectTo<GetPostsByTagDto>(_mapper.ConfigurationProvider)
                                      .ToListAsync(cancellationToken);
