@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
+using BlogApp.Application.Posts.Queries.GetPostsByTag;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
 using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
 using BlogApp.Application.UnitTests.Common;
@@ -38,6 +40,75 @@ public class GetUsersPostsQueryHandlerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<List<GetUsersPostsDto>>();
+    }
+
+    [Fact]
+    public async Task GetUsersPostsQueryHandlerDateFilter_SuccessNotFound()
+    {
+        //Arrange
+        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetUsersPostsQuery
+            {
+                UserId = BlogAppContextFactory.UserBId,
+                From = DateTime.Parse("2008-11-01T19:35:00.0000000Z"),
+                To = DateTime.Parse("2009-11-01T19:35:00.0000000Z")
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetUsersPostsDto>>();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetUsersPostsQueryHandlerDateFilter_SuccessFound()
+    {
+        //Arrange
+        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetUsersPostsQuery
+            {
+                UserId = BlogAppContextFactory.UserBId,
+                From = DateTime.Now.AddYears(-1),
+                To = DateTime.Now.AddYears(1)
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetUsersPostsDto>>();
+        result.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetUsersPostsQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetUsersPostsQuery
+            {
+                UserId = BlogAppContextFactory.UserBId,
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetUsersPostsDto>>();
+        result.Should().HaveCount(2);
     }
 
     [Fact]

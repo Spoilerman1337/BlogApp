@@ -42,6 +42,75 @@ public class GetPostsByTagQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetPostsByTagQueryHandlerDateFilter_SuccessNotFound()
+    {
+        //Arrange
+        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsByTagQuery
+            {
+                TagId = Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"),
+                From = DateTime.Parse("2008-11-01T19:35:00.0000000Z"),
+                To = DateTime.Parse("2009-11-01T19:35:00.0000000Z")
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsByTagDto>>();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetPostsByTagQueryHandlerDateFilter_SuccessFound()
+    {
+        //Arrange
+        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsByTagQuery
+            {
+                TagId = Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"),
+                From = DateTime.Now.AddYears(-1),
+                To = DateTime.Now.AddYears(1)
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsByTagDto>>();
+        result.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetPostsByTagQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        
+        //Act
+        var result = await handler.Handle(
+            new GetPostsByTagQuery
+            {
+                TagId = Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF"),
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsByTagDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetPostsByTagQueryHandler_NoPostsFail()
     {
         //Arrange

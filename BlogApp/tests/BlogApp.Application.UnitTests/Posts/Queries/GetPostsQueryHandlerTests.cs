@@ -39,6 +39,72 @@ public class GetPostsQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetPostsQueryHandlerDateFilter_SuccessNotFound()
+    {
+        //Arrange
+        var handler = new GetPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsQuery
+            {
+                From = DateTime.Parse("2008-11-01T19:35:00.0000000Z"),
+                To = DateTime.Parse("2009-11-01T19:35:00.0000000Z")
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsDto>>();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetPostsQueryHandlerDateFilter_SuccessFound()
+    {
+        //Arrange
+        var handler = new GetPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsQuery
+            {
+                From = DateTime.Now.AddYears(-1),
+                To = DateTime.Now.AddYears(1)
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsDto>>();
+        result.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetPostsQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetPostsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsQuery
+            {
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetPostsQueryHandler_NoPostsFail()
     {
         //Arrange
