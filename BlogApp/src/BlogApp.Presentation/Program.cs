@@ -2,7 +2,7 @@ using BlogApp.Application;
 using BlogApp.Application.Common.Interfaces;
 using BlogApp.Domain.Settings;
 using BlogApp.Infrastructure;
-using BlogApp.Presentation.Middleware;
+using BlogApp.Presentation.Middleware.CustomExceptionHandler;
 using BlogApp.Presentation.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;

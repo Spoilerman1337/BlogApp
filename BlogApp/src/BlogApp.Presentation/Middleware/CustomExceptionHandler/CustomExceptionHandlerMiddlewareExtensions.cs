@@ -1,4 +1,4 @@
-﻿namespace BlogApp.Presentation.Middleware;
+﻿namespace BlogApp.Presentation.Middleware.CustomExceptionHandler;
 
 public static class CustomExceptionHandlerMiddlewareExtensions
 {

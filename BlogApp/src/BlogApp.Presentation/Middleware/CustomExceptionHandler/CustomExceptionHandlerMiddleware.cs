@@ -3,7 +3,7 @@ using FluentValidation;
 using System.Net;
 using System.Text.Json;
 
-namespace BlogApp.Presentation.Middleware;
+namespace BlogApp.Presentation.Middleware.CustomExceptionHandler;
 
 public class CustomExceptionHandlerMiddleware
 {
