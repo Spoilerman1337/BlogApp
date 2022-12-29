@@ -59,8 +59,12 @@ public class PostController : ApiControllerBase
     /// <summary>Gets all posts</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post
+    /// GET /post?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
     /// </remarks>
+    /// <param name="from">Lower date filter limit</param>
+    /// <param name="to">Top date filter limit</param>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -85,9 +89,13 @@ public class PostController : ApiControllerBase
     /// <summary>Gets user's post by id</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post/user/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /post/user/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
     /// </remarks>
     /// <param name="userId">GUID ID of a user</param>
+    /// <param name="from">Lower date filter limit</param>
+    /// <param name="to">Top date filter limit</param>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetUsersPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -139,9 +147,13 @@ public class PostController : ApiControllerBase
     /// <summary>Gets posts where tag is used</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /post/tag/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /post/tag/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
     /// </remarks>
     /// <param name="tagId">GUID ID of a user</param>
+    /// <param name="from">Lower date filter limit</param>
+    /// <param name="to">Top date filter limit</param>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetPostsByTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
