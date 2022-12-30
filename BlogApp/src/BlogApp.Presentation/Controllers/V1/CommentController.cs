@@ -31,6 +31,7 @@ public class CommentController : ApiControllerBase
     /// GET /comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="id">GUID ID of a comment</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns GetCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -38,12 +39,12 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id)
+    public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id, [FromQuery] bool bypassCache)
     {
         var query = new GetCommentQuery
         {
             Id = id,
-            BypassCache = false
+            BypassCache = bypassCache
         };
 
         var vm = await Sender.Send(query);
@@ -59,6 +60,7 @@ public class CommentController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -66,11 +68,11 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetCommentsQuery()
         {
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
@@ -90,6 +92,7 @@ public class CommentController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetCommentsFromPostDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -97,12 +100,12 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetCommentsFromPostQuery
         {
             PostId = postId,
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
@@ -123,6 +126,7 @@ public class CommentController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetUsersCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -130,12 +134,12 @@ public class CommentController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetUsersCommentsQuery
         {
             UserId = userId,
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
