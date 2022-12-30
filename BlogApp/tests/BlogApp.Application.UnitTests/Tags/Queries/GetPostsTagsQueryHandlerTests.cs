@@ -60,6 +60,29 @@ public class GetPostsTagsQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetPostsTagsQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetPostsTagsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetPostsTagsQuery
+            {
+                PostId = BlogAppContextFactory.ToBeDeletedPostId,
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetPostsTagsDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetPostsTagsQueryHandler_NoTagsFail()
     {
         //Arrange

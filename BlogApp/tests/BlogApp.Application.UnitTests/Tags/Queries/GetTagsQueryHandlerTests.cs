@@ -39,6 +39,28 @@ public class GetTagsQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetTagsQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetTagsQueryHandler(_context, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetTagsQuery
+            {
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetTagsDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetTagsQueryHandler_NoTagsFail()
     {
         //Arrange
