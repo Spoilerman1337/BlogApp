@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BlogApp.Application.Posts.Queries.GetPosts;
 
-public class GetPostsQuery : IRequest<List<GetPostsDto>>, ICacheableQuery, ISortableQuery
+public class GetPostsQuery : IRequest<List<GetPostsDto>>, ICacheableQuery, IDateTimeFilterableQuery, IPaginatedQuery
 {
     public bool BypassCache { get; set; }
     public string CacheKey => $"GetPosts";

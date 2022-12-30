@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BlogApp.Application.Posts.Queries.GetPostsByTag;
 
-public class GetPostsByTagQuery : IRequest<List<GetPostsByTagDto>>, ICacheableQuery, ISortableQuery
+public class GetPostsByTagQuery : IRequest<List<GetPostsByTagDto>>, ICacheableQuery, IDateTimeFilterableQuery, IPaginatedQuery
 {
     public Guid TagId { get; set; }
 

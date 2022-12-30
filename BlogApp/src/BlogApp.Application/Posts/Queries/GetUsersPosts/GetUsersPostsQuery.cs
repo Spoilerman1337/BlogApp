@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BlogApp.Application.Posts.Queries.GetUsersPosts;
 
-public class GetUsersPostsQuery : IRequest<List<GetUsersPostsDto>>, ICacheableQuery, ISortableQuery
+public class GetUsersPostsQuery : IRequest<List<GetUsersPostsDto>>, ICacheableQuery, IDateTimeFilterableQuery, IPaginatedQuery
 {
     public Guid UserId { get; set; }
 

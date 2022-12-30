@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BlogApp.Application.Comments.Queries.GetComments;
 
-public class GetCommentsQuery : IRequest<List<GetCommentsDto>>, ICacheableQuery, ISortableQuery
+public class GetCommentsQuery : IRequest<List<GetCommentsDto>>, ICacheableQuery, IDateTimeFilterableQuery, IPaginatedQuery
 {
     public bool BypassCache { get; set; }
     public string CacheKey => $"GetComments";

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 
-public class GetCommentsFromPostQuery : IRequest<List<GetCommentsFromPostDto>>, ICacheableQuery, ISortableQuery
+public class GetCommentsFromPostQuery : IRequest<List<GetCommentsFromPostDto>>, ICacheableQuery, IDateTimeFilterableQuery, IPaginatedQuery
 {
     public Guid PostId { get; set; }
 
