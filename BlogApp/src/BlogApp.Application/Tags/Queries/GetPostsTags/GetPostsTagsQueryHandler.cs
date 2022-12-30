@@ -22,6 +22,8 @@ public class GetPostsTagsQueryHandler : IRequestHandler<GetPostsTagsQuery, List<
             throw new NotFoundException(nameof(Post), request.PostId);
 
         return await _dbContext.Tags.Where(t => t.Posts.Where(p => p.Id == request.PostId).Any())
+                                    .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                    .Take(request.PageAmount ?? int.MaxValue)
                                     .OrderBy(c => c.Id)
                                     .ProjectTo<GetPostsTagsDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync(cancellationToken);

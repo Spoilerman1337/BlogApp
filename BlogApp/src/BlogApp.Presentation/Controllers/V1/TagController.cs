@@ -53,6 +53,8 @@ public class TagController : ApiControllerBase
     /// Sample request:
     /// GET /tag
     /// </remarks>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -60,11 +62,13 @@ public class TagController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags()
+    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags([FromQuery] int? page, [FromQuery] int? pageAmount)
     {
         var query = new GetTagsQuery()
         {
-            BypassCache = false
+            BypassCache = false,
+            Page = page,
+            PageAmount = pageAmount
         };
         var vm = await Sender.Send(query);
 
@@ -77,6 +81,8 @@ public class TagController : ApiControllerBase
     /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="postId">GUID ID of a tag</param>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetPostsTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -84,12 +90,14 @@ public class TagController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId)
+    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId, [FromQuery] int? page, [FromQuery] int? pageAmount)
     {
         var query = new GetPostsTagsQuery
         {
             PostId = postId,
-            BypassCache = false
+            BypassCache = false,
+            Page = page,
+            PageAmount = pageAmount
         };
 
         var vm = await Sender.Send(query);

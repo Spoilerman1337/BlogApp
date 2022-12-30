@@ -16,7 +16,9 @@ public class GetTagsQueryHandler : IRequestHandler<GetTagsQuery, List<GetTagsDto
 
     public async Task<List<GetTagsDto>> Handle(GetTagsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Tags.OrderBy(c => c.Id)
+        return await _dbContext.Tags.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                    .Take(request.PageAmount ?? int.MaxValue)
+                                    .OrderBy(c => c.Id)
                                     .ProjectTo<GetTagsDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync(cancellationToken);
     }
