@@ -29,6 +29,7 @@ public class TagController : ApiControllerBase
     /// GET /tag/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="id">GUID ID of a tag</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns GetTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -36,12 +37,12 @@ public class TagController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id)
+    public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id, [FromQuery] bool bypassCache)
     {
         var query = new GetTagQuery
         {
             Id = id,
-            BypassCache = false
+            BypassCache = bypassCache
         };
 
         var vm = await Sender.Send(query);
@@ -62,11 +63,11 @@ public class TagController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags([FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags([FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetTagsQuery()
         {
-            BypassCache = false,
+            BypassCache = bypassCache,
             Page = page,
             PageAmount = pageAmount
         };
@@ -90,12 +91,12 @@ public class TagController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetPostsTagsQuery
         {
             PostId = postId,
-            BypassCache = false,
+            BypassCache = bypassCache,
             Page = page,
             PageAmount = pageAmount
         };
