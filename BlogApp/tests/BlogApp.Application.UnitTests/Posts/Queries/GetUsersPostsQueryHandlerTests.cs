@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
-using BlogApp.Application.Posts.Queries.GetPostsByTag;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
 using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
 using BlogApp.Application.UnitTests.Common;

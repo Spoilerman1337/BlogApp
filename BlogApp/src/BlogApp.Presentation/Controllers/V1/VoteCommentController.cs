@@ -3,15 +3,12 @@ using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
 using BlogApp.Application.VoteComments.Commands.UnvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment.Models;
-using BlogApp.Application.VotePosts.Queries.GetPostsVotes.Models;
-using BlogApp.Application.VotePosts.Queries.GetPostsVotes;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
-using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes.Models;
-using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes;
 using BlogApp.Application.VoteComments.Queries.GetUsersCommentVotes.Models;
+using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Presentation.Controllers.V1;
 

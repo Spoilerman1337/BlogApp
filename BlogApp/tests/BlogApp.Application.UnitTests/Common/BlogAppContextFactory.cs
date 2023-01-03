@@ -191,7 +191,7 @@ public class BlogAppContextFactory
             .First().Posts
             as List<Post>)!
             .AddRange(posts
-                .Where(p => p.Id == ToBeUpdatedPostId || 
+                .Where(p => p.Id == ToBeUpdatedPostId ||
                             p.Id == ToBeDeletedPostId));
 
         tags.Where(t => t.Id == Guid.Parse("79121046-24BD-4518-813F-79878A48AC73"))
@@ -215,9 +215,9 @@ public class BlogAppContextFactory
         (posts.Where(p => p.Id == Guid.Parse("D30526A7-E44C-4163-B8A7-E0452C7E12FA"))
             .First().Comments as List<Comment>)!
             .AddRange(comments
-                .Where(c => c.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6") || 
+                .Where(c => c.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6") ||
                             c.Id == Guid.Parse("0401EAD8-CB5C-4BCF-8ABF-7F63FCCF3155") ||
-                            c.Id == ToBeDeletedCommentId || 
+                            c.Id == ToBeDeletedCommentId ||
                             c.Id == ToBeUpdatedCommentId));
 
         posts.Where(p => p.Id == ToBeUpdatedPostId)
@@ -230,7 +230,7 @@ public class BlogAppContextFactory
             .First().Tags
             as List<Tag>)!
             .AddRange(tags
-                .Where(t => t.Id == Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF") || 
+                .Where(t => t.Id == Guid.Parse("3E07C1D3-01B8-4CC1-B32D-0E5813A0D2FF") ||
                             t.Id == Guid.Parse("79121046-24BD-4518-813F-79878A48AC73")));
 
         comments.Where(c => c.Id == Guid.Parse("8BAB8E58-5FB2-4E92-AE7F-643DF6D3D2A6"))

@@ -25,8 +25,8 @@ public class DetachTagsCommandHandler : IRequestHandler<DetachTagsCommand>
         {
             throw new NotFoundException(nameof(Tag), request.TagId);
         }
-        
-        foreach (var tag in tagEntities) 
+
+        foreach (var tag in tagEntities)
         {
             postEntity.Tags.Remove(tag);
         }

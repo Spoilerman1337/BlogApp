@@ -92,7 +92,7 @@ public class GetPostsByTagQueryHandlerTests
     {
         //Arrange
         var handler = new GetPostsByTagQueryHandler(_context, _mapper);
-        
+
         //Act
         var result = await handler.Handle(
             new GetPostsByTagQuery

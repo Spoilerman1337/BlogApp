@@ -1,6 +1,5 @@
 ﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Common.Interfaces;
-using BlogApp.Application.VotePosts.Commands.UpvotePost;
 using BlogApp.Domain.Entites;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

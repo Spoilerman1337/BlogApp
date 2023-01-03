@@ -4,7 +4,6 @@ using BlogApp.Application.Comments.Queries.GetComments.Models;
 using BlogApp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace BlogApp.Application.Comments.Queries.GetComments;
 

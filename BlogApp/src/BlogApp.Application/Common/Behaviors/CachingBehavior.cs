@@ -21,9 +21,9 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         TResponse response;
 
-        if (request.BypassCache) 
+        if (request.BypassCache)
             return await next();
-        
+
         var cachedResponse = await _cache.GetAsync(request.CacheKey, cancellationToken);
 
         if (cachedResponse != null)

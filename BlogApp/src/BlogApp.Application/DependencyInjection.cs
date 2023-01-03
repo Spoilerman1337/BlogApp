@@ -22,7 +22,8 @@ public static class DependencyInjection
             config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
             config.AddProfile(new MappingProfile(typeof(IBlogDbContext).Assembly));
         });
-        services.AddMetrics(AppMetrics.CreateDefaultBuilder().Report.ToConsole(options => {
+        services.AddMetrics(AppMetrics.CreateDefaultBuilder().Report.ToConsole(options =>
+        {
             options.FlushInterval = TimeSpan.FromSeconds(5);
             options.Filter = new MetricsFilter().WhereType(MetricType.Timer);
             options.MetricsOutputFormatter = new MetricsJsonOutputFormatter();
@@ -31,7 +32,7 @@ public static class DependencyInjection
         {
             c.MetricsEndpointOutputFormatter = new MetricsJsonOutputFormatter();
             c.MetricsTextEndpointOutputFormatter = new MetricsJsonOutputFormatter();
-            c.EnvironmentInfoEndpointEnabled = false;   
+            c.EnvironmentInfoEndpointEnabled = false;
         });
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

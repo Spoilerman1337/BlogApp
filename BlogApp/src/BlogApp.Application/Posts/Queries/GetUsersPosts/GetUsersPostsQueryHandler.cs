@@ -16,7 +16,7 @@ public class GetUsersPostsQueryHandler : IRequestHandler<GetUsersPostsQuery, Lis
 
     public async Task<List<GetUsersPostsDto>> Handle(GetUsersPostsQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Posts.Where(p => p.UserId == request.UserId && 
+        return await _dbContext.Posts.Where(p => p.UserId == request.UserId &&
                                                  (!request.From.HasValue || p.CreationTime >= request.From) &&
                                                  (!request.To.HasValue || p.CreationTime <= request.To))
                                      .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)

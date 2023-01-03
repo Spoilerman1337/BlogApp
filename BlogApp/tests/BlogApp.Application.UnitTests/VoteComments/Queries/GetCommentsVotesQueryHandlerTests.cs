@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.UnitTests.Common;
-using BlogApp.Application.VotePosts.Queries.GetPostsVotes.Models;
-using BlogApp.Application.VotePosts.Queries.GetPostsVotes;
-using BlogApp.Infrastructure.Persistance;
-using Xunit;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
-using FluentAssertions;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
+using BlogApp.Infrastructure.Persistance;
+using FluentAssertions;
+using Xunit;
 
 namespace BlogApp.Application.UnitTests.VoteComments.Queries;
 
