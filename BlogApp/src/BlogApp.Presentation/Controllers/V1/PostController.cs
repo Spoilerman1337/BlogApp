@@ -37,6 +37,7 @@ public class PostController : ApiControllerBase
     /// GET /post/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="id">GUID ID of a post</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns GetCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -44,12 +45,12 @@ public class PostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostDto>> GetPost([FromRoute] Guid id)
+    public async Task<ActionResult<GetPostDto>> GetPost([FromRoute] Guid id, [FromQuery] bool bypassCache)
     {
         var query = new GetPostQuery
         {
             Id = id,
-            BypassCache = false
+            BypassCache = bypassCache
         };
 
         var vm = await Sender.Send(query);
@@ -65,6 +66,7 @@ public class PostController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -72,11 +74,11 @@ public class PostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsDto>>> GetAllPosts([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetPostsDto>>> GetAllPosts([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetPostsQuery()
         {
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
@@ -96,6 +98,7 @@ public class PostController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetUsersPostsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -103,12 +106,12 @@ public class PostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersPostsDto>>> GetUsersPosts([FromRoute] Guid userId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetUsersPostsDto>>> GetUsersPosts([FromRoute] Guid userId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetUsersPostsQuery
         {
             UserId = userId,
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
@@ -125,6 +128,7 @@ public class PostController : ApiControllerBase
     /// GET /post/comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="commentId">GUID ID of a user</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns GetPostByCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -132,12 +136,12 @@ public class PostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetPostByCommentDto>> GetPostByComment([FromRoute] Guid commentId)
+    public async Task<ActionResult<GetPostByCommentDto>> GetPostByComment([FromRoute] Guid commentId, [FromQuery] bool bypassCache)
     {
         var query = new GetPostByCommentQuery
         {
             CommentId = commentId,
-            BypassCache = false
+            BypassCache = bypassCache
         };
 
         var vm = await Sender.Send(query);
@@ -154,6 +158,7 @@ public class PostController : ApiControllerBase
     /// <param name="to">Top date filter limit</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetPostsByTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -161,12 +166,12 @@ public class PostController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsByTagDto>>> GetPostsByTag([FromRoute] Guid tagId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetPostsByTagDto>>> GetPostsByTag([FromRoute] Guid tagId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
     {
         var query = new GetPostsByTagQuery
         {
             TagId = tagId,
-            BypassCache = false,
+            BypassCache = bypassCache,
             From = from,
             To = to,
             Page = page,
