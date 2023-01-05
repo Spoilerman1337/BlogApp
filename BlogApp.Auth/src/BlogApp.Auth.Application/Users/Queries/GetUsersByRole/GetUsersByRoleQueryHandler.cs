@@ -28,7 +28,9 @@ public class GetUsersByRoleQueryHandler : IRequestHandler<GetUsersByRoleQuery, L
         if (usersInRole == null)
             return new();
         else
-            return usersInRole.Select(c => _mapper.Map<GetUsersByRoleDto>(c))
-                              .ToList();                     
+            return usersInRole.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                              .Take(request.PageAmount ?? int.MaxValue)
+                              .Select(c => _mapper.Map<GetUsersByRoleDto>(c))
+                              .ToList();
     }
 }

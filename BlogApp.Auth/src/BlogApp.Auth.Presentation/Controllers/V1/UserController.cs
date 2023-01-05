@@ -53,8 +53,10 @@ public class UserController : ApiControllerBase
     /// <summary>Gets all users</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /user
+    /// GET /user?page=2&amp;pageamount=2
     /// </remarks>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetUsersDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -62,17 +64,25 @@ public class UserController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersDto>>> GetAllUsers()
+    public async Task<ActionResult<List<GetUsersDto>>> GetAllUsers([FromQuery] int? page, [FromQuery] int? pageAmount)
     {
-        var vm = await Sender.Send(new GetUsersQuery());
+        var query = new GetUsersQuery()
+        {
+            Page = page,
+            PageAmount = pageAmount
+        };
+
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 
     /// <summary>Gets all users in role</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /user/role/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /user/role/b5c0a7ae-762d-445d-be15-b59232b19383?page=2&amp;pageamount=2
     /// </remarks>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetUsersByRoleDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -80,11 +90,13 @@ public class UserController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersByRoleDto>>> GetAllUsersFromRole([FromRoute] Guid roleId)
+    public async Task<ActionResult<List<GetUsersByRoleDto>>> GetAllUsersFromRole([FromRoute] Guid roleId, [FromQuery] int? page, [FromQuery] int? pageAmount)
     {
         var query = new GetUsersByRoleQuery
         {
-            RoleId = roleId
+            RoleId = roleId,
+            Page = page,
+            PageAmount = pageAmount
         };
 
         var vm = await Sender.Send(query);

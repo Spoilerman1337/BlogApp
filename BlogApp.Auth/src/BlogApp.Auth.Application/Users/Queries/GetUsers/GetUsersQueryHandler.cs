@@ -17,7 +17,9 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, List<GetUsers
 
     public async Task<List<GetUsersDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        return await _userManager.Users.ProjectTo<GetUsersDto>(_mapper.ConfigurationProvider)
+        return await _userManager.Users.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                       .Take(request.PageAmount ?? int.MaxValue)
+                                       .ProjectTo<GetUsersDto>(_mapper.ConfigurationProvider)
                                        .ToListAsync(cancellationToken);
     }
 }

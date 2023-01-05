@@ -1,7 +1,11 @@
-﻿using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
+﻿using BlogApp.Auth.Application.Common.Interfaces;
+using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using MediatR;
 
 namespace BlogApp.Auth.Application.Users.Queries.GetUsers;
 
-//We don't need to pass here anything, only need this class for IRequest interface
-public class GetUsersQuery : IRequest<List<GetUsersDto>> { }
+public class GetUsersQuery : IRequest<List<GetUsersDto>>, IPaginatedQuery
+{
+    public int? PageAmount { get; set; }
+    public int? Page { get; set; }
+}
