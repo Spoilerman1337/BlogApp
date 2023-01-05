@@ -46,6 +46,28 @@ public class GetUsersQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetUsersQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetUsersQueryHandler(_userManager, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetUsersQuery
+            {
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetUsersDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetUsersQueryHandler_NoUsersFail()
     {
         //Arrange

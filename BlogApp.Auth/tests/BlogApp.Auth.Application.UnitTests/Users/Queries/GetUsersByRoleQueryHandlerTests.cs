@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
 using BlogApp.Auth.Application.Common.Exceptions;
 using BlogApp.Auth.Application.UnitTests.Common;
-using BlogApp.Auth.Application.UnitTests.Mocks;
-using BlogApp.Auth.Application.Users.Queries.GetUsers;
-using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole.Models;
 using BlogApp.Auth.Domain.Entities;
-using BlogApp.Auth.Infrastructure.Persistance;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -52,6 +47,30 @@ public class GetUsersByRoleQueryHandlerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<List<GetUsersByRoleDto>>();
+    }
+
+    [Fact]
+    public async Task GetUsersByRoleQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetUsersByRoleQueryHandler(_userManager, _roleManager, _mapper);
+        var roleId = BlogAppContextFactory.ToBeUpdatedRoleId;
+
+        //Act
+        var result = await handler.Handle(
+            new GetUsersByRoleQuery
+            {
+                RoleId = roleId,
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetUsersByRoleDto>>();
+        result.Should().HaveCount(2);
     }
 
     [Fact]
