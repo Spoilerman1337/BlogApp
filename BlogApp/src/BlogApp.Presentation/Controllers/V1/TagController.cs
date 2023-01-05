@@ -52,7 +52,7 @@ public class TagController : ApiControllerBase
     /// <summary>Gets all tags</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /tag
+    /// GET /tag?page=2&amp;pageamount=2
     /// </remarks>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
@@ -79,7 +79,7 @@ public class TagController : ApiControllerBase
     /// <summary>Gets all posts tags</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383
+    /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383?page=2&amp;pageamount=2
     /// </remarks>
     /// <param name="postId">GUID ID of a tag</param>
     /// <param name="page">Specific page of elements</param>
