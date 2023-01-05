@@ -41,6 +41,8 @@ public static class UserManagerMock
         userManager.Setup(x => x.UpdateAsync(It.IsAny<AppUser>()))
             .ReturnsAsync(IdentityResult.Success)
             .Callback<AppUser>((x) => context.SaveChanges());
+        userManager.Setup(x => x.GetUsersInRoleAsync(It.IsAny<string>()))
+            .ReturnsAsync((string roleName) => context.Users.Where(c => context.UserRoles.Where(c => c.RoleId == context.Roles.First(c => c.Name == roleName).Id).Select(c => c.UserId).ToList().Contains(c.Id)).ToList());
 
         return userManager;
     }
