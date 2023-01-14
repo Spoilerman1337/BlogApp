@@ -51,8 +51,10 @@ public class RolesController : ApiControllerBase
     /// <summary>Gets all roles</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /role
+    /// GET /role?page=2&amp;pageamount=2
     /// </remarks>
+    /// <param name="page">Specific page of elements</param>
+    /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetRolesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -60,9 +62,14 @@ public class RolesController : ApiControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles()
+    public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles([FromQuery] int? page, [FromQuery] int? pageAmount)
     {
-        var vm = await Sender.Send(new GetRolesQuery());
+        var query = new GetRolesQuery()
+        {
+            Page = page,
+            PageAmount = pageAmount
+        };
+        var vm = await Sender.Send(query);
         return Ok(vm);
     }
 

@@ -17,7 +17,9 @@ public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, List<GetRoles
 
     public async Task<List<GetRolesDto>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
     {
-        return await _roleManager.Roles.ProjectTo<GetRolesDto>(_mapper.ConfigurationProvider)
+        return await _roleManager.Roles.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
+                                       .Take(request.PageAmount ?? int.MaxValue)
+                                       .ProjectTo<GetRolesDto>(_mapper.ConfigurationProvider)
                                        .ToListAsync(cancellationToken);
     }
 }
