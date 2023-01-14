@@ -117,6 +117,8 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 var app = builder.Build();
 
 app.UseSwagger(config =>
