@@ -46,6 +46,28 @@ public class GetRolesQueryHandlerTests
     }
 
     [Fact]
+    public async Task GetRolesQueryHandlerPagination_Success()
+    {
+        //Arrange
+        var handler = new GetRolesQueryHandler(_roleManager, _mapper);
+
+        //Act
+        var result = await handler.Handle(
+            new GetRolesQuery
+            {
+                Page = 0,
+                PageAmount = 2
+            },
+            CancellationToken.None
+        );
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<GetRolesDto>>();
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
     public async Task GetRolesQueryHandler_NoRolesFail()
     {
         //Arrange
