@@ -126,6 +126,8 @@ builder.Services.AddAuthentication(config =>
                });
 builder.Services.AddAuthorization();
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 var app = builder.Build();
 
 app.UseSwagger(config =>
