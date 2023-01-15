@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 using System.Text;
 
 namespace BlogApp.Application.Common.Behaviors;
@@ -20,11 +21,20 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         TResponse response;
+        byte[] cachedResponse;
 
         if (request.BypassCache)
             return await next();
 
-        var cachedResponse = await _cache.GetAsync(request.CacheKey, cancellationToken);
+        try
+        {
+            cachedResponse = await _cache.GetAsync(request.CacheKey, cancellationToken);
+        }
+        catch (RedisException rex)
+        {
+            _logger.LogError("{message}", rex.Message);
+            return await next();
+        }
 
         if (cachedResponse != null)
         {
