@@ -21,13 +21,15 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddControllers();
 
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("DevelopmentPolicy", policy =>
     {
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
+        policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]);
+        policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]);
+        policy.WithOrigins(builder.Configuration.GetSection("CORSPolicy")["AllowOrigins"]);
     });
 });
 
@@ -115,7 +117,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = "localhost:6379";
 });
-builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -139,7 +140,7 @@ app.UseSwaggerUI(config =>
 app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("DevelopmentPolicy");
 app.UseMetricsAllEndpoints();
 
 app.UseAuthentication();
