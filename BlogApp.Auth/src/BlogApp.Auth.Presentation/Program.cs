@@ -164,6 +164,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("DevelopmentPolicy");
 app.UseMetricsAllEndpoints();
 app.UseStaticFiles();
 
