@@ -43,6 +43,16 @@ builder.Services.AddIdentity<AppUser, AppRole>(config =>
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevelopmentPolicy", policy =>
+    {
+        policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]);
+        policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]);
+        policy.WithOrigins(builder.Configuration.GetSection("CORSPolicy")["AllowOrigins"]);
+    });
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Host.UseSerilog((ctx, lc) => lc
