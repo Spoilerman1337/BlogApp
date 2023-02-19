@@ -4,12 +4,14 @@ using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure;
 using BlogApp.Auth.Infrastructure.Persistance;
 using BlogApp.Auth.Presentation.Middleware;
+using BlogApp.Auth.Presentation.Options;
 using BlogApp.Auth.Presentation.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -64,53 +66,8 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-builder.Services.AddSwaggerGen(config =>
-{
-    config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
-
-    var provider = builder.Services.BuildServiceProvider();
-    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
-
-    foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
-    {
-        config.SwaggerDoc(description.GroupName,
-                          new OpenApiInfo()
-                          {
-                              Title = "BlogAppAuthAPI",
-                              Version = description.ApiVersion.ToString(),
-                              Description = $"Blog App Auth API version {description.ApiVersion}"
-                          });
-
-        config.AddSecurityDefinition($"AuthToken {description.ApiVersion}",
-                                     new OpenApiSecurityScheme
-                                     {
-                                         In = ParameterLocation.Header,
-                                         Type = SecuritySchemeType.Http,
-                                         BearerFormat = "JWT",
-                                         Scheme = "bearer",
-                                         Name = "Authorization",
-                                         Description = "Authorization token"
-                                     });
-
-        config.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
-            {
-                new OpenApiSecurityScheme()
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = $"AuthToken {description.ApiVersion}"
-                    }
-                },
-                new string[] {}
-            }
-        });
-
-        config.CustomOperationIds(description =>
-            description.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null);
-    }
-});
+builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 builder.Services.AddApiVersioning(config =>
 {
@@ -146,8 +103,7 @@ app.UseSwagger(config =>
 });
 app.UseSwaggerUI(config =>
 {
-    var provider = builder.Services.BuildServiceProvider();
-    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+    var service = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
     foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
     {
         config.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());

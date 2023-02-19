@@ -56,7 +56,7 @@ builder.Services.AddApiVersioning(config =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
-
+    
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme =
