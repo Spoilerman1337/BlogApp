@@ -49,9 +49,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevelopmentPolicy", policy =>
     {
-        policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]);
-        policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]);
-        policy.WithOrigins(builder.Configuration.GetSection("CORSPolicy")["AllowOrigins"]);
+        policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]!.ToString());
+        policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]!.ToString());
+        policy.WithOrigins(builder.Configuration.GetSection("CORSPolicy")["AllowOrigins"]!.ToString());
     });
 });
 
