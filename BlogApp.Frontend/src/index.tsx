@@ -1,7 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
+import App from '../App'
 
-ReactDOM.render(
-    <h1>Hello World!</h1>,
-    document.getElementById('app-root'),
-)
+const root = document.getElementById('root');
+if (root === null) throw new Error('Root container missing in index.html');
+
+const rootRender = ReactDOM.createRoot(root);
+const element = (
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
+rootRender.render(element);
