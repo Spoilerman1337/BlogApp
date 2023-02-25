@@ -368,3 +368,6 @@ FodyWeavers.xsd
 # IdentityServer
 tempkey.jwk
 keys/
+
+# Visual Studio Code
+.vscode/
