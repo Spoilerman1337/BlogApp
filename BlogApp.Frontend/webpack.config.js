@@ -13,6 +13,7 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -55,13 +56,20 @@ module.exports = {
             {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                resolve: {
-                  extensions: ['.ts', '.tsx', '.js', '.json'],
-                },
                 use: 'ts-loader',
             },
           ]
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+      },
+    devServer: {
+        static: {
+          directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 5000,
+      },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
