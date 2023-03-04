@@ -13,7 +13,7 @@ public class SetUserRoleCommandHandler : IRequestHandler<SetUserRoleCommand>
 
     public SetUserRoleCommandHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) => (_userManager, _roleManager) = (userManager, roleManager);
 
-    public async Task<Unit> Handle(SetUserRoleCommand request, CancellationToken cancellationToken)
+    public async Task Handle(SetUserRoleCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.Users.Where(x => x.Id == request.UserId).SingleOrDefaultAsync(cancellationToken);
         var role = await _roleManager.Roles.Where(x => x.Id == request.RoleId).SingleOrDefaultAsync(cancellationToken);
@@ -32,7 +32,5 @@ public class SetUserRoleCommandHandler : IRequestHandler<SetUserRoleCommand>
 
         await _userManager.RemoveFromRolesAsync(user, oldRoles);
         await _userManager.AddToRoleAsync(user, role.Name);
-
-        return Unit.Value;
     }
 }

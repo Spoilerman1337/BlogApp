@@ -12,7 +12,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
 
     public UpdateRoleCommandHandler(RoleManager<AppRole> roleManager) => _roleManager = roleManager;
 
-    public async Task<Unit> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
         var entity = await _roleManager.Roles.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -24,7 +24,5 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
         entity.Name = request.Name;
 
         await _roleManager.UpdateAsync(entity);
-
-        return Unit.Value;
     }
 }

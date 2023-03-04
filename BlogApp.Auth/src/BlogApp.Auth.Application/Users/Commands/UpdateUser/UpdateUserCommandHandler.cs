@@ -12,7 +12,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 
     public UpdateUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
 
-    public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var entity = await _userManager.Users.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -28,7 +28,5 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
         entity.Patronymic = request.Patronymic;
 
         await _userManager.UpdateAsync(entity);
-
-        return Unit.Value;
     }
 }

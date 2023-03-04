@@ -11,10 +11,8 @@ public class LogoutUserCommandHandler : IRequestHandler<LogoutUserCommand>
 
     public LogoutUserCommandHandler(SignInManager<AppUser> signInManager) => _signInManager = signInManager;
 
-    public async Task<Unit> Handle(LogoutUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(LogoutUserCommand request, CancellationToken cancellationToken)
     {
         await _signInManager.SignOutAsync();
-
-        return Unit.Value;
     }
 }

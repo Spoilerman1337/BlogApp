@@ -12,7 +12,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
 
     public DeleteRoleCommandHandler(RoleManager<AppRole> roleManager) => _roleManager = roleManager;
 
-    public async Task<Unit> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
         var entity = await _roleManager.Roles.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -22,7 +22,5 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
         }
 
         await _roleManager.DeleteAsync(entity);
-
-        return Unit.Value;
     }
 }

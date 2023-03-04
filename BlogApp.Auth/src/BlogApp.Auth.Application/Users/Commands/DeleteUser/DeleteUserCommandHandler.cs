@@ -12,7 +12,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 
     public DeleteUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
 
-    public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         var entity = await _userManager.Users.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -22,7 +22,5 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
         }
 
         await _userManager.DeleteAsync(entity);
-
-        return Unit.Value;
     }
 }
