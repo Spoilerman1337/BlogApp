@@ -12,7 +12,7 @@ public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
 
     public DeleteCommentCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Comments.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -23,7 +23,5 @@ public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
 
         _dbContext.Comments.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

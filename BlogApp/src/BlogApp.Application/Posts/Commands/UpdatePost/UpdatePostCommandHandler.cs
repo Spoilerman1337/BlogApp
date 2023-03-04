@@ -12,7 +12,7 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
 
     public UpdatePostCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdatePostCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Posts.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -26,7 +26,5 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
         entity.LastEdited = DateTime.UtcNow;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

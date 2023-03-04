@@ -12,7 +12,7 @@ public class ChangeVotePostCommandHandler : IRequestHandler<ChangeVotePostComman
 
     public ChangeVotePostCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(ChangeVotePostCommand request, CancellationToken cancellationToken)
+    public async Task Handle(ChangeVotePostCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.VotePosts.Where(c => c.PostId == request.PostId && c.UserId == request.UserId).SingleOrDefaultAsync(cancellationToken);
 
@@ -25,7 +25,5 @@ public class ChangeVotePostCommandHandler : IRequestHandler<ChangeVotePostComman
 
         _dbContext.VotePosts.Update(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

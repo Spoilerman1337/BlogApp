@@ -12,7 +12,7 @@ public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommand>
 
     public DeleteTagCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(DeleteTagCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteTagCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Tags.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -23,7 +23,5 @@ public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommand>
 
         _dbContext.Tags.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

@@ -12,7 +12,7 @@ public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand>
 
     public UpdateCommentCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Comments.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -25,7 +25,5 @@ public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand>
         entity.LastEdited = DateTime.UtcNow;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

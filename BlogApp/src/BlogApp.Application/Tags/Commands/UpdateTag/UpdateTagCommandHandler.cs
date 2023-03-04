@@ -12,7 +12,7 @@ public class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand>
 
     public UpdateTagCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(UpdateTagCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateTagCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Tags.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -24,7 +24,5 @@ public class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand>
         entity.TagName = request.TagName;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

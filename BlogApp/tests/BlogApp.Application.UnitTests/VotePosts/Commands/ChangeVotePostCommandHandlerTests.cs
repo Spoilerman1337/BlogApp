@@ -19,7 +19,7 @@ public class ChangeVotePostCommandHandlerTests : TestCommandBase
         var oldStatus = Context.VotePosts.First(c => c.PostId == postId && c.UserId == userId).IsUpvoted;
 
         //Act
-        var votePostStatus = await handler.Handle(
+        await handler.Handle(
             new ChangeVotePostCommand
             {
                 PostId = postId,

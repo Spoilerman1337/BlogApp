@@ -12,7 +12,7 @@ public class UnvotePostCommandHandler : IRequestHandler<UnvotePostCommand>
 
     public UnvotePostCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(UnvotePostCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UnvotePostCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.VotePosts.Where(c => c.PostId == request.PostId && c.UserId == request.UserId).SingleOrDefaultAsync(cancellationToken);
 
@@ -23,7 +23,5 @@ public class UnvotePostCommandHandler : IRequestHandler<UnvotePostCommand>
 
         _dbContext.VotePosts.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

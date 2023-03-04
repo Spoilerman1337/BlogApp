@@ -12,7 +12,7 @@ public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
 
     public DeletePostCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeletePostCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Posts.Where(c => c.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
 
@@ -23,7 +23,5 @@ public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
 
         _dbContext.Posts.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

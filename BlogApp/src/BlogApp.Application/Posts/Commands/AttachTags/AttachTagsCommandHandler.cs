@@ -12,7 +12,7 @@ public class AttachTagsCommandHandler : IRequestHandler<AttachTagsCommand>
 
     public AttachTagsCommandHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(AttachTagsCommand request, CancellationToken cancellationToken)
+    public async Task Handle(AttachTagsCommand request, CancellationToken cancellationToken)
     {
         var postEntity = await _dbContext.Posts.Include(t => t.Tags).ThenInclude(p => p.Posts).Where(p => p.Id == request.Id).SingleOrDefaultAsync(cancellationToken);
         var tagEntities = await _dbContext.Tags.Include(p => p.Posts).ThenInclude(t => t.Tags).Where(p => request.TagId.Contains(p.Id)).ToListAsync(cancellationToken);
@@ -32,7 +32,5 @@ public class AttachTagsCommandHandler : IRequestHandler<AttachTagsCommand>
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }
