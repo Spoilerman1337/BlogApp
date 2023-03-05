@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const App: FC<{}> = (): ReactElement => {
+const App: FC<object> = (): ReactElement => {
     return (
         <BrowserRouter>
             <Routes>
