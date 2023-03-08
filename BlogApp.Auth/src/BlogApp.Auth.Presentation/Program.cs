@@ -12,10 +12,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,13 +82,13 @@ builder.Services.AddAuthentication(config =>
     config.DefaultAuthenticateScheme =
         JwtBearerDefaults.AuthenticationScheme;
     config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-               .AddJwtBearer("Bearer", options =>
-               {
-                   options.Authority = "https://localhost:7090";
-                   options.Audience = "BlogAppAuthAPI";
-                   options.RequireHttpsMetadata = false;
-               });
+}).AddJwtBearer("Bearer", options =>
+   {
+       options.Authority = "https://localhost:7090";
+       options.Audience = "BlogAppAuthAPI";
+       options.RequireHttpsMetadata = false;
+       options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+   });
 builder.Services.AddAuthorization();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

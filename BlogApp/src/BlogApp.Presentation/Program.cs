@@ -62,13 +62,13 @@ builder.Services.AddAuthentication(config =>
     config.DefaultAuthenticateScheme =
         JwtBearerDefaults.AuthenticationScheme;
     config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-               .AddJwtBearer("Bearer", options =>
-               {
-                   options.Authority = "https://localhost:7090/";
-                   options.Audience = "BlogAppWebAPI";
-                   options.RequireHttpsMetadata = false;
-               });
+}).AddJwtBearer("Bearer", options =>
+   {
+       options.Authority = "https://localhost:7090/";
+       options.Audience = "BlogAppWebAPI";
+       options.RequireHttpsMetadata = false;
+       options.TokenValidationParameters.ValidTypes = new[] { "at+jwt"};
+   });
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
