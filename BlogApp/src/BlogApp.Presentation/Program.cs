@@ -9,10 +9,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +54,7 @@ builder.Services.AddApiVersioning(config =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
-    
+
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme =
@@ -67,7 +65,7 @@ builder.Services.AddAuthentication(config =>
        options.Authority = "https://localhost:7090/";
        options.Audience = "BlogAppWebAPI";
        options.RequireHttpsMetadata = false;
-       options.TokenValidationParameters.ValidTypes = new[] { "at+jwt"};
+       options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
    });
 
 builder.Services.AddStackExchangeRedisCache(options =>
