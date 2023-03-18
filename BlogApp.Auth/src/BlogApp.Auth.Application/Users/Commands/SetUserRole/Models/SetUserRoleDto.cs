@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BlogApp.Auth.Application.Common.Interfaces;
+using BlogApp.Auth.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Users.Commands.SetUserRole.Models;
 
-public class SetUserRoleDto
+public class SetUserRoleDto : IMapFrom<SetUserRoleCommand>
 {
     [Required]
     public Guid UserId { get; set; }
