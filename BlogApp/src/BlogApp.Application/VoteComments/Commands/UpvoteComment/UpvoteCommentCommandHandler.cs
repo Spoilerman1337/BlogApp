@@ -14,7 +14,7 @@ public class UpvoteCommentCommandHandler : IRequestHandler<UpvoteCommentCommand,
 
     public async Task<bool> Handle(UpvoteCommentCommand request, CancellationToken cancellationToken)
     {
-        var comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == request.CommentId);
+        var comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == request.CommentId, cancellationToken);
 
         if (comment == null)
         {
