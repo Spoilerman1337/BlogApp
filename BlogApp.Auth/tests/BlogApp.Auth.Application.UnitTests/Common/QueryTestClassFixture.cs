@@ -11,7 +11,7 @@ using Xunit;
 
 namespace BlogApp.Auth.Application.UnitTests.Common;
 
-public class QueryTestClassFixture : IDisposable
+public sealed class QueryTestClassFixture : IDisposable
 {
     internal readonly BlogAuthDbContext _context;
     internal readonly UserManager<AppUser> _userManager;

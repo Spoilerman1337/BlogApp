@@ -14,6 +14,6 @@ public class TestCommandBase : IDisposable
     public void Dispose()
     {
         BlogAppContextFactory.Destroy(Context);
+        GC.SuppressFinalize(this);
     }
-
 }

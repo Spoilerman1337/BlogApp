@@ -7,7 +7,7 @@ using Xunit;
 
 namespace BlogApp.Application.UnitTests.Common;
 
-public class QueryTestClassFixture : IDisposable
+public sealed class QueryTestClassFixture : IDisposable
 {
     internal readonly BlogDbContext _context;
     internal readonly IMapper _mapper;
