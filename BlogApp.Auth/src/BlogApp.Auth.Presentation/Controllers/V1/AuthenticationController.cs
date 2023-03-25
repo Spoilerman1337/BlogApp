@@ -17,7 +17,8 @@ public class AuthenticationController : ApiControllerBase
     private readonly IMapper _mapper;
     private readonly IIdentityServerInteractionService _interactionService;
 
-    public AuthenticationController(IMapper mapper) => _mapper = mapper;
+    public AuthenticationController(IMapper mapper, IIdentityServerInteractionService interactionService) 
+        => (_mapper, _interactionService) = (mapper, interactionService);
 
     /// <summary>Login user</summary>
     /// <remarks>
