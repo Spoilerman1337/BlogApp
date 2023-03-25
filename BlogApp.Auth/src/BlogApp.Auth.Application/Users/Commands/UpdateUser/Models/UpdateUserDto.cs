@@ -9,16 +9,16 @@ public class UpdateUserDto : IMapFrom<UpdateUserCommand>
     [Required]
     public Guid Id { get; set; }
     [Required]
-    public string UserName { get; set; }
+    public string UserName { get; set; } = null!;
     [Required]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string Password { get; set; } = null!;
     [Required]
     [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Patronymic { get; set; }
+    public string Email { get; set; } = null!;
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
+    public string Patronymic { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

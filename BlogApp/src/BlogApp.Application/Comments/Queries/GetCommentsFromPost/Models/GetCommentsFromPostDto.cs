@@ -9,7 +9,7 @@ public class GetCommentsFromPostDto : IMapFrom<Comment>
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public Guid PostId { get; set; }
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
     public DateTime CreationTime { get; set; }
     public DateTime? LastEdited { get; set; }
     public Guid? ParentCommentId { get; set; }

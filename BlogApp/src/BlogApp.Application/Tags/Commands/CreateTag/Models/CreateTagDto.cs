@@ -7,7 +7,7 @@ namespace BlogApp.Application.Tags.Commands.CreateTag.Models;
 public class CreateTagDto : IMapFrom<CreateTagCommand>
 {
     [Required]
-    public string TagName { get; set; }
+    public string TagName { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

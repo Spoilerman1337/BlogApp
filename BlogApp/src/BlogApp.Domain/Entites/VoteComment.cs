@@ -6,5 +6,5 @@ public class VoteComment
     public bool IsUpvoted { get; set; }
     public Guid CommentId { get; set; }
 
-    public Comment Comment { get; set; }
+    public Comment Comment { get; set; } = null!;
 }

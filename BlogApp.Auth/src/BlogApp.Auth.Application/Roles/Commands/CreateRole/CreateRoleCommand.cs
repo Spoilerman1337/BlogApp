@@ -5,5 +5,5 @@ namespace BlogApp.Auth.Application.Roles.Commands.CreateRole;
 
 public class CreateRoleCommand : IRequest<IdentityResult>
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 }

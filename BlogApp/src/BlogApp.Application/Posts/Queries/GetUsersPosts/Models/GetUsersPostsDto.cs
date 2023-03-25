@@ -8,12 +8,12 @@ public class GetUsersPostsDto : IMapFrom<Post>
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    public string Header { get; set; }
-    public string Text { get; set; }
+    public string Header { get; set; } = null!;
+    public string Text { get; set; } = null!;
     public DateTime CreationTime { get; set; }
     public DateTime? LastEdited { get; set; }
-    public List<Guid> CommentIds { get; set; }
-    public List<Guid> TagIds { get; set; }
+    public List<Guid> CommentIds { get; set; } = null!;
+    public List<Guid> TagIds { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

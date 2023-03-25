@@ -9,8 +9,8 @@ public class UpdatePostDto : IMapFrom<UpdatePostCommand>
     [Required]
     public Guid Id { get; set; }
     [Required]
-    public string Header { get; set; }
-    public string Text { get; set; }
+    public string Header { get; set; } = null!;
+    public string Text { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

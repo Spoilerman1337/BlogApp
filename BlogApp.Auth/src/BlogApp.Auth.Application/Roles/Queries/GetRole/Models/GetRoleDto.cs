@@ -7,7 +7,7 @@ namespace BlogApp.Auth.Application.Roles.Queries.GetRole.Models;
 public class GetRoleDto : IMapFrom<AppRole>
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

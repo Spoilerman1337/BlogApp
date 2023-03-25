@@ -7,8 +7,8 @@ namespace BlogApp.Application.Tags.Queries.GetPostsTags.Models;
 public class GetPostsTagsDto : IMapFrom<Tag>
 {
     public Guid Id { get; set; }
-    public string TagName { get; set; }
-    public List<Guid> PostIds { get; set; }
+    public string TagName { get; set; } = null!;
+    public List<Guid> PostIds { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {
