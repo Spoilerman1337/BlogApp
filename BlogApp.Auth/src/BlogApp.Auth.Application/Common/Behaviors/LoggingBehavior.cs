@@ -21,12 +21,12 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
         var response = await next();
 
-        if (response.GetType().IsListType())
+        if (response != null && response.GetType().IsListType())
         {
             var responseType = response.GetType().GetGenericArguments().First().Name;
             _logger.LogInformation("Returned List of {responseType} by request of user {userId}", responseType, userId);
         }
-        else
+        else if (response != null)
         {
             var responseType = response.GetType().Name;
             _logger.LogInformation("Returned {responseType} by request of user {userId}", responseType, userId);

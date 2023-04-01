@@ -36,8 +36,8 @@ public class AttachTagsCommandHandlerTests : TestCommandBase
         );
 
         //Assert
-        Assert.Contains(tagA, post.Tags.Select(c => c.Id));
-        Assert.Contains(tagB, post.Tags.Select(c => c.Id));
+        Assert.Contains(tagA, post!.Tags.Select(c => c.Id));
+        Assert.Contains(tagB, post!.Tags.Select(c => c.Id));
     }
 
     [Fact]

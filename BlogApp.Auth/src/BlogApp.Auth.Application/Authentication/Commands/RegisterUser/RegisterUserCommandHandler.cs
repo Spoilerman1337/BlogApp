@@ -1,4 +1,5 @@
-﻿using BlogApp.Auth.Domain.Entities;
+﻿using BlogApp.Auth.Application.Common.Exceptions;
+using BlogApp.Auth.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -23,7 +24,14 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, I
             Patronymic = request.Patronymic
         };
 
-        var roleName = (await _roleManager.FindByIdAsync(request.RoleId.ToString())).Name;
+        var appRole = (await _roleManager.FindByIdAsync(request.RoleId.ToString()));
+        string roleName;
+
+        if (appRole != null)
+            roleName = appRole.Name!;
+        else
+            throw new NotFoundException(nameof(AppRole), request.RoleId);
+
         var result = await _userManager.CreateAsync(user, request.Password);
 
         await _userManager.AddToRoleAsync(user, roleName);

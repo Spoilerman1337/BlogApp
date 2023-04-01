@@ -11,7 +11,7 @@ public class ApiControllerBase : ControllerBase
     private ISender _sender = null;
     protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
-    internal Guid UserId => !User.Identity.IsAuthenticated
+    internal Guid UserId => !User.Identity!.IsAuthenticated
             ? Guid.Empty
             : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 }

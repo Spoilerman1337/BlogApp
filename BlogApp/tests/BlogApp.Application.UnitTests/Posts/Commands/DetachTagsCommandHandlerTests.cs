@@ -36,7 +36,7 @@ public class DetachTagsCommandHandlerTests : TestCommandBase
         );
 
         //Assert
-        Assert.Empty(post.Tags);
+        Assert.Empty(post!.Tags);
     }
     [Fact]
     public async Task AttachTagsCommandHandlerTests_NoTagFail()
