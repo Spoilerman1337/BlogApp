@@ -31,6 +31,6 @@ public class SetUserRoleCommandHandler : IRequestHandler<SetUserRoleCommand>
         var oldRoles = await _userManager.GetRolesAsync(user);
 
         await _userManager.RemoveFromRolesAsync(user, oldRoles);
-        await _userManager.AddToRoleAsync(user, role.Name);
+        await _userManager.AddToRoleAsync(user, role.Name!);
     }
 }

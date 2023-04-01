@@ -23,7 +23,7 @@ public class GetUsersByRoleQueryHandler : IRequestHandler<GetUsersByRoleQuery, L
         if (role == null)
             throw new NotFoundException(nameof(AppRole), request.RoleId);
 
-        var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+        var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name!);
 
         if (usersInRole == null)
             return new();

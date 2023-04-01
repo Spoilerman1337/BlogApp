@@ -31,7 +31,7 @@ public class SetUserRoleCommandHandlerTests : TestCommandBase
             CancellationToken.None);
 
         //Assert
-        (await UserManager.GetRolesAsync(await Context.Users.SingleOrDefaultAsync(c => c.Id == userId))).Should().Contain("Aliquet").And.HaveCount(1);
+        (await UserManager.GetRolesAsync((await Context.Users.SingleOrDefaultAsync(c => c.Id == userId))!)).Should().Contain("Aliquet").And.HaveCount(1);
     }
 
     [Fact]
