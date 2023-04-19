@@ -9,10 +9,10 @@ namespace BlogApp.Auth.Application.UnitTests.Common;
 
 public class BlogAppContextFactory
 {
-    protected internal static Guid ToBeUpdatedUserId = Guid.NewGuid();
-    protected internal static Guid ToBeDeletedUserId = Guid.NewGuid();
-    protected internal static Guid ToBeUpdatedRoleId = Guid.NewGuid();
-    protected internal static Guid ToBeDeletedRoleId = Guid.NewGuid();
+    protected internal static readonly Guid ToBeUpdatedUserId = Guid.NewGuid();
+    protected internal static readonly Guid ToBeDeletedUserId = Guid.NewGuid();
+    protected internal static readonly Guid ToBeUpdatedRoleId = Guid.NewGuid();
+    protected internal static readonly Guid ToBeDeletedRoleId = Guid.NewGuid();
 
     public static BlogAuthDbContext Create()
     {
