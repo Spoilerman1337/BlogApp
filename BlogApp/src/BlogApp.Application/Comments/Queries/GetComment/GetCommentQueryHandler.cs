@@ -16,8 +16,8 @@ public class GetCommentQueryHandler : IRequestHandler<GetCommentQuery, GetCommen
 
     public async Task<GetCommentDto> Handle(GetCommentQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Comments.Where(c => c.Id == request.Id)
-                                        .ProjectTo<GetCommentDto>(_mapper.ConfigurationProvider)
-                                        .SingleOrDefaultAsync(cancellationToken);
+        var comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+
+        return _mapper.Map<GetCommentDto>(comment);
     }
 }

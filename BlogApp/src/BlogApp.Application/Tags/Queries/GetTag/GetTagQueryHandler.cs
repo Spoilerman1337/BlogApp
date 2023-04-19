@@ -16,8 +16,8 @@ public class GetTagQueryHandler : IRequestHandler<GetTagQuery, GetTagDto>
 
     public async Task<GetTagDto> Handle(GetTagQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Tags.Where(c => c.Id == request.Id)
-                                    .ProjectTo<GetTagDto>(_mapper.ConfigurationProvider)
-                                    .SingleOrDefaultAsync(cancellationToken);
+        var tag = await _dbContext.Tags.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+
+        return _mapper.Map<GetTagDto>(tag);
     }
 }

@@ -14,7 +14,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IBlogDbContext>(provider =>
-            provider.GetService<BlogDbContext>());
+            provider.GetRequiredService<BlogDbContext>());
 
         return services;
     }

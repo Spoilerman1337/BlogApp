@@ -38,7 +38,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
         if (cachedResponse != null)
         {
-            response = JsonConvert.DeserializeObject<TResponse>(Encoding.Default.GetString(cachedResponse));
+            response = JsonConvert.DeserializeObject<TResponse>(Encoding.Default.GetString(cachedResponse))!;
             _logger.LogInformation("Fetched from Cache -> '{key}'.", request.CacheKey);
         }
         else
