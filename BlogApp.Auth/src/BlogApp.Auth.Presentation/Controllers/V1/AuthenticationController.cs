@@ -93,8 +93,7 @@ public class AuthenticationController : ApiControllerBase
     /// Sample request:
     /// GET /auth/logout
     /// </remarks>
-    /// <param name="dto">LoginUserDto object</param>
-    /// <param name="userId">GUID user ID</param>
+    /// <param name="logoutId">GUID user ID</param>
     /// <returns>Returns View</returns>
     /// <response code="200">If valid</response>
     [HttpGet]

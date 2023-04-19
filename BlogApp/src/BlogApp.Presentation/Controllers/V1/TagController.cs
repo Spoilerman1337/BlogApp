@@ -56,6 +56,7 @@ public class TagController : ApiControllerBase
     /// </remarks>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
@@ -84,6 +85,7 @@ public class TagController : ApiControllerBase
     /// <param name="postId">GUID ID of a tag</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="bypassCache">Should or should not ignore caching</param>
     /// <returns>Returns List of GetPostsTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
