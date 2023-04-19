@@ -48,7 +48,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                             Id = $"AuthToken {description.ApiVersion}"
                         }
                     },
-                    new string[] {}
+                    Array.Empty<string>()
                 }
             });
 
