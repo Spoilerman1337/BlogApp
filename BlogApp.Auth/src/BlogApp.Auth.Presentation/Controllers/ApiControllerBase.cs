@@ -7,6 +7,6 @@ namespace BlogApp.Auth.Presentation.Controllers;
 [Route("api/[controller]")]
 public class ApiControllerBase : Controller
 {
-    private ISender _sender = null;
+    private ISender? _sender = null;
     protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 }

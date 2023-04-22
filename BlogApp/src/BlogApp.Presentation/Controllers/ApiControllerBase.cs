@@ -8,7 +8,7 @@ namespace BlogApp.Presentation.Controllers;
 [Route("api/[controller]")]
 public class ApiControllerBase : ControllerBase
 {
-    private ISender _sender = null;
+    private ISender? _sender = null;
     protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
     internal Guid UserId => !User.Identity!.IsAuthenticated
