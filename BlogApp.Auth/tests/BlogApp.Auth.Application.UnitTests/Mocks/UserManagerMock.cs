@@ -25,7 +25,7 @@ public static class UserManagerMock
         userManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
             .ReturnsAsync((string userId) => context.Users.Find(Guid.Parse(userId)));
         userManager.Setup(x => x.GetRolesAsync(It.IsAny<AppUser>()))
-            .ReturnsAsync((AppUser user) => context.Roles.Where(c => context.UserRoles.Where(c => c.UserId == user.Id).Select(c => c.RoleId).Contains(c.Id)).Select(c => c.Name).ToList());
+            .ReturnsAsync((AppUser user) => context.Roles.Where(c => context.UserRoles.Where(c => c.UserId == user.Id).Select(c => c.RoleId).Contains(c.Id)).Select(c => c.Name!).ToList());
         userManager.Setup(x => x.RemoveFromRolesAsync(It.IsAny<AppUser>(), It.IsAny<IEnumerable<string>>()))
             .ReturnsAsync(IdentityResult.Success)
             .Callback<AppUser, IEnumerable<string>>((x, y) => context.UserRoles.Remove(context.UserRoles.Where(a => a.UserId == x.Id && a.RoleId.Equals(context.Roles.Where(c => c.Name == y.First()).First().Id)).First()).Context.SaveChanges());
