@@ -75,7 +75,7 @@ public class MetricsBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
             catch (Exception ex)
             {
                 _metrics.Measure.Counter.Increment(_requestsExceptionsCounter);
-                _metrics.Measure.Meter.Mark(_requestsExceptions, new MetricTags(new string[] { "request", "exception" }, new string[] { request.GetType().Name, ex.GetType().FullName }));
+                _metrics.Measure.Meter.Mark(_requestsExceptions, new MetricTags(new string[] { "request", "exception" }, new string[] { request.GetType().Name, ex.GetType()!.FullName }));
                 throw;
             }
         }
