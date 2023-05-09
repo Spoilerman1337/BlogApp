@@ -21,7 +21,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         TResponse response;
-        byte[] cachedResponse;
+        byte[]? cachedResponse;
 
         if (request.BypassCache)
             return await next();
@@ -46,6 +46,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
             response = await GetResponseAndAddToCache(request, next, cancellationToken);
             _logger.LogInformation("Added to Cache -> '{key}'.", request.CacheKey);
         }
+
         return response;
     }
 
