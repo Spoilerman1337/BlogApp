@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+﻿using BlogApp.Application.Comments.Queries.GetComment;
 using BlogApp.Application.Posts.Queries.GetPost;
 using BlogApp.Application.Posts.Queries.GetPost.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
+using MapsterMapper;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.Posts.Queries;
@@ -41,21 +42,20 @@ public class GetPostQueryHandlerTests
     }
 
     [Fact]
-    public async Task GetPostQueryHandler_Fail()
+    public async Task GetPostQueryHandler_Throws()
     {
         //Arrange
         var handler = new GetPostQueryHandler(_context, _mapper);
 
         //Act
-        var result = await handler.Handle(
+
+        //Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await handler.Handle(
             new GetPostQuery
             {
                 Id = Guid.NewGuid()
             },
             CancellationToken.None
-        );
-
-        //Assert
-        result.Should().BeNull();
+        ));
     }
 }

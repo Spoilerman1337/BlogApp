@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
-using BlogApp.Domain.Entites;
+﻿using BlogApp.Domain.Entites;
+using Mapster;
 
 namespace BlogApp.Application.VotePosts.Queries.GetPostsVotes.Models;
 
@@ -10,8 +9,8 @@ public class GetPostsVotesDto : IMapFrom<VotePost>
     public Guid UserId { get; set; }
     public bool IsUpvoted { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<VotePost, GetPostsVotesDto>();
+        config.NewConfig<VotePost, GetPostsVotesDto>();
     }
 }

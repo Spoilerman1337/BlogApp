@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
-using BlogApp.Application.Common.Mappings;
-using BlogApp.Infrastructure.Persistance;
+﻿using BlogApp.Infrastructure.Persistance;
+using Mapster;
+using Mapster.Utils;
+using MapsterMapper;
 using System.Reflection;
 using Xunit;
 
@@ -15,13 +15,8 @@ public sealed class QueryTestClassFixture : IDisposable
     public QueryTestClassFixture()
     {
         _context = BlogAppContextFactory.Create();
-
-        var mapperConfiguration = new MapperConfiguration(config =>
-        {
-            config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new MappingProfile(typeof(IBlogDbContext).Assembly));
-        });
-        _mapper = mapperConfiguration.CreateMapper();
+        _mapper = new Mapper();
+        //TypeAdapterConfig.GlobalSettings.ScanInheritedTypes(Assembly.GetExecutingAssembly());
     }
 
     public void Dispose()

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Posts.Queries.GetPosts;
+﻿using BlogApp.Application.Posts.Queries.GetPosts;
 using BlogApp.Application.Posts.Queries.GetPosts.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
@@ -13,19 +12,17 @@ namespace BlogApp.Application.UnitTests.Posts.Queries;
 public class GetPostsQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetPostsQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetPostsQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetPostsQueryHandler(_context, _mapper);
+        var handler = new GetPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -42,7 +39,7 @@ public class GetPostsQueryHandlerTests
     public async Task GetPostsQueryHandlerDateFilter_SuccessNotFound()
     {
         //Arrange
-        var handler = new GetPostsQueryHandler(_context, _mapper);
+        var handler = new GetPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -64,7 +61,7 @@ public class GetPostsQueryHandlerTests
     public async Task GetPostsQueryHandlerDateFilter_SuccessFound()
     {
         //Arrange
-        var handler = new GetPostsQueryHandler(_context, _mapper);
+        var handler = new GetPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -86,7 +83,7 @@ public class GetPostsQueryHandlerTests
     public async Task GetPostsQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetPostsQueryHandler(_context, _mapper);
+        var handler = new GetPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -111,7 +108,7 @@ public class GetPostsQueryHandlerTests
         var options = new DbContextOptionsBuilder<BlogDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
         var context = new BlogDbContext(options);
-        var handler = new GetPostsQueryHandler(context, _mapper);
+        var handler = new GetPostsQueryHandler(context);
 
         //Act
         var result = await handler.Handle(

@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using BlogApp.Application.Comments.Queries.GetComment;
+﻿using BlogApp.Application.Comments.Queries.GetComment;
 using BlogApp.Application.Comments.Queries.GetComment.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
+using MapsterMapper;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.Comments.Queries;
@@ -41,21 +41,20 @@ public class GetCommentQueryHandlerTests
     }
 
     [Fact]
-    public async Task GetCommentQueryHandler_Fail()
+    public async Task GetCommentQueryHandler_Throws()
     {
         //Arrange
         var handler = new GetCommentQueryHandler(_context, _mapper);
 
         //Act
-        var result = await handler.Handle(
+
+        //Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await handler.Handle(
             new GetCommentQuery
             {
                 Id = Guid.NewGuid()
             },
             CancellationToken.None
-        );
-
-        //Assert
-        result.Should().BeNull();
+        ));
     }
 }

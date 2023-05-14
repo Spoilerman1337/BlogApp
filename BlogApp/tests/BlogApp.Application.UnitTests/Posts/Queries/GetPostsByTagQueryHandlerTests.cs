@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Exceptions;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Posts.Queries.GetPostsByTag;
 using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
 using BlogApp.Application.UnitTests.Common;
@@ -13,19 +12,17 @@ namespace BlogApp.Application.UnitTests.Posts.Queries;
 public class GetPostsByTagQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetPostsByTagQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetPostsByTagQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -45,7 +42,7 @@ public class GetPostsByTagQueryHandlerTests
     public async Task GetPostsByTagQueryHandlerDateFilter_SuccessNotFound()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -68,7 +65,7 @@ public class GetPostsByTagQueryHandlerTests
     public async Task GetPostsByTagQueryHandlerDateFilter_SuccessFound()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -91,7 +88,7 @@ public class GetPostsByTagQueryHandlerTests
     public async Task GetPostsByTagQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -114,7 +111,7 @@ public class GetPostsByTagQueryHandlerTests
     public async Task GetPostsByTagQueryHandler_NoPostsFail()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -133,7 +130,7 @@ public class GetPostsByTagQueryHandlerTests
     public async Task GetPostsByTagQueryHandler_NoTagThrows()
     {
         //Arrange
-        var handler = new GetPostsByTagQueryHandler(_context, _mapper);
+        var handler = new GetPostsByTagQueryHandler(_context);
 
         //Act
 

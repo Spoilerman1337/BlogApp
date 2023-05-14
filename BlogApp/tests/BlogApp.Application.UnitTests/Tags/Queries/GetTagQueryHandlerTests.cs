@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Tags.Queries.GetTag;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
+using MapsterMapper;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.Tags.Queries;
@@ -41,21 +42,20 @@ public class GetTagQueryHandlerTests
     }
 
     [Fact]
-    public async Task GetTagQueryHandler_Fail()
+    public async Task GetTagQueryHandler_Throws()
     {
         //Arrange
         var handler = new GetTagQueryHandler(_context, _mapper);
 
         //Act
-        var result = await handler.Handle(
+
+        //Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await handler.Handle(
             new GetTagQuery
             {
                 Id = Guid.NewGuid()
             },
             CancellationToken.None
-        );
-
-        //Assert
-        result.Should().BeNull();
+        ));
     }
 }

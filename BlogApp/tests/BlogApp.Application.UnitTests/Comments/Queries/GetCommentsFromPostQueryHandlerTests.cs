@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
+﻿using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.UnitTests.Common;
@@ -13,18 +12,17 @@ namespace BlogApp.Application.UnitTests.Comments.Queries;
 public class GetCommentsFromPostQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetCommentsFromPostQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
+
     [Fact]
     public async Task GetCommentsFromPostQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -44,7 +42,7 @@ public class GetCommentsFromPostQueryHandlerTests
     public async Task GetCommentsFromPostQueryHandlerDateFilter_SuccessNotFound()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -67,7 +65,7 @@ public class GetCommentsFromPostQueryHandlerTests
     public async Task GetCommentsFromPostQueryHandlerDateFilter_SuccessFound()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -90,7 +88,7 @@ public class GetCommentsFromPostQueryHandlerTests
     public async Task GetCommentsFromPostQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -113,7 +111,7 @@ public class GetCommentsFromPostQueryHandlerTests
     public async Task GetCommentsFromPostQueryHandler_NoCommentsInPostFail()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -133,7 +131,7 @@ public class GetCommentsFromPostQueryHandlerTests
     public async Task GetCommentsFromPostQueryHandler_NoPostFail()
     {
         //Arrange
-        var handler = new GetCommentsFromPostQueryHandler(_context, _mapper);
+        var handler = new GetCommentsFromPostQueryHandler(_context);
 
         //Act
 

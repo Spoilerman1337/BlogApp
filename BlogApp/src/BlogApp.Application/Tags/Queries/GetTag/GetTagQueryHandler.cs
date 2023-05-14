@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Common.Interfaces;
+﻿using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
+using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +15,7 @@ public class GetTagQueryHandler : IRequestHandler<GetTagQuery, GetTagDto>
 
     public async Task<GetTagDto> Handle(GetTagQuery request, CancellationToken cancellationToken)
     {
-        var tag = await _dbContext.Tags.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var tag = await _dbContext.Tags.FirstAsync(c => c.Id == request.Id, cancellationToken);
 
         return _mapper.Map<GetTagDto>(tag);
     }

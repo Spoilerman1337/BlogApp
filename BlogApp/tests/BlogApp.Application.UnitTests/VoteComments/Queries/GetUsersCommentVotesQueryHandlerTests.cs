@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.UnitTests.Common;
+﻿using BlogApp.Application.UnitTests.Common;
 using BlogApp.Application.VoteComments.Queries.GetUsersCommentVotes;
 using BlogApp.Application.VoteComments.Queries.GetUsersCommentVotes.Models;
 using BlogApp.Infrastructure.Persistance;
@@ -12,19 +11,17 @@ namespace BlogApp.Application.UnitTests.VoteComments.Queries;
 public class GetUsersCommentVotesQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetUsersCommentVotesQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetUsersCommentVotesQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetUsersCommentVotesQueryHandler(_context, _mapper);
+        var handler = new GetUsersCommentVotesQueryHandler(_context);
         var userId = BlogAppContextFactory.NoPostUser;
 
         //Act

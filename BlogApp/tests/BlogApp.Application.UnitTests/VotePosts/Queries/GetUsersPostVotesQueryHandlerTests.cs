@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.UnitTests.Common;
+﻿using BlogApp.Application.UnitTests.Common;
 using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes;
 using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes.Models;
 using BlogApp.Infrastructure.Persistance;
@@ -12,19 +11,17 @@ namespace BlogApp.Application.UnitTests.VotePosts.Queries;
 public class GetUsersPostVotesQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetUsersPostVotesQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetUsersPostVotesQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetUsersPostVotesQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostVotesQueryHandler(_context);
         var userId = BlogAppContextFactory.NoPostUser;
 
         //Act

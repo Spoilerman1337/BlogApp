@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.Comments.Commands.UpdateComment.Models;
@@ -12,8 +11,8 @@ public class UpdateCommentDto : IMapFrom<UpdateCommentCommand>
     public string Text { get; set; } = null!;
     public Guid ParentCommentId { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<UpdateCommentDto, UpdateCommentCommand>();
+        config.NewConfig<UpdateCommentDto, UpdateCommentCommand>();
     }
 }

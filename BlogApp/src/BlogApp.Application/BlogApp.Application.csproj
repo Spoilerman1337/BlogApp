@@ -11,10 +11,10 @@
     <PackageReference Include="App.Metrics.AspNetCore.Endpoints" Version="4.3.0" />
     <PackageReference Include="App.Metrics.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="App.Metrics.Reporting.Console" Version="4.3.0" />
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+    <PackageReference Include="Mapster" Version="7.4.0-pre06" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1-pre02" />
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

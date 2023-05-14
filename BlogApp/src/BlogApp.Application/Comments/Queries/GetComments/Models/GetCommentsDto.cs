@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
-using BlogApp.Domain.Entites;
+﻿using BlogApp.Domain.Entites;
+using Mapster;
 
 namespace BlogApp.Application.Comments.Queries.GetComments.Models;
 
@@ -14,8 +13,8 @@ public class GetCommentsDto : IMapFrom<Comment>
     public DateTime? LastEdited { get; set; }
     public Guid? ParentCommentId { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<Comment, GetCommentsDto>();
+        config.NewConfig<Comment, GetCommentsDto>();
     }
 }

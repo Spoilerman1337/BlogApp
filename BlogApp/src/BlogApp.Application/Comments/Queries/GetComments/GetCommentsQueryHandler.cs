@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Comments.Queries.GetComments.Models;
+﻿using BlogApp.Application.Comments.Queries.GetComments.Models;
 using BlogApp.Application.Common.Interfaces;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +9,8 @@ namespace BlogApp.Application.Comments.Queries.GetComments;
 public class GetCommentsQueryHandler : IRequestHandler<GetCommentsQuery, List<GetCommentsDto>>
 {
     private readonly IBlogDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetCommentsQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+    public GetCommentsQueryHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<List<GetCommentsDto>> Handle(GetCommentsQuery request, CancellationToken cancellationToken)
     {
@@ -20,7 +18,7 @@ public class GetCommentsQueryHandler : IRequestHandler<GetCommentsQuery, List<Ge
                                         .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
                                         .Take(request.PageAmount ?? int.MaxValue)
                                         .OrderBy(c => c.Id)
-                                        .ProjectTo<GetCommentsDto>(_mapper.ConfigurationProvider)
+                                        .ProjectToType<GetCommentsDto>()
                                         .ToListAsync(cancellationToken);
     }
 }

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.Posts.Commands.CreatePost.Models;
@@ -10,8 +9,8 @@ public class CreatePostDto : IMapFrom<CreatePostCommand>
     public string Header { get; set; } = null!;
     public string Text { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<CreatePostDto, CreatePostCommand>();
+        config.NewConfig<CreatePostDto, CreatePostCommand>();
     }
 }

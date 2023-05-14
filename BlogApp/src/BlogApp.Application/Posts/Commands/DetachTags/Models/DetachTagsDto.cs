@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.Posts.Commands.DetachTags.Models;
@@ -11,8 +10,8 @@ public class DetachTagsDto : IMapFrom<DetachTagsCommand>
     [Required]
     public Guid Id { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<DetachTagsDto, DetachTagsCommand>();
+        config.NewConfig<DetachTagsDto, DetachTagsCommand>();
     }
 }

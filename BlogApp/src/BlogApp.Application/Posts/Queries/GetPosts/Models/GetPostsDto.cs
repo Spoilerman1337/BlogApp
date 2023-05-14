@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
-using BlogApp.Domain.Entites;
+﻿using BlogApp.Domain.Entites;
+using Mapster;
 
 namespace BlogApp.Application.Posts.Queries.GetPosts.Models;
 
@@ -14,10 +13,10 @@ public class GetPostsDto : IMapFrom<Post>
     public List<Guid> CommentIds { get; set; } = null!;
     public List<Guid> TagIds { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<Post, GetPostsDto>()
-               .ForMember(dest => dest.TagIds, opt => opt.MapFrom(src => src.Tags.Select(c => c.Id)))
-               .ForMember(dest => dest.CommentIds, opt => opt.MapFrom(src => src.Comments.Select(c => c.Id)));
+        config.NewConfig<Post, GetPostsDto>()
+               .Map(dest => dest.TagIds, src => src.Tags.Select(c => c.Id))
+               .Map(dest => dest.CommentIds, src => src.Comments.Select(c => c.Id));
     }
 }

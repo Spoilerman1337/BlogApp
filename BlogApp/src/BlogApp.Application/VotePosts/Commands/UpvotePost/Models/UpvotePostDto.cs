@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.VotePosts.Commands.UpvotePost.Models;
@@ -11,8 +10,8 @@ public class UpvotePostDto : IMapFrom<UpvotePostCommand>
     [Required]
     public bool IsUpvoted { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<UpvotePostDto, UpvotePostCommand>();
+        config.NewConfig<UpvotePostDto, UpvotePostCommand>();
     }
 }

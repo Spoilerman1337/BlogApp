@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Comments.Queries.GetComment.Models;
+﻿using BlogApp.Application.Comments.Queries.GetComment.Models;
 using BlogApp.Application.Common.Interfaces;
+using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +15,7 @@ public class GetCommentQueryHandler : IRequestHandler<GetCommentQuery, GetCommen
 
     public async Task<GetCommentDto> Handle(GetCommentQuery request, CancellationToken cancellationToken)
     {
-        var comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        var comment = await _dbContext.Comments.FirstAsync(c => c.Id == request.Id, cancellationToken);
 
         return _mapper.Map<GetCommentDto>(comment);
     }

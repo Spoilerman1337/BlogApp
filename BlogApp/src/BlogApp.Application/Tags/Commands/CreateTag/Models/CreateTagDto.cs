@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Application.Tags.Commands.CreateTag.Models;
@@ -9,8 +8,8 @@ public class CreateTagDto : IMapFrom<CreateTagCommand>
     [Required]
     public string TagName { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<CreateTagDto, CreateTagCommand>();
+        config.NewConfig<CreateTagDto, CreateTagCommand>();
     }
 }

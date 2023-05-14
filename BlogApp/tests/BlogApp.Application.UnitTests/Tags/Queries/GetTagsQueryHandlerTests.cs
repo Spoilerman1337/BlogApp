@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Tags.Queries.GetTags;
+﻿using BlogApp.Application.Tags.Queries.GetTags;
 using BlogApp.Application.Tags.Queries.GetTags.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
@@ -13,19 +12,17 @@ namespace BlogApp.Application.UnitTests.Tags.Queries;
 public class GetTagsQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetTagsQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetTagsQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetTagsQueryHandler(_context, _mapper);
+        var handler = new GetTagsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -42,7 +39,7 @@ public class GetTagsQueryHandlerTests
     public async Task GetTagsQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetTagsQueryHandler(_context, _mapper);
+        var handler = new GetTagsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -67,7 +64,7 @@ public class GetTagsQueryHandlerTests
         var options = new DbContextOptionsBuilder<BlogDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
         var context = new BlogDbContext(options);
-        var handler = new GetTagsQueryHandler(context, _mapper);
+        var handler = new GetTagsQueryHandler(context);
 
         //Act
         var result = await handler.Handle(

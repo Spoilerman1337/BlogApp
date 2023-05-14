@@ -1,6 +1,4 @@
-﻿using AutoMapper.Internal;
-using BlogApp.Application.Common.Exceptions;
-using BlogApp.Application.Common.Interfaces;
+﻿using BlogApp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +20,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
         var response = await next();
 
-        if (response != null && response.GetType().IsListType())
+        if (response != null && typeof(IEnumerable<>).IsAssignableFrom(response.GetType()) && response.GetType() != typeof(string))
         {
             var responseType = response.GetType().GetGenericArguments().First().Name;
             _logger.LogInformation("Returned List of {responseType} by request of user {userId}", responseType, userId);

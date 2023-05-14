@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Exceptions;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Posts.Queries.GetPostByComment;
 using BlogApp.Application.Posts.Queries.GetPostByComment.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
 using FluentAssertions;
+using MapsterMapper;
 using Xunit;
 
 namespace BlogApp.Application.UnitTests.Posts.Queries;

@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Common.Exceptions;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.Tags.Queries.GetPostsTags.Models;
 using BlogApp.Domain.Entites;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +11,8 @@ namespace BlogApp.Application.Tags.Queries.GetPostsTags;
 public class GetPostsTagsQueryHandler : IRequestHandler<GetPostsTagsQuery, List<GetPostsTagsDto>>
 {
     private readonly IBlogDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetPostsTagsQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+    public GetPostsTagsQueryHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<List<GetPostsTagsDto>> Handle(GetPostsTagsQuery request, CancellationToken cancellationToken)
     {
@@ -25,7 +23,7 @@ public class GetPostsTagsQueryHandler : IRequestHandler<GetPostsTagsQuery, List<
                                     .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
                                     .Take(request.PageAmount ?? int.MaxValue)
                                     .OrderBy(c => c.Id)
-                                    .ProjectTo<GetPostsTagsDto>(_mapper.ConfigurationProvider)
+                                    .ProjectToType<GetPostsTagsDto>()
                                     .ToListAsync(cancellationToken);
     }
 }

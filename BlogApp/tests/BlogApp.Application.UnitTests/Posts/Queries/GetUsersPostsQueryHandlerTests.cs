@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Posts.Queries.GetUsersPosts;
+﻿using BlogApp.Application.Posts.Queries.GetUsersPosts;
 using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
@@ -12,19 +11,17 @@ namespace BlogApp.Application.UnitTests.Posts.Queries;
 public class GetUsersPostsQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetUsersPostsQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetUsersPostsQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -44,7 +41,7 @@ public class GetUsersPostsQueryHandlerTests
     public async Task GetUsersPostsQueryHandlerDateFilter_SuccessNotFound()
     {
         //Arrange
-        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -67,7 +64,7 @@ public class GetUsersPostsQueryHandlerTests
     public async Task GetUsersPostsQueryHandlerDateFilter_SuccessFound()
     {
         //Arrange
-        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -90,7 +87,7 @@ public class GetUsersPostsQueryHandlerTests
     public async Task GetUsersPostsQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -113,7 +110,7 @@ public class GetUsersPostsQueryHandlerTests
     public async Task GetUsersPostsQueryHandler_NoPostsFail()
     {
         //Arrange
-        var handler = new GetUsersPostsQueryHandler(_context, _mapper);
+        var handler = new GetUsersPostsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(

@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Common.Exceptions;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
 using BlogApp.Domain.Entites;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +11,8 @@ namespace BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
 public class GetCommentsVotesQueryHandler : IRequestHandler<GetCommentsVotesQuery, List<GetCommentsVotesDto>>
 {
     private readonly IBlogDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetCommentsVotesQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+    public GetCommentsVotesQueryHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<List<GetCommentsVotesDto>> Handle(GetCommentsVotesQuery request, CancellationToken cancellationToken)
     {
@@ -22,7 +20,7 @@ public class GetCommentsVotesQueryHandler : IRequestHandler<GetCommentsVotesQuer
             throw new NotFoundException(nameof(Comment), request.CommentId);
 
         return await _dbContext.VoteComments.Where(c => c.CommentId == request.CommentId)
-                                     .ProjectTo<GetCommentsVotesDto>(_mapper.ConfigurationProvider)
+                                     .ProjectToType<GetCommentsVotesDto>()
                                      .ToListAsync(cancellationToken);
     }
 }

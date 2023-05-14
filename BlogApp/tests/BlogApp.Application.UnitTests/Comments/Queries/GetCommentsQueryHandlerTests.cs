@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Comments.Queries.GetComments;
+﻿using BlogApp.Application.Comments.Queries.GetComments;
 using BlogApp.Application.Comments.Queries.GetComments.Models;
 using BlogApp.Application.UnitTests.Common;
 using BlogApp.Infrastructure.Persistance;
@@ -13,19 +12,17 @@ namespace BlogApp.Application.UnitTests.Comments.Queries;
 public class GetCommentsQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetCommentsQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetCommentsQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetCommentsQueryHandler(_context, _mapper);
+        var handler = new GetCommentsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -42,7 +39,7 @@ public class GetCommentsQueryHandlerTests
     public async Task GetCommentsQueryHandlerDateFilter_SuccessNotFound()
     {
         //Arrange
-        var handler = new GetCommentsQueryHandler(_context, _mapper);
+        var handler = new GetCommentsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -64,7 +61,7 @@ public class GetCommentsQueryHandlerTests
     public async Task GetCommentsQueryHandlerDateFilter_SuccessFound()
     {
         //Arrange
-        var handler = new GetCommentsQueryHandler(_context, _mapper);
+        var handler = new GetCommentsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -86,7 +83,7 @@ public class GetCommentsQueryHandlerTests
     public async Task GetCommentsQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetCommentsQueryHandler(_context, _mapper);
+        var handler = new GetCommentsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -111,7 +108,7 @@ public class GetCommentsQueryHandlerTests
         var options = new DbContextOptionsBuilder<BlogDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
         var context = new BlogDbContext(options);
-        var handler = new GetCommentsQueryHandler(context, _mapper);
+        var handler = new GetCommentsQueryHandler(context);
 
         //Act
         var result = await handler.Handle(

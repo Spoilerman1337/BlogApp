@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Common.Exceptions;
+﻿using BlogApp.Application.Common.Exceptions;
 using BlogApp.Application.Tags.Queries.GetPostsTags;
 using BlogApp.Application.Tags.Queries.GetPostsTags.Models;
 using BlogApp.Application.UnitTests.Common;
@@ -13,19 +12,17 @@ namespace BlogApp.Application.UnitTests.Tags.Queries;
 public class GetPostsTagsQueryHandlerTests
 {
     private readonly BlogDbContext _context;
-    private readonly IMapper _mapper;
 
     public GetPostsTagsQueryHandlerTests(QueryTestClassFixture fixture)
     {
         _context = fixture._context;
-        _mapper = fixture._mapper;
     }
 
     [Fact]
     public async Task GetPostsTagsQueryHandler_Success()
     {
         //Arrange
-        var handler = new GetPostsTagsQueryHandler(_context, _mapper);
+        var handler = new GetPostsTagsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -45,7 +42,7 @@ public class GetPostsTagsQueryHandlerTests
     public async Task GetPostsTagsQueryHandler_NoPostThrows()
     {
         //Arrange
-        var handler = new GetPostsTagsQueryHandler(_context, _mapper);
+        var handler = new GetPostsTagsQueryHandler(_context);
 
         //Act
 
@@ -63,7 +60,7 @@ public class GetPostsTagsQueryHandlerTests
     public async Task GetPostsTagsQueryHandlerPagination_Success()
     {
         //Arrange
-        var handler = new GetPostsTagsQueryHandler(_context, _mapper);
+        var handler = new GetPostsTagsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(
@@ -86,7 +83,7 @@ public class GetPostsTagsQueryHandlerTests
     public async Task GetPostsTagsQueryHandler_NoTagsFail()
     {
         //Arrange
-        var handler = new GetPostsTagsQueryHandler(_context, _mapper);
+        var handler = new GetPostsTagsQueryHandler(_context);
 
         //Act
         var result = await handler.Handle(

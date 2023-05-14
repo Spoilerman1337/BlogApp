@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Application.Common.Interfaces;
+﻿using BlogApp.Application.Common.Interfaces;
 using BlogApp.Application.Posts.Queries.GetPosts.Models;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +9,8 @@ namespace BlogApp.Application.Posts.Queries.GetPosts;
 public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<GetPostsDto>>
 {
     private readonly IBlogDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetPostsQueryHandler(IBlogDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+    public GetPostsQueryHandler(IBlogDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<List<GetPostsDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
@@ -21,7 +19,7 @@ public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<GetPosts
                                      .Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
                                      .Take(request.PageAmount ?? int.MaxValue)
                                      .OrderBy(c => c.Id)
-                                     .ProjectTo<GetPostsDto>(_mapper.ConfigurationProvider)
+                                     .ProjectToType<GetPostsDto>()
                                      .ToListAsync(cancellationToken);
     }
 }
