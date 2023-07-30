@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
+﻿using BlogApp.Application.VoteComments.Commands.ChangeVoteComment;
 using BlogApp.Application.VoteComments.Commands.UnvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment;
 using BlogApp.Application.VoteComments.Commands.UpvoteComment.Models;
@@ -7,6 +6,7 @@ using BlogApp.Application.VoteComments.Queries.GetCommentsVotes;
 using BlogApp.Application.VoteComments.Queries.GetCommentsVotes.Models;
 using BlogApp.Application.VoteComments.Queries.GetUsersCommentVotes.Models;
 using BlogApp.Application.VotePosts.Queries.GetUsersPostVotes;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

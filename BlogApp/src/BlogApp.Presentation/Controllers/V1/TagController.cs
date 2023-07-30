@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Tags.Commands.CreateTag;
+﻿using BlogApp.Application.Tags.Commands.CreateTag;
 using BlogApp.Application.Tags.Commands.CreateTag.Models;
 using BlogApp.Application.Tags.Commands.DeleteTag;
 using BlogApp.Application.Tags.Commands.UpdateTag;
@@ -10,6 +9,7 @@ using BlogApp.Application.Tags.Queries.GetTag;
 using BlogApp.Application.Tags.Queries.GetTag.Models;
 using BlogApp.Application.Tags.Queries.GetTags;
 using BlogApp.Application.Tags.Queries.GetTags.Models;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

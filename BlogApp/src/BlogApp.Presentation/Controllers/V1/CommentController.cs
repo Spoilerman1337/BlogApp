@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Comments.Commands.CreateComment;
+﻿using BlogApp.Application.Comments.Commands.CreateComment;
 using BlogApp.Application.Comments.Commands.CreateComment.Models;
 using BlogApp.Application.Comments.Commands.DeleteComment;
 using BlogApp.Application.Comments.Commands.UpdateComment;
@@ -12,6 +11,7 @@ using BlogApp.Application.Comments.Queries.GetCommentsFromPost;
 using BlogApp.Application.Comments.Queries.GetCommentsFromPost.Models;
 using BlogApp.Application.Comments.Queries.GetUsersComments;
 using BlogApp.Application.Comments.Queries.GetUsersComments.Models;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

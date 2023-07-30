@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Application.Posts.Commands.AttachTags;
+﻿using BlogApp.Application.Posts.Commands.AttachTags;
 using BlogApp.Application.Posts.Commands.AttachTags.Models;
 using BlogApp.Application.Posts.Commands.CreatePost;
 using BlogApp.Application.Posts.Commands.CreatePost.Models;
@@ -18,6 +17,7 @@ using BlogApp.Application.Posts.Queries.GetPostsByTag;
 using BlogApp.Application.Posts.Queries.GetPostsByTag.Models;
 using BlogApp.Application.Posts.Queries.GetUsersPosts;
 using BlogApp.Application.Posts.Queries.GetUsersPosts.Models;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
