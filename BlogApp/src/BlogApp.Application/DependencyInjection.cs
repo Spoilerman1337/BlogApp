@@ -31,7 +31,6 @@ public static class DependencyInjection
             options.Filter = new MetricsFilter().WhereType(MetricType.Timer);
             options.MetricsOutputFormatter = new MetricsJsonOutputFormatter();
         }).Build());
-
         services.AddMetricsEndpoints(c =>
         {
             c.MetricsEndpointOutputFormatter = new MetricsJsonOutputFormatter();
