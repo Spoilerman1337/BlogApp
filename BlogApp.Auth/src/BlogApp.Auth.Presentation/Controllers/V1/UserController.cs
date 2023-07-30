@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Users.Commands.CreateUser;
+﻿using BlogApp.Auth.Application.Users.Commands.CreateUser;
 using BlogApp.Auth.Application.Users.Commands.CreateUser.Models;
 using BlogApp.Auth.Application.Users.Commands.DeleteUser;
 using BlogApp.Auth.Application.Users.Commands.SetUserRole;
@@ -12,6 +11,7 @@ using BlogApp.Auth.Application.Users.Queries.GetUsers;
 using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole.Models;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

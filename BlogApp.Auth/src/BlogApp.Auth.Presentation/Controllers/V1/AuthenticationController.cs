@@ -1,4 +1,3 @@
-﻿using AutoMapper;
 using BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 using BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
 using BlogApp.Auth.Application.Authentication.Commands.LogoutUser;
@@ -6,6 +5,7 @@ using BlogApp.Auth.Application.Authentication.Commands.RegisterUser;
 using BlogApp.Auth.Application.Authentication.Commands.RegisterUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
 using Duende.IdentityServer.Services;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Auth.Presentation.Controllers.V1;

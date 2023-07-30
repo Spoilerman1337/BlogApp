@@ -3,10 +3,10 @@ using App.Metrics.Filtering;
 using App.Metrics.Formatters.Json;
 using BlogApp.Auth.Application.Common.Behaviors;
 using BlogApp.Auth.Application.Common.Identity;
-using BlogApp.Auth.Application.Common.Interfaces;
-using BlogApp.Auth.Application.Common.Mappings;
 using BlogApp.Auth.Domain.Entities;
 using FluentValidation;
+using Mapster;
+using Mapster.Utils;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,12 +21,12 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
+
         services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
-        services.AddAutoMapper(config =>
-        {
-            config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new MappingProfile(typeof(IBlogAuthDbContext).Assembly));
-        });
+
+        services.AddMapster();
+        TypeAdapterConfig.GlobalSettings.ScanInheritedTypes(Assembly.GetExecutingAssembly());
+
         services.AddMetrics(AppMetrics.CreateDefaultBuilder().Report.ToConsole(options =>
         {
             options.FlushInterval = TimeSpan.FromSeconds(5);
@@ -39,16 +39,23 @@ public static class DependencyInjection
             c.MetricsTextEndpointOutputFormatter = new MetricsJsonOutputFormatter();
             c.EnvironmentInfoEndpointEnabled = false;
         });
+
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(MetricsBehavior<,>));
-        services.AddIdentityServer()
+
+        services.AddIdentityServer(config =>
+        {
+            config.UserInteraction.LoginUrl = "/Authentication/Login";
+            config.UserInteraction.LogoutUrl = "/Authentication/Logout";
+        })
                 .AddAspNetIdentity<AppUser>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
                 .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
                 .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
                 .AddInMemoryClients(IdentityConfiguration.Clients)
                 .AddDeveloperSigningCredential();
+
         return services;
     }
 }
