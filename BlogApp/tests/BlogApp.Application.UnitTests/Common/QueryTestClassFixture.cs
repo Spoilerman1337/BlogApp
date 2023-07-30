@@ -16,7 +16,6 @@ public sealed class QueryTestClassFixture : IDisposable
     {
         _context = BlogAppContextFactory.Create();
         _mapper = new Mapper();
-        //TypeAdapterConfig.GlobalSettings.ScanInheritedTypes(Assembly.GetExecutingAssembly());
     }
 
     public void Dispose()
