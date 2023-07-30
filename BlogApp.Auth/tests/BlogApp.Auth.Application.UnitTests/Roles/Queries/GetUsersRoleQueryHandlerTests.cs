@@ -1,22 +1,15 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Roles.Queries.GetRoles.Models;
-using BlogApp.Auth.Application.Roles.Queries.GetRoles;
+﻿using BlogApp.Auth.Application.Common.Exceptions;
+using BlogApp.Auth.Application.Roles.Queries.GetUsersRole;
+using BlogApp.Auth.Application.Roles.Queries.GetUsersRole.Models;
 using BlogApp.Auth.Application.UnitTests.Common;
 using BlogApp.Auth.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using Xunit;
 using FluentAssertions;
-using BlogApp.Auth.Application.Roles.Queries.GetUsersRole;
+using MapsterMapper;
+using Microsoft.AspNetCore.Identity;
 using System;
-using BlogApp.Auth.Application.Roles.Queries.GetUsersRole.Models;
-using BlogApp.Auth.Application.UnitTests.Mocks;
-using BlogApp.Auth.Infrastructure.Persistance;
-using Microsoft.EntityFrameworkCore;
-using BlogApp.Auth.Application.Common.Exceptions;
-using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace BlogApp.Auth.Application.UnitTests.Roles.Queries;
 
@@ -71,6 +64,6 @@ public class GetUsersRoleQueryHandlerTests
                 UserId = userId
             },
             CancellationToken.None
-        )); 
+        ));
     }
 }

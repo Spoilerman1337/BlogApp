@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Users.Commands.CreateUser.Models;
@@ -18,8 +17,8 @@ public class CreateUserDto : IMapFrom<CreateUserCommand>
     public string LastName { get; set; } = null!;
     public string Patronymic { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<CreateUserDto, CreateUserCommand>();
+        config.NewConfig<CreateUserDto, CreateUserCommand>();
     }
 }

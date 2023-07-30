@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Exceptions;
+﻿using BlogApp.Auth.Application.Common.Exceptions;
 using BlogApp.Auth.Application.UnitTests.Common;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole.Models;
 using BlogApp.Auth.Domain.Entities;
 using FluentAssertions;
+using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
+﻿using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using BlogApp.Auth.Domain.Entities;
+using Mapster;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +19,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, List<GetUsers
     {
         return await _userManager.Users.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
                                        .Take(request.PageAmount ?? int.MaxValue)
-                                       .ProjectTo<GetUsersDto>(_mapper.ConfigurationProvider)
+                                       .ProjectToType<GetUsersDto>()
                                        .ToListAsync(cancellationToken);
     }
 }

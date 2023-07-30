@@ -1,5 +1,5 @@
-﻿using BlogApp.Auth.Application.Common.Interfaces;
-using BlogApp.Auth.Application.Roles.Commands.CreateRole;
+﻿using BlogApp.Auth.Application.Roles.Commands.CreateRole;
+using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Roles.Commands.UpdateRole.Models;

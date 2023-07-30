@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Authentication.Commands.RegisterUser.Models;
@@ -18,8 +17,8 @@ public class RegisterUserDto : IMapFrom<RegisterUserCommand>
     public string ReturnUrl { get; set; } = null!;
     public Guid RoleId { get; set; }
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<RegisterUserDto, RegisterUserCommand>();
+        config.NewConfig<RegisterUserDto, RegisterUserCommand>();
     }
 }

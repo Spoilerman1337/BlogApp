@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Users.Queries.GetUser.Models;
+﻿using BlogApp.Auth.Application.Users.Queries.GetUser.Models;
 using BlogApp.Auth.Domain.Entities;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

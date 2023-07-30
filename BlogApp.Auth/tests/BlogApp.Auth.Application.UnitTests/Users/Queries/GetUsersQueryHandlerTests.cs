@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.UnitTests.Common;
+﻿using BlogApp.Auth.Application.UnitTests.Common;
 using BlogApp.Auth.Application.UnitTests.Mocks;
 using BlogApp.Auth.Application.Users.Queries.GetUsers;
 using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure.Persistance;
 using FluentAssertions;
+using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;

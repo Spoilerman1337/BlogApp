@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Exceptions;
+﻿using BlogApp.Auth.Application.Common.Exceptions;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole.Models;
 using BlogApp.Auth.Domain.Entities;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

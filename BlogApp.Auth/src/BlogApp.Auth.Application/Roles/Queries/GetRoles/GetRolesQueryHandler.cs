@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using BlogApp.Auth.Application.Roles.Queries.GetRoles.Models;
+﻿using BlogApp.Auth.Application.Roles.Queries.GetRoles.Models;
 using BlogApp.Auth.Domain.Entities;
+using Mapster;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +19,7 @@ public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, List<GetRoles
     {
         return await _roleManager.Roles.Skip((request.PageAmount.HasValue && request.Page.HasValue) ? request.Page.Value * request.PageAmount.Value : 0)
                                        .Take(request.PageAmount ?? int.MaxValue)
-                                       .ProjectTo<GetRolesDto>(_mapper.ConfigurationProvider)
+                                       .ProjectToType<GetRolesDto>()
                                        .ToListAsync(cancellationToken);
     }
 }

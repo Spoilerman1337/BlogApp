@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
-using BlogApp.Auth.Application.Common.Mappings;
-using BlogApp.Auth.Application.UnitTests.Mocks;
+﻿using BlogApp.Auth.Application.UnitTests.Mocks;
 using BlogApp.Auth.Domain.Entities;
 using BlogApp.Auth.Infrastructure.Persistance;
+using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Reflection;
 using Xunit;
 
 namespace BlogApp.Auth.Application.UnitTests.Common;
@@ -23,13 +20,7 @@ public sealed class QueryTestClassFixture : IDisposable
         _context = BlogAppContextFactory.Create();
         _userManager = UserManagerMock.Create(_context).Object;
         _roleManager = RoleManagerMock.Create(_context).Object;
-
-        var mapperConfiguration = new MapperConfiguration(config =>
-        {
-            config.AddProfile(new MappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new MappingProfile(typeof(IBlogAuthDbContext).Assembly));
-        });
-        _mapper = mapperConfiguration.CreateMapper();
+        _mapper = new Mapper();
     }
 
     public void Dispose()

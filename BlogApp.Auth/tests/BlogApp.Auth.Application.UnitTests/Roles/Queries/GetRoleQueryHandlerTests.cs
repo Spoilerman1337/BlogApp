@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Roles.Queries.GetRole;
+﻿using BlogApp.Auth.Application.Roles.Queries.GetRole;
 using BlogApp.Auth.Application.Roles.Queries.GetRole.Models;
 using BlogApp.Auth.Application.UnitTests.Common;
 using BlogApp.Auth.Domain.Entities;
 using FluentAssertions;
+using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading;

@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
-using BlogApp.Auth.Domain.Entities;
+﻿using BlogApp.Auth.Domain.Entities;
+using Mapster;
 
 namespace BlogApp.Auth.Application.Users.Queries.GetUser.Models;
 
@@ -14,8 +13,8 @@ public class GetUserDto : IMapFrom<AppUser>
     public string LastName { get; set; } = null!;
     public string Patronymic { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<AppUser, GetUserDto>();
+        config.NewConfig<AppUser, GetUserDto>();
     }
 }

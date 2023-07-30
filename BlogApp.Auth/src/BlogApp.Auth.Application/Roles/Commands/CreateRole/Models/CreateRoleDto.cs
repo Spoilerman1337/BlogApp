@@ -1,4 +1,4 @@
-﻿using BlogApp.Auth.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Roles.Commands.CreateRole.Models;

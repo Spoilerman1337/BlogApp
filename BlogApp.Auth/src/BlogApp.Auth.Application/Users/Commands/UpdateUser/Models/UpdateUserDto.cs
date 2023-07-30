@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Users.Commands.UpdateUser.Models;
@@ -20,8 +19,8 @@ public class UpdateUserDto : IMapFrom<UpdateUserCommand>
     public string LastName { get; set; } = null!;
     public string Patronymic { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<UpdateUserDto, UpdateUserCommand>();
+        config.NewConfig<UpdateUserDto, UpdateUserCommand>();
     }
 }

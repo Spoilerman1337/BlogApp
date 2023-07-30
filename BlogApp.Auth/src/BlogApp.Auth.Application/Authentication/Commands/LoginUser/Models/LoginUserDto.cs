@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BlogApp.Auth.Application.Common.Interfaces;
+﻿using Mapster;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
@@ -12,11 +11,11 @@ public class LoginUserDto : IMapFrom<LoginUserCommand>
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
     [Required]
-    public Guid Id { get; set; }    
+    public Guid Id { get; set; }
     public string ReturnUrl { get; set; } = null!;
 
-    public void Mapping(Profile profile)
+    public void ConfigureMapping(TypeAdapterConfig config)
     {
-        profile.CreateMap<LoginUserDto, LoginUserCommand>();
+        config.NewConfig<LoginUserDto, LoginUserCommand>();
     }
 }
