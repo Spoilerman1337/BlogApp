@@ -14,6 +14,7 @@ namespace BlogApp.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize]
 public class VotePostController : ApiControllerBase
 {
     private readonly IMapper _mapper;
@@ -30,7 +31,6 @@ public class VotePostController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<List<GetPostsVotesDto>>> GetPostsVotes([FromRoute] Guid postId)
@@ -54,7 +54,6 @@ public class VotePostController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<List<GetUsersPostVotesDto>>> GetUsersPostVotes([FromRoute] Guid userId)
@@ -82,7 +81,6 @@ public class VotePostController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<bool>> UpvotePost([FromBody] UpvotePostDto dto)
@@ -102,7 +100,6 @@ public class VotePostController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{postId}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UnvotePost([FromRoute] Guid postId)
@@ -125,7 +122,6 @@ public class VotePostController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{postId}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> ChangeVotePost([FromRoute] Guid postId)

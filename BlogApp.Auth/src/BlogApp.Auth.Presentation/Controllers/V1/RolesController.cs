@@ -18,6 +18,7 @@ namespace BlogApp.Auth.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize]
 public class RolesController : ApiControllerBase
 {
     private readonly IMapper _mapper;
@@ -34,7 +35,6 @@ public class RolesController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetRoleDto>> GetRole([FromRoute] Guid id)
@@ -59,7 +59,6 @@ public class RolesController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles([FromQuery] int? page, [FromQuery] int? pageAmount)
@@ -82,7 +81,6 @@ public class RolesController : ApiControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<GetUsersRoleDto>> GetUsersRole(Guid userId)
@@ -109,7 +107,6 @@ public class RolesController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPost]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IdentityResult>> CreateRole([FromBody] CreateRoleDto dto)
@@ -132,7 +129,6 @@ public class RolesController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpPut("{id}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateRole([FromRoute] Guid id, [FromBody] UpdateRoleDto dto)
@@ -153,7 +149,6 @@ public class RolesController : ApiControllerBase
     /// <response code="204">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpDelete("{id}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> DeleteRole([FromRoute] Guid id)

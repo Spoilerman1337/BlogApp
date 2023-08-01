@@ -6,12 +6,14 @@ using BlogApp.Auth.Application.Authentication.Commands.RegisterUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
 using Duende.IdentityServer.Services;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Auth.Presentation.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route("[controller]/[action]")]
+[AllowAnonymous]
 public class AuthenticationController : ApiControllerBase
 {
     private readonly IMapper _mapper;
@@ -97,6 +99,7 @@ public class AuthenticationController : ApiControllerBase
     /// <returns>Returns View</returns>
     /// <response code="200">If valid</response>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Logout([FromQuery] string logoutId)
     {
