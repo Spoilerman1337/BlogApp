@@ -50,6 +50,7 @@ builder.Services.AddCors(options =>
         policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]!.ToString());
         policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]!.ToString());
         policy.WithOrigins(builder.Configuration.GetSection("CORSPolicy")["AllowOrigins"]!.ToString());
+        policy.AllowCredentials();
     });
 });
 
@@ -78,7 +79,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
-{
+   {
        options.Authority = "https://localhost:7090";
        options.Audience = "BlogAppAuthWebAPI";
        options.RequireHttpsMetadata = false;
