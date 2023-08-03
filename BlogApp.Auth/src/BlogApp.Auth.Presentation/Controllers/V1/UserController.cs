@@ -80,7 +80,7 @@ public class UserController : ApiControllerBase
     /// Sample request:
     /// GET /user/role/b5c0a7ae-762d-445d-be15-b59232b19383?page=2&amp;pageamount=2
     /// </remarks>
-    /// <param name="roleId"></param>
+    /// <param name="roleId">GUID ID of a role</param>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
     /// <returns>Returns List of GetUsersByRoleDto</returns>
