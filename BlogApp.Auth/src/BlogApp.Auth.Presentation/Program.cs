@@ -85,7 +85,7 @@ builder.Services.AddAuthentication(config =>
 }).AddJwtBearer("Bearer", options =>
    {
        options.Authority = "https://localhost:7090";
-       options.Audience = "BlogAppAuthAPI";
+       options.Audience = "BlogAppAuthWebAPI";
        options.RequireHttpsMetadata = false;
        options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
    });
