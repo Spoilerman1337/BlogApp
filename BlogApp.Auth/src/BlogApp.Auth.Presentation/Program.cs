@@ -23,8 +23,8 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.ConfigureApplicationCookie(config =>
 {
     config.Cookie.Name = "BlogApp.Identity.Cookie";
-    config.LoginPath = "/Auth/Login";
-    config.LogoutPath = "/Auth/Logout";
+    config.LoginPath = "/Authentication/Login";
+    config.LogoutPath = "/Authentication/Logout";
 });
 
 builder.Services.AddIdentity<AppUser, AppRole>(config =>
