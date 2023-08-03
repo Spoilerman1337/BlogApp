@@ -42,8 +42,10 @@ public class IdentityConfiguration
                 ClientId = "blog-app-client",
                 ClientName = "BlogApp Client",
                 AllowedGrantTypes = GrantTypes.Code,
-                RequireClientSecret = false,
-                RequirePkce = true,
+                ClientSecrets =
+                {
+                    new Secret("584a7aea-d8ff-4b7c-9937-3b3e992708eb".Sha256())
+                },
                 RedirectUris =
                 {
                     "http://localhost:5000/signin-oidc"
