@@ -24,6 +24,8 @@ public static class UserManagerMock
 
         userManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
             .ReturnsAsync((string userId) => context.Users.Find(Guid.Parse(userId)));
+        userManager.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+            .ReturnsAsync((string userName) => context.Users.FirstOrDefault(x => x.UserName == userName));
         userManager.Setup(x => x.GetRolesAsync(It.IsAny<AppUser>()))
             .ReturnsAsync((AppUser user) => context.Roles.Where(c => context.UserRoles.Where(c => c.UserId == user.Id).Select(c => c.RoleId).Contains(c.Id)).Select(c => c.Name!).ToList());
         userManager.Setup(x => x.RemoveFromRolesAsync(It.IsAny<AppUser>(), It.IsAny<IEnumerable<string>>()))

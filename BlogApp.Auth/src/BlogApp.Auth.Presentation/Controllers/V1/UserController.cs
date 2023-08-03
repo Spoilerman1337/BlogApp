@@ -7,6 +7,8 @@ using BlogApp.Auth.Application.Users.Commands.UpdateUser;
 using BlogApp.Auth.Application.Users.Commands.UpdateUser.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUser;
 using BlogApp.Auth.Application.Users.Queries.GetUser.Models;
+using BlogApp.Auth.Application.Users.Queries.GetUserByName;
+using BlogApp.Auth.Application.Users.Queries.GetUserByName.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsers;
 using BlogApp.Auth.Application.Users.Queries.GetUsers.Models;
 using BlogApp.Auth.Application.Users.Queries.GetUsersByRole;
@@ -96,6 +98,29 @@ public class UserController : ApiControllerBase
             RoleId = roleId,
             Page = page,
             PageAmount = pageAmount
+        };
+
+        var vm = await Sender.Send(query);
+        return Ok(vm);
+    }
+
+    /// <summary>Gets user with provided username</summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /user/name/string
+    /// </remarks>
+    /// <param name="userName"></param>
+    /// <returns>Returns GetUserByNameDto</returns>
+    /// <response code="200">Success</response>
+    /// <response code="401">If unauthorized</response>
+    [HttpGet("name/{userName}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetUserByNameDto>> GetUserByName([FromRoute] string userName)
+    {
+        var query = new GetUserByNameQuery
+        {
+            UserName = userName
         };
 
         var vm = await Sender.Send(query);

@@ -1,9 +1,9 @@
-using BlogApp.Auth.Application.Authentication.Commands.LoginUser;
+﻿using BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 using BlogApp.Auth.Application.Authentication.Commands.LoginUser.Models;
 using BlogApp.Auth.Application.Authentication.Commands.LogoutUser;
 using BlogApp.Auth.Application.Authentication.Commands.RegisterUser;
 using BlogApp.Auth.Application.Authentication.Commands.RegisterUser.Models;
-using BlogApp.Auth.Application.Users.Queries.GetUser;
+using BlogApp.Auth.Application.Users.Queries.GetUserByName;
 using Duende.IdentityServer.Services;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +19,7 @@ public class AuthenticationController : ApiControllerBase
     private readonly IMapper _mapper;
     private readonly IIdentityServerInteractionService _interactionService;
 
-    public AuthenticationController(IMapper mapper, IIdentityServerInteractionService interactionService) 
+    public AuthenticationController(IMapper mapper, IIdentityServerInteractionService interactionService)
         => (_mapper, _interactionService) = (mapper, interactionService);
 
     /// <summary>Login user</summary>
@@ -71,7 +71,7 @@ public class AuthenticationController : ApiControllerBase
             return View(vm);
         }
 
-        var user = await Sender.Send(new GetUserQuery() { Id = dto.Id });
+        var user = await Sender.Send(new GetUserByNameQuery() { UserName = dto.UserName });
 
         if (user == null)
         {

@@ -10,8 +10,6 @@ public class LoginUserDto : IMapFrom<LoginUserCommand>
     [Required]
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
-    [Required]
-    public Guid Id { get; set; }
     public string ReturnUrl { get; set; } = null!;
 
     public void ConfigureMapping(TypeAdapterConfig config)
