@@ -39,8 +39,8 @@ public class IdentityConfiguration
         {
             new Client
             {
-                ClientId = "blog-app-web-api",
-                ClientName = "Blog API",
+                ClientId = "blog-app-client",
+                ClientName = "BlogApp Client",
                 AllowedGrantTypes = GrantTypes.Code,
                 RequireClientSecret = false,
                 RequirePkce = true,
