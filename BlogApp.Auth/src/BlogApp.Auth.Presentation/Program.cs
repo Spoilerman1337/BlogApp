@@ -77,13 +77,8 @@ builder.Services.AddApiVersioning(config =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
 
-builder.Services.AddAuthentication(config =>
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
-    config.DefaultAuthenticateScheme =
-        JwtBearerDefaults.AuthenticationScheme;
-    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer("Bearer", options =>
-   {
        options.Authority = "https://localhost:7090";
        options.Audience = "BlogAppAuthWebAPI";
        options.RequireHttpsMetadata = false;
@@ -124,6 +119,7 @@ app.UseStaticFiles();
 
 app.UseCustomExceptionHandler();
 app.UseRouting();
+
 app.UseIdentityServer();
 
 app.UseAuthentication();
