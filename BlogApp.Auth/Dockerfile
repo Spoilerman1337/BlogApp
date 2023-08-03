@@ -1,11 +1,11 @@
 #Auth app dockerfile
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/BlogApp.Auth.Presentation/BlogApp.Auth.Presentation.csproj", "src/BlogApp.Auth.Presentation/"]
 COPY ["src/BlogApp.Auth.Infrastructure/BlogApp.Auth.Infrastructure.csproj", "src/BlogApp.Auth.Infrastructure/"]
