@@ -42,7 +42,6 @@ public class AuthenticationController : ApiControllerBase
         var vm = new LoginUserDto
         {
             ReturnUrl = returnUrl,
-            Id = userId
         };
         return View(vm);
     }
