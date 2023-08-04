@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './index.scss';
 
 const root = document.getElementById('root');
 if (root === null) throw new Error('Root container missing in index.html');
