@@ -38,3 +38,16 @@ services:
     ports:
       - '6379:6379'
     command: redis-server --save 60 1
+  
+  frontend:
+    image: ${DOCKER_REGISTRY-}blogappfrontend
+    build: BlogApp.Frontend/
+    ports:
+      - "5000:80"
+    depends_on:
+      - main
+      - auth
+    restart: on-failure
+    stdin_open: true
+    environment:
+      - NODE_ENV=production
