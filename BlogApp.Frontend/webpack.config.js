@@ -33,8 +33,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: !prod,
-              reloadAll: true,
             },
           },
           "css-loader",
@@ -46,8 +44,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: !prod,
-              reloadAll: true,
             },
           },
           "css-loader",
@@ -70,6 +66,7 @@ module.exports = {
     },
     compress: true,
     port: 5000,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
