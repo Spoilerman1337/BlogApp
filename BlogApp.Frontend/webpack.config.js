@@ -11,7 +11,8 @@ module.exports = {
   entry: ["@babel/polyfill", "./src/index.tsx"],
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
+    publicPath: '/'
   },
   devtool: "inline-source-map",
   module: {
