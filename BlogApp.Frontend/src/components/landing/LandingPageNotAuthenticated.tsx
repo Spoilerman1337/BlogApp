@@ -30,7 +30,10 @@ function LandingPageNotAuthenticated(): ReactNode {
                         </Row>
                         <Row>
                             <div className="d-grid pt-3">
-                                <Button variant="outline-primary" onClick={() => signinRedirect()}>
+                                <Button
+                                    variant="outline-primary"
+                                    onClick={() => signinRedirect()}
+                                >
                                     Sign-in
                                 </Button>
                             </div>
@@ -39,7 +42,7 @@ function LandingPageNotAuthenticated(): ReactNode {
                 </Offcanvas.Body>
             </Offcanvas>
         </>
-    )
+    );
 }
 
 export default LandingPageNotAuthenticated;

@@ -5,17 +5,17 @@ import BasePage from './components/LandingPage';
 import SigninOIDC from './components/auth/SigninOIDC';
 import SignoutOIDC from './components/auth/SignoutOIDC';
 import { loadUser } from './auth/userService';
-import userReducer from './reducers/userReducer'
+import userReducer from './reducers/userReducer';
 
 function App(): ReactElement {
-    const [user, dispatch] = useReducer(userReducer, {user: null});
-    
+    const [user, dispatch] = useReducer(userReducer, { user: null });
+
     useEffect(() => {
         const getUser = async () => {
             const userValue = await loadUser();
-            dispatch({type: 'set', payload: userValue});
+            dispatch({ type: 'set', payload: userValue });
             console.log(userValue);
-        }
+        };
         getUser();
     }, []);
 
@@ -25,16 +25,12 @@ function App(): ReactElement {
                 <Routes>
                     <Route
                         path="/"
-                        element={<BasePage isAuthenticated={user.user !== null} />}
+                        element={
+                            <BasePage isAuthenticated={user.user !== null} />
+                        }
                     />
-                    <Route
-                        path="/signin-oidc"
-                        element={<SigninOIDC/>}
-                    />
-                    <Route
-                        path="/signout-oidc"
-                        element={<SignoutOIDC/>}
-                    />
+                    <Route path="/signin-oidc" element={<SigninOIDC />} />
+                    <Route path="/signout-oidc" element={<SignoutOIDC />} />
                 </Routes>
             </BrowserRouter>
         </div>

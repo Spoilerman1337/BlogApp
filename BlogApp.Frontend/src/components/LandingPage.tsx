@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import LandingPageAuthenticated from './landing/LandingPageAuthenticated'
+import LandingPageAuthenticated from './landing/LandingPageAuthenticated';
 import LandingPageNotAuthenticated from './landing/LandingPageNotAuthenticated';
 
 export interface BasePageProps {
@@ -8,10 +8,10 @@ export interface BasePageProps {
 
 function BasePage(props: BasePageProps): ReactNode {
     if (props.isAuthenticated) {
-        return <LandingPageAuthenticated/>;
+        return <LandingPageAuthenticated />;
     }
 
-    return <LandingPageNotAuthenticated/>
+    return <LandingPageNotAuthenticated />;
 }
 
 export default BasePage;

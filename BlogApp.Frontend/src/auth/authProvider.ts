@@ -34,7 +34,9 @@ const AuthProvider: FC<AuthProviderProps> = ({
 
         userManager.current.events.addUserLoaded(onUserLoaded);
         userManager.current.events.addUserUnloaded(onUserUnloaded);
-        userManager.current.events.addAccessTokenExpiring(onAccessTokenExpiring);
+        userManager.current.events.addAccessTokenExpiring(
+            onAccessTokenExpiring
+        );
         userManager.current.events.addAccessTokenExpired(onAccessTokenExpired);
         userManager.current.events.addUserSignedOut(onUserSignedOut);
 
@@ -42,8 +44,12 @@ const AuthProvider: FC<AuthProviderProps> = ({
             if (userManager && userManager.current) {
                 userManager.current.events.removeUserLoaded(onUserLoaded);
                 userManager.current.events.removeUserUnloaded(onUserUnloaded);
-                userManager.current.events.removeAccessTokenExpiring(onAccessTokenExpiring);
-                userManager.current.events.removeAccessTokenExpired(onAccessTokenExpired);
+                userManager.current.events.removeAccessTokenExpiring(
+                    onAccessTokenExpiring
+                );
+                userManager.current.events.removeAccessTokenExpired(
+                    onAccessTokenExpired
+                );
                 userManager.current.events.removeUserSignedOut(onUserSignedOut);
             }
         };
