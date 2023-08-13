@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styles from './styles/App.module.scss';
 
-const App: FC = (): ReactElement => {
+function App(): ReactElement {
     return (
         <div className={styles.app}>
             <BrowserRouter>
