@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import SideHover from './SideHover';
+import { signinRedirect } from '../auth/userService';
 
 export interface BasePageProps {
     isAuthenticated: boolean;
@@ -37,7 +38,7 @@ function BasePage(props: BasePageProps): ReactNode {
                         </Row>
                         <Row>
                             <div className="d-grid pt-3">
-                                <Button variant="outline-primary">
+                                <Button variant="outline-primary" onClick={() => signinRedirect()}>
                                     Sign-in
                                 </Button>
                             </div>
