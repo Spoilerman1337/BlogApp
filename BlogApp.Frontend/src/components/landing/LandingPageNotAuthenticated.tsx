@@ -1,21 +1,13 @@
 import React, { ReactNode, useState } from 'react';
-import styles from '../styles/SideHover.module.scss';
+import styles from '../../styles/LandingPageNotAuthenticated.module.scss';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import SideHover from './SideHover';
-import { signinRedirect } from '../auth/userService';
+import SideHover from '../SideHover';
+import { signinRedirect } from '../../auth/userService';
 
-export interface BasePageProps {
-    isAuthenticated: boolean;
-}
-
-function BasePage(props: BasePageProps): ReactNode {
-    if (props.isAuthenticated) {
-        return <>Hello World!</>;
-    }
-
+function LandingPageNotAuthenticated(): ReactNode {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -47,7 +39,7 @@ function BasePage(props: BasePageProps): ReactNode {
                 </Offcanvas.Body>
             </Offcanvas>
         </>
-    );
+    )
 }
 
-export default BasePage;
+export default LandingPageNotAuthenticated;

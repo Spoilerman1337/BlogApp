@@ -1,9 +1,9 @@
 import React, { ReactElement, useReducer, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styles from './styles/App.module.scss';
-import BasePage from './components/BasePage';
-import SigninOIDC from './components/SigninOIDC';
-import SignoutOIDC from './components/SignoutOIDC';
+import BasePage from './components/LandingPage';
+import SigninOIDC from './components/auth/SigninOIDC';
+import SignoutOIDC from './components/auth/SignoutOIDC';
 import { loadUser } from './auth/userService';
 import userReducer from './reducers/userReducer'
 

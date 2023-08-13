@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signoutRedirectCallback } from '../auth/userService';
+import { signoutRedirectCallback } from '../../auth/userService';
 
 const SignoutOIDC: FC<{}> = () => {
     const navigate = useNavigate();

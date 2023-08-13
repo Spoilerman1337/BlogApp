@@ -1,6 +1,6 @@
 import React, { useEffect, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signinRedirectCallback } from '../auth/userService';
+import { signinRedirectCallback } from '../../auth/userService';
 
 const SigninOIDC: FC<{}> = () => {
     const navigate = useNavigate();
