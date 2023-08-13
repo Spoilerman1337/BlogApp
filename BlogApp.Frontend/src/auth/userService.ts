@@ -1,4 +1,9 @@
-import { User, UserManager, UserManagerSettings } from 'oidc-client-ts';
+import {
+    SignoutRedirectArgs,
+    User,
+    UserManager,
+    UserManagerSettings,
+} from 'oidc-client-ts';
 import { setAuthHeader } from './authHeaders';
 
 const userManagerSettings: UserManagerSettings = {
@@ -25,7 +30,7 @@ export const signinRedirect = () => userManager.signinRedirect();
 export const signinRedirectCallback = () =>
     userManager.signinRedirectCallback();
 
-export const signoutRedirect = (args?: any) => {
+export const signoutRedirect = (args?: SignoutRedirectArgs) => {
     userManager.clearStaleState();
     userManager.removeUser();
     return userManager.signoutRedirect(args);
