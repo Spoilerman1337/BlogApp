@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, ReactNode } from 'react';
+import React, { useEffect, useRef, ReactNode } from 'react';
 import { User, UserManager } from 'oidc-client-ts';
 import { setAuthHeader } from './authHeaders';
 
@@ -7,10 +7,7 @@ type AuthProviderProps = {
     children: ReactNode;
 };
 
-const AuthProvider: FC<AuthProviderProps> = ({
-    userManager: manager,
-    children,
-}): any => {
+function AuthProvider({ userManager: manager, children }: AuthProviderProps) {
     let userManager = useRef<UserManager>();
     useEffect(() => {
         userManager.current = manager;
@@ -56,6 +53,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
     }, [manager]);
 
     return React.Children.only(children);
-};
+}
 
 export default AuthProvider;
