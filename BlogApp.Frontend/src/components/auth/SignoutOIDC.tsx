@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signoutRedirectCallback } from '../../auth/userService';
 
-const SignoutOIDC: FC<{}> = () => {
+function SignoutOIDC() {
     const navigate = useNavigate();
     useEffect(() => {
         const signoutAsync = async () => {
@@ -12,6 +12,6 @@ const SignoutOIDC: FC<{}> = () => {
         signoutAsync();
     }, [navigate]);
     return <div>Redirecting...</div>;
-};
+}
 
 export default SignoutOIDC;
