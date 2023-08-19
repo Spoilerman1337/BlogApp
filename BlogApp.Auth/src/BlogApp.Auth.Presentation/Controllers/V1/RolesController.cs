@@ -51,7 +51,7 @@ public class RolesController : ApiControllerBase
     /// <summary>Gets all roles</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /role?page=2&amp;pageamount=2
+    /// GET /role?page=2&amp;pageAmount=2
     /// </remarks>
     /// <param name="page">Specific page of elements</param>
     /// <param name="pageAmount">Amount of elements displayed per page</param>
