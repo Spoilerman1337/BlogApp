@@ -27,7 +27,9 @@ function App(): ReactElement {
                         <Route
                             path="/"
                             element={
-                                <LandingPage isAuthenticated={user.user !== null} />
+                                <LandingPage
+                                    isAuthenticated={user.user !== null}
+                                />
                             }
                         />
                         <Route path="/signin-oidc" element={<SigninOIDC />} />
