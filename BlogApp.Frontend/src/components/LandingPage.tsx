@@ -6,7 +6,7 @@ export interface BasePageProps {
     isAuthenticated: boolean;
 }
 
-function BasePage(props: BasePageProps): ReactNode {
+function LandingPage(props: BasePageProps): ReactNode {
     if (props.isAuthenticated) {
         return <LandingPageAuthenticated />;
     }
@@ -14,4 +14,4 @@ function BasePage(props: BasePageProps): ReactNode {
     return <LandingPageNotAuthenticated />;
 }
 
-export default BasePage;
+export default LandingPage;
