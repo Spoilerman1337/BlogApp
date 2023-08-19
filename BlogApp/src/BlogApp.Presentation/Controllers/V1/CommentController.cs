@@ -54,7 +54,7 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
+    /// GET /comment?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
     /// </remarks>
     /// <param name="from">Lower date filter limit</param>
     /// <param name="to">Top date filter limit</param>
@@ -84,7 +84,7 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all post's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
+    /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
     /// </remarks>
     /// <param name="postId">GUID ID of a post</param>
     /// <param name="from">Lower date filter limit</param>
@@ -114,10 +114,10 @@ public class CommentController : ApiControllerBase
         return Ok(vm);
     }
 
-    /// <summary>Gets all users's comments</summary>
+    /// <summary>Gets all user's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageamount=2
+    /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
     /// </remarks>
     /// <param name="userId">GUID ID of a comment</param>
     /// <param name="from">Lower date filter limit</param>
