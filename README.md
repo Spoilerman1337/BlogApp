@@ -11,3 +11,4 @@ Project is divided into several layers:
 Also contains:
 - Auth - Authorization server designed the same way as main app
 - Frontend - React client app
+- Media - Remote file server
