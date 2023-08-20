@@ -32,19 +32,19 @@ public class CommentController : ApiControllerBase
     /// GET /comment/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="id">GUID ID of a comment</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq]</param>
     /// <returns>Returns GetCommentDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<GetCommentDto>> GetComment([FromRoute] Guid id, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetCommentQuery
         {
             Id = id,
-            BypassCache = bypassCache
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false
         };
 
         var vm = await Sender.Send(query);
@@ -54,28 +54,24 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
+    /// GET /comment?date[from]=2022-11-20T11:11:11Z&amp;date[to]=2022-11-20T11:11:11Z&amp;limit[eq]=2&amp;offset[eq]=2
     /// </remarks>
-    /// <param name="from">Lower date filter limit</param>
-    /// <param name="to">Top date filter limit</param>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq], date[from, to], page[eq], pageSize[eq]</param>
     /// <returns>Returns List of GetCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<List<GetCommentsDto>>> GetAllComments([FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetCommentsQuery()
         {
-            BypassCache = bypassCache,
-            From = from,
-            To = to,
-            Page = page,
-            PageAmount = pageAmount
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false,
+            From = GetParam<DateTime>(queryParams, "date", "from"),
+            To = GetParam<DateTime>(queryParams, "date", "to"),
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
         var vm = await Sender.Send(query);
         return Ok(vm);
@@ -84,30 +80,26 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all post's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
+    /// GET /comment/post/b5c0a7ae-762d-445d-be15-b59232b19383?date[from]=2022-11-20T11:11:11Z&amp;date[to]=2022-11-20T11:11:11Z&amp;page[eq]=2&amp;pageSize[eq]=2
     /// </remarks>
     /// <param name="postId">GUID ID of a post</param>
-    /// <param name="from">Lower date filter limit</param>
-    /// <param name="to">Top date filter limit</param>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq], date[from, to], page[eq], pageSize[eq]</param>
     /// <returns>Returns List of GetCommentsFromPostDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<List<GetCommentsFromPostDto>>> GetAllCommentsFromPost([FromRoute] Guid postId, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetCommentsFromPostQuery
         {
             PostId = postId,
-            BypassCache = bypassCache,
-            From = from,
-            To = to,
-            Page = page,
-            PageAmount = pageAmount
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false,
+            From = GetParam<DateTime>(queryParams, "date", "from"),
+            To = GetParam<DateTime>(queryParams, "date", "to"),
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
 
         var vm = await Sender.Send(query);
@@ -117,30 +109,26 @@ public class CommentController : ApiControllerBase
     /// <summary>Gets all user's comments</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383?from=2022-11-20T11:11:11Z&amp;to=2022-11-20T11:11:11Z&amp;page=2&amp;pageAmount=2
+    /// GET /comment/user/b5c0a7ae-762d-445d-be15-b59232b19383?date[from]=2022-11-20T11:11:11Z&amp;date[to]=2022-11-20T11:11:11Z&amp;page[eq]=2&amp;pageAmount[eq]=2
     /// </remarks>
     /// <param name="userId">GUID ID of a comment</param>
-    /// <param name="from">Lower date filter limit</param>
-    /// <param name="to">Top date filter limit</param>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq], date[from, to], page[eq], pageSize[eq]</param>
     /// <returns>Returns List of GetUsersCommentsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("user/{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId, [FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<List<GetUsersCommentsDto>>> GetAllCommentsFromUser([FromRoute] Guid userId, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetUsersCommentsQuery
         {
             UserId = userId,
-            BypassCache = bypassCache,
-            From = from,
-            To = to,
-            Page = page,
-            PageAmount = pageAmount
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false,
+            From = GetParam<DateTime>(queryParams, "date", "from"),
+            To = GetParam<DateTime>(queryParams, "date", "to"),
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
 
         var vm = await Sender.Send(query);

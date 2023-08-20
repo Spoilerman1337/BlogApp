@@ -30,19 +30,19 @@ public class TagController : ApiControllerBase
     /// GET /tag/b5c0a7ae-762d-445d-be15-b59232b19383
     /// </remarks>
     /// <param name="id">GUID ID of a tag</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq]</param>
     /// <returns>Returns GetTagDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<GetTagDto>> GetTag([FromRoute] Guid id, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetTagQuery
         {
             Id = id,
-            BypassCache = bypassCache
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false
         };
 
         var vm = await Sender.Send(query);
@@ -52,24 +52,22 @@ public class TagController : ApiControllerBase
     /// <summary>Gets all tags</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /tag?page=2&amp;pageAmount=2
+    /// GET /tag?page[eq]=2&amp;pageSize[eq]=2
     /// </remarks>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq], page[eq], pageSize[eq]</param>
     /// <returns>Returns List of GetTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags([FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<List<GetTagsDto>>> GetAllTags([FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetTagsQuery()
         {
-            BypassCache = bypassCache,
-            Page = page,
-            PageAmount = pageAmount
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false,
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
         var vm = await Sender.Send(query);
 
@@ -79,26 +77,24 @@ public class TagController : ApiControllerBase
     /// <summary>Gets all posts tags</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383?page=2&amp;pageAmount=2
+    /// GET /tag/post/b5c0a7ae-762d-445d-be15-b59232b19383?page[eq]=2&amp;pageSize[eq]=2
     /// </remarks>
     /// <param name="postId">GUID ID of a tag</param>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
-    /// <param name="bypassCache">Should or should not ignore caching</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq], page[eq], pageSize[eq]</param>
     /// <returns>Returns List of GetPostsTagsDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("post/{postId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId, [FromQuery] int? page, [FromQuery] int? pageAmount, [FromQuery] bool bypassCache)
+    public async Task<ActionResult<List<GetPostsTagsDto>>> GetPostsTags([FromRoute] Guid postId, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetPostsTagsQuery
         {
             PostId = postId,
-            BypassCache = bypassCache,
-            Page = page,
-            PageAmount = pageAmount
+            BypassCache = GetParamBoolean(queryParams, "bypassCache", "eq") ?? false,
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
 
         var vm = await Sender.Send(query);
