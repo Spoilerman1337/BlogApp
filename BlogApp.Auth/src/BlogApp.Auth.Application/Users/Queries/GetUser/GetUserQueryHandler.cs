@@ -8,10 +8,10 @@ namespace BlogApp.Auth.Application.Users.Queries.GetUser;
 
 public class GetUserQueryHandler : IRequestHandler<GetUserQuery, GetUserDto>
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
     private readonly IMapper _mapper;
 
-    public GetUserQueryHandler(UserManager<AppUser> userManager, IMapper mapper) => (_userManager, _mapper) = (userManager, mapper);
+    public GetUserQueryHandler(UserManager<UserEntity> userManager, IMapper mapper) => (_userManager, _mapper) = (userManager, mapper);
 
     public async Task<GetUserDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {

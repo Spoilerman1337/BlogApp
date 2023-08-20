@@ -6,13 +6,13 @@ namespace BlogApp.Auth.Application.Users.Commands.CreateUser;
 
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, IdentityResult>
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
 
-    public CreateUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
+    public CreateUserCommandHandler(UserManager<UserEntity> userManager) => _userManager = userManager;
 
     public async Task<IdentityResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = new AppUser
+        var user = new UserEntity
         {
             Id = Guid.NewGuid(),
             UserName = request.UserName,

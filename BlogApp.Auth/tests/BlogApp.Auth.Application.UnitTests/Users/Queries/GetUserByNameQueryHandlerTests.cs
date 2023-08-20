@@ -14,7 +14,7 @@ namespace BlogApp.Auth.Application.UnitTests.Users.Queries;
 [Collection("QueryCollection")]
 public class GetUserByNameQueryHandlerTests
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
     private readonly IMapper _mapper;
 
     public GetUserByNameQueryHandlerTests(QueryTestClassFixture fixture)

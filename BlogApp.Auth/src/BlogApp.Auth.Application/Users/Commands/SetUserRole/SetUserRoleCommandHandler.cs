@@ -8,10 +8,10 @@ namespace BlogApp.Auth.Application.Users.Commands.SetUserRole;
 
 public class SetUserRoleCommandHandler : IRequestHandler<SetUserRoleCommand>
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly UserManager<UserEntity> _userManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
 
-    public SetUserRoleCommandHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) => (_userManager, _roleManager) = (userManager, roleManager);
+    public SetUserRoleCommandHandler(UserManager<UserEntity> userManager, RoleManager<RoleEntity> roleManager) => (_userManager, _roleManager) = (userManager, roleManager);
 
     public async Task Handle(SetUserRoleCommand request, CancellationToken cancellationToken)
     {
@@ -20,12 +20,12 @@ public class SetUserRoleCommandHandler : IRequestHandler<SetUserRoleCommand>
 
         if (user == null)
         {
-            throw new NotFoundException(nameof(AppUser), request.UserId);
+            throw new NotFoundException(nameof(UserEntity), request.UserId);
         }
 
         if (role == null)
         {
-            throw new NotFoundException(nameof(AppRole), request.RoleId);
+            throw new NotFoundException(nameof(RoleEntity), request.RoleId);
         }
 
         var oldRoles = await _userManager.GetRolesAsync(user);

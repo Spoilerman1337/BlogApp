@@ -8,9 +8,9 @@ namespace BlogApp.Auth.Application.Roles.Commands.UpdateRole;
 
 public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
 {
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
 
-    public UpdateRoleCommandHandler(RoleManager<AppRole> roleManager) => _roleManager = roleManager;
+    public UpdateRoleCommandHandler(RoleManager<RoleEntity> roleManager) => _roleManager = roleManager;
 
     public async Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(AppRole), request.Id);
+            throw new NotFoundException(nameof(RoleEntity), request.Id);
         }
 
         entity.Name = request.Name;

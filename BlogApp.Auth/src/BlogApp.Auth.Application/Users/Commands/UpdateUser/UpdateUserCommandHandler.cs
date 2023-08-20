@@ -8,9 +8,9 @@ namespace BlogApp.Auth.Application.Users.Commands.UpdateUser;
 
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
 
-    public UpdateUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
+    public UpdateUserCommandHandler(UserManager<UserEntity> userManager) => _userManager = userManager;
 
     public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(AppUser), request.Id);
+            throw new NotFoundException(nameof(UserEntity), request.Id);
         }
 
         entity.UserName = request.UserName;

@@ -19,7 +19,7 @@ namespace BlogApp.Auth.Application.UnitTests.Roles.Queries;
 [Collection("QueryCollection")]
 public class GetRolesQueryHandlerTests
 {
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
     private readonly IMapper _mapper;
 
     public GetRolesQueryHandlerTests(QueryTestClassFixture fixture)

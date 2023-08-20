@@ -28,7 +28,7 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.LogoutPath = "/Authentication/Logout";
 });
 
-builder.Services.AddIdentity<AppUser, AppRole>(config =>
+builder.Services.AddIdentity<UserEntity, RoleEntity>(config =>
 {
     config.Password.RequiredLength = 6;
     config.Password.RequireDigit = true;
@@ -38,8 +38,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(config =>
 })
                 .AddEntityFrameworkStores<BlogAuthDbContext>()
                 .AddDefaultTokenProviders()
-                .AddUserStore<UserStore<AppUser, AppRole, BlogAuthDbContext, Guid>>()
-                .AddRoleStore<RoleStore<AppRole, BlogAuthDbContext, Guid>>();
+                .AddUserStore<UserStore<UserEntity, RoleEntity, BlogAuthDbContext, Guid>>()
+                .AddRoleStore<RoleStore<RoleEntity, BlogAuthDbContext, Guid>>();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);

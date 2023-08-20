@@ -16,8 +16,8 @@ namespace BlogApp.Auth.Application.UnitTests.Roles.Queries;
 [Collection("QueryCollection")]
 public class GetUsersRoleQueryHandlerTests
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly UserManager<UserEntity> _userManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
     private readonly IMapper _mapper;
 
     public GetUsersRoleQueryHandlerTests(QueryTestClassFixture fixture)

@@ -49,7 +49,7 @@ public static class DependencyInjection
             config.UserInteraction.LoginUrl = "/Authentication/Login";
             config.UserInteraction.LogoutUrl = "/Authentication/Logout";
         })
-                .AddAspNetIdentity<AppUser>()
+                .AddAspNetIdentity<UserEntity>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
                 .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
                 .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)

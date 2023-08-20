@@ -2,7 +2,7 @@
 
 namespace BlogApp.Auth.Domain.Entities;
 
-public class AppUser : IdentityUser<Guid>
+public class UserEntity : IdentityUser<Guid>
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

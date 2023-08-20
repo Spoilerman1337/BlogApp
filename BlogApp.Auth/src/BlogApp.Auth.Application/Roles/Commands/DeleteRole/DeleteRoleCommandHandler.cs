@@ -8,9 +8,9 @@ namespace BlogApp.Auth.Application.Roles.Commands.DeleteRole;
 
 public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
 {
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
 
-    public DeleteRoleCommandHandler(RoleManager<AppRole> roleManager) => _roleManager = roleManager;
+    public DeleteRoleCommandHandler(RoleManager<RoleEntity> roleManager) => _roleManager = roleManager;
 
     public async Task Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(AppUser), request.Id);
+            throw new NotFoundException(nameof(UserEntity), request.Id);
         }
 
         await _roleManager.DeleteAsync(entity);

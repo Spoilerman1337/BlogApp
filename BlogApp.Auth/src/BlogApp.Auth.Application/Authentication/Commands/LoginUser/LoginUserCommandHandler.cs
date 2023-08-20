@@ -6,9 +6,9 @@ namespace BlogApp.Auth.Application.Authentication.Commands.LoginUser;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, SignInResult>
 {
-    private protected SignInManager<AppUser> _signInManager;
+    private protected SignInManager<UserEntity> _signInManager;
 
-    public LoginUserCommandHandler(SignInManager<AppUser> signInManager) => _signInManager = signInManager;
+    public LoginUserCommandHandler(SignInManager<UserEntity> signInManager) => _signInManager = signInManager;
 
     public async Task<SignInResult> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {

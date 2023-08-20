@@ -2,7 +2,7 @@
 
 namespace BlogApp.Auth.Domain.Entities;
 
-public class AppRole : IdentityRole<Guid>
+public class RoleEntity : IdentityRole<Guid>
 {
 
 }

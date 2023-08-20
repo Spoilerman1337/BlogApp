@@ -6,13 +6,13 @@ namespace BlogApp.Auth.Application.Roles.Commands.CreateRole;
 
 public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, IdentityResult>
 {
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
 
-    public CreateRoleCommandHandler(RoleManager<AppRole> roleManager) => _roleManager = roleManager;
+    public CreateRoleCommandHandler(RoleManager<RoleEntity> roleManager) => _roleManager = roleManager;
 
     public async Task<IdentityResult> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = new AppRole
+        var role = new RoleEntity
         {
             Id = Guid.NewGuid(),
             Name = request.Name,

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Auth.Infrastructure.Persistance;
 
-public class BlogAuthDbContext : IdentityDbContext<AppUser, AppRole, Guid>, IBlogAuthDbContext
+public class BlogAuthDbContext : IdentityDbContext<UserEntity, RoleEntity, Guid>, IBlogAuthDbContext
 {
     public BlogAuthDbContext(DbContextOptions<BlogAuthDbContext> options) : base(options) { }
             
@@ -15,12 +15,12 @@ public class BlogAuthDbContext : IdentityDbContext<AppUser, AppRole, Guid>, IBlo
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<AppUser>(entity =>
+        builder.Entity<UserEntity>(entity =>
         {
             entity.ToTable(name: "Users");
             entity.Property(p => p.Id).HasDefaultValueSql("newsequentialid()");
         });
-        builder.Entity<AppRole>(entity =>
+        builder.Entity<RoleEntity>(entity =>
         {
             entity.ToTable(name: "Roles");
             entity.Property(p => p.Id).HasDefaultValueSql("newsequentialid()");

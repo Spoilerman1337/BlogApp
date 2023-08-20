@@ -22,15 +22,15 @@ public class BlogAppContextFactory
 
         var context = new BlogAuthDbContext(options);
 
-        var users = new List<AppUser>
+        var users = new List<UserEntity>
         {
-            new AppUser
+            new UserEntity
             {
                 Id = Guid.Parse("FDAE39CF-B55E-47BC-9904-00DF3CFD6FAD"),
                 UserName = "Aenean",
                 Email = "Ullamcorper@lorem.com"
             },
-            new AppUser
+            new UserEntity
             {
                 Id = ToBeUpdatedUserId,
                 FirstName = "Condimentum",
@@ -39,7 +39,7 @@ public class BlogAppContextFactory
                 UserName = "Sit",
                 Email = "amet@lorem.com"
             },
-            new AppUser
+            new UserEntity
             {
                 Id = ToBeDeletedUserId,
                 UserName = "Imperdiet",
@@ -47,21 +47,21 @@ public class BlogAppContextFactory
             }
         };
 
-        var roles = new List<AppRole>
+        var roles = new List<RoleEntity>
         {
-            new AppRole
+            new RoleEntity
             {
                 Id = Guid.Parse("5C29FCAB-1AAD-4EDD-8D75-3770D98D651D"),
                 Name = "Aliquet",
                 NormalizedName = "ALIQUET"
             },
-            new AppRole
+            new RoleEntity
             {
                 Id = ToBeUpdatedRoleId,
                 Name = "Donec",
                 NormalizedName = "DONEC"
             },
-            new AppRole
+            new RoleEntity
             {
                 Id = ToBeDeletedRoleId,
                 Name = "In",

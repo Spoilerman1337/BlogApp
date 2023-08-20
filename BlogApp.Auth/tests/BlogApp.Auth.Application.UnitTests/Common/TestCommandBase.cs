@@ -8,8 +8,8 @@ namespace BlogApp.Auth.Application.UnitTests.Common;
 
 public class TestCommandBase : IDisposable
 {
-    protected readonly UserManager<AppUser> UserManager;
-    protected readonly RoleManager<AppRole> RoleManager;
+    protected readonly UserManager<UserEntity> UserManager;
+    protected readonly RoleManager<RoleEntity> RoleManager;
     protected readonly BlogAuthDbContext Context;
 
     public TestCommandBase()

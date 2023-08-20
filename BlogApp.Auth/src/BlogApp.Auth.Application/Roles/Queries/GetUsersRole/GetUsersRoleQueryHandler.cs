@@ -9,11 +9,11 @@ namespace BlogApp.Auth.Application.Roles.Queries.GetUsersRole;
 
 public class GetUsersRoleQueryHandler : IRequestHandler<GetUsersRoleQuery, GetUsersRoleDto>
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly UserManager<UserEntity> _userManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
     private readonly IMapper _mapper;
 
-    public GetUsersRoleQueryHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, IMapper mapper)
+    public GetUsersRoleQueryHandler(UserManager<UserEntity> userManager, RoleManager<RoleEntity> roleManager, IMapper mapper)
         => (_userManager, _roleManager, _mapper) = (userManager, roleManager, mapper);
 
     public async Task<GetUsersRoleDto> Handle(GetUsersRoleQuery request, CancellationToken cancellationToken)
@@ -21,7 +21,7 @@ public class GetUsersRoleQueryHandler : IRequestHandler<GetUsersRoleQuery, GetUs
         var user = await _userManager.FindByIdAsync(request.UserId.ToString());
 
         if (user == null)
-            throw new NotFoundException(nameof(AppUser), request.UserId);
+            throw new NotFoundException(nameof(UserEntity), request.UserId);
 
         var roleName = await _userManager.GetRolesAsync(user);
         var role = await _roleManager.FindByNameAsync(roleName.First());

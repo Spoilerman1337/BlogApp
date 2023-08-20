@@ -11,8 +11,8 @@ namespace BlogApp.Auth.Application.UnitTests.Common;
 public sealed class QueryTestClassFixture : IDisposable
 {
     internal readonly BlogAuthDbContext _context;
-    internal readonly UserManager<AppUser> _userManager;
-    internal readonly RoleManager<AppRole> _roleManager;
+    internal readonly UserManager<UserEntity> _userManager;
+    internal readonly RoleManager<RoleEntity> _roleManager;
     internal readonly IMapper _mapper;
 
     public QueryTestClassFixture()

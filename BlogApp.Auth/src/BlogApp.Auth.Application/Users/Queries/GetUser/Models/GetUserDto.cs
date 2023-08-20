@@ -3,7 +3,7 @@ using Mapster;
 
 namespace BlogApp.Auth.Application.Users.Queries.GetUser.Models;
 
-public class GetUserDto : IMapFrom<AppUser>
+public class GetUserDto : IMapFrom<UserEntity>
 {
     public Guid Id { get; set; }
     public string UserName { get; set; } = null!;
@@ -15,6 +15,6 @@ public class GetUserDto : IMapFrom<AppUser>
 
     public void ConfigureMapping(TypeAdapterConfig config)
     {
-        config.NewConfig<AppUser, GetUserDto>();
+        config.NewConfig<UserEntity, GetUserDto>();
     }
 }

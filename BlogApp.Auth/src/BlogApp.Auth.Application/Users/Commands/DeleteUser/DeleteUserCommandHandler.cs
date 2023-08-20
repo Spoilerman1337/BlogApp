@@ -8,9 +8,9 @@ namespace BlogApp.Auth.Application.Users.Commands.DeleteUser;
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
 
-    public DeleteUserCommandHandler(UserManager<AppUser> userManager) => _userManager = userManager;
+    public DeleteUserCommandHandler(UserManager<UserEntity> userManager) => _userManager = userManager;
 
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(AppUser), request.Id);
+            throw new NotFoundException(nameof(UserEntity), request.Id);
         }
 
         await _userManager.DeleteAsync(entity);

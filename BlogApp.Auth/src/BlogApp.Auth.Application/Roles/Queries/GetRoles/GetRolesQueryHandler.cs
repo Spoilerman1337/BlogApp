@@ -10,10 +10,10 @@ namespace BlogApp.Auth.Application.Roles.Queries.GetRoles;
 
 public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, List<GetRolesDto>>
 {
-    private readonly RoleManager<AppRole> _roleManager;
+    private readonly RoleManager<RoleEntity> _roleManager;
     private readonly IMapper _mapper;
 
-    public GetRolesQueryHandler(RoleManager<AppRole> roleManager, IMapper mapper) => (_roleManager, _mapper) = (roleManager, mapper);
+    public GetRolesQueryHandler(RoleManager<RoleEntity> roleManager, IMapper mapper) => (_roleManager, _mapper) = (roleManager, mapper);
 
     public async Task<List<GetRolesDto>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
     {
