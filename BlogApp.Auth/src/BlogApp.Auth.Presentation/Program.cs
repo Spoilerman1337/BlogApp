@@ -51,7 +51,6 @@ builder.Services.AddCors(options =>
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         policy.AllowAnyOrigin();
-        policy.AllowCredentials();
     });
     options.AddPolicy("ReleasePolicy", policy =>
     {
