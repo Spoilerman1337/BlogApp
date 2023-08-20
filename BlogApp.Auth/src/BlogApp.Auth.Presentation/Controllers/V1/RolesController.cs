@@ -51,22 +51,21 @@ public class RolesController : ApiControllerBase
     /// <summary>Gets all roles</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /role?page=2&amp;pageAmount=2
+    /// GET /role?page[eq]=2&amp;pageSize[eq]=2
     /// </remarks>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq]</param>
     /// <returns>Returns List of GetRolesDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles([FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetRolesDto>>> GetAllRoles([FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetRolesQuery()
         {
-            Page = page,
-            PageAmount = pageAmount
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
         var vm = await Sender.Send(query);
         return Ok(vm);

@@ -55,22 +55,21 @@ public class UserController : ApiControllerBase
     /// <summary>Gets all users</summary>
     /// <remarks>
     /// Sample request:
-    /// GET /user?page=2&amp;pageAmount=2
+    /// GET /user?page[eq]=2&amp;pageSize[eq]=2
     /// </remarks>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq]</param>
     /// <returns>Returns List of GetUsersDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersDto>>> GetAllUsers([FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetUsersDto>>> GetAllUsers([FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetUsersQuery()
         {
-            Page = page,
-            PageAmount = pageAmount
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
 
         var vm = await Sender.Send(query);
@@ -83,21 +82,20 @@ public class UserController : ApiControllerBase
     /// GET /user/role/b5c0a7ae-762d-445d-be15-b59232b19383?page=2&amp;pageAmount=2
     /// </remarks>
     /// <param name="roleId">GUID ID of a role</param>
-    /// <param name="page">Specific page of elements</param>
-    /// <param name="pageAmount">Amount of elements displayed per page</param>
+    /// <param name="queryParams">Dictionary containing filters. Available: bypassCache[eq]</param>
     /// <returns>Returns List of GetUsersByRoleDto</returns>
     /// <response code="200">Success</response>
     /// <response code="401">If unauthorized</response>
     [HttpGet("role/{roleId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<List<GetUsersByRoleDto>>> GetAllUsersFromRole([FromRoute] Guid roleId, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<ActionResult<List<GetUsersByRoleDto>>> GetAllUsersFromRole([FromRoute] Guid roleId, [FromQuery] Dictionary<string, Dictionary<string, string>> queryParams)
     {
         var query = new GetUsersByRoleQuery
         {
             RoleId = roleId,
-            Page = page,
-            PageAmount = pageAmount
+            Page = GetParam<int>(queryParams, "page", "eq"),
+            PageAmount = GetParam<int>(queryParams, "pageSize", "eq")
         };
 
         var vm = await Sender.Send(query);
