@@ -16,6 +16,7 @@ using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 ConfigurationManager configuration = builder.Configuration;
 
@@ -46,6 +47,13 @@ builder.Services.AddInfrastructure(configuration);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevelopmentPolicy", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+        policy.AllowCredentials();
+    });
+    options.AddPolicy("ReleasePolicy", policy =>
     {
         policy.WithHeaders(builder.Configuration.GetSection("CORSPolicy")["AllowHeaders"]!.ToString());
         policy.WithMethods(builder.Configuration.GetSection("CORSPolicy")["AllowMethods"]!.ToString());
@@ -114,7 +122,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("DevelopmentPolicy");
+app.UseCors(environment == Environments.Development ? "DevelopmentPolicy" : "ReleasePolicy");
 app.UseMetricsAllEndpoints();
 app.UseStaticFiles();
 
