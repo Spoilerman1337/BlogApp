@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.Infrastructure
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3EEC4A2A-D5AA-4F8A-ABAD-8CE0D5D99EA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.Application.UnitTests", "tests\BlogApp.Auth.Application.UnitTests\BlogApp.Auth.Application.UnitTests.csproj", "{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Auth.UnitTests", "tests\BlogApp.Auth.UnitTests\BlogApp.Auth.UnitTests.csproj", "{BF8C2B42-1BEA-4F76-88B0-3177A00B131F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
